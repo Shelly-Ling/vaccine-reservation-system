@@ -1,0 +1,72 @@
+//==================================================
+// btn 設定，用以取消瀏覽器預設樣式，<a> <button> 可以共用設定清除預設樣式
+//==================================================
+
+.btn {
+  display: inline-block;
+  zoom: 1;
+  line-height: normal;
+  white-space: nowrap;
+  vertical-align: middle;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 4px;
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
+//==================================================
+//個別按鈕設計
+//==================================================
+//==================================================
+//方形按鈕
+//==================================================
+.search-btn {
+  font-size: 15px;
+  font-weight: 500;
+  margin: 0 10px;
+  padding: 10px 20px;
+  border-radius: 2px;
+}
+
+.search24-btn {
+  font-size: 15px;
+  font-weight: 500;
+  display: inline-block;
+  margin: 0 10px;
+  padding: 10px 20px;
+  border-radius: 2px;
+}
+
+//==================================================
+//長橢圓按鈕(顏色-東森紅)
+//==================================================
+.round-btn {
+  display: inline-block;
+  font-size: 13px;
+  font-weight: bold;
+  text-align: center;
+  padding: 5px 10px;
+  border-radius: 13.5px;
+  color: $red-600;
+  border: solid 1px $red-600;
+  cursor: pointer;
+}
+
+.round-btn-active {
+  color: $gray-100;
+  background-color: $red-600;
+}
+
+//==================================================
+//顏色設定
+//==================================================
+.btn-color-gray {
+  color: $gray-100;
+  background-color: $red-600;
+}
+
+.btn-color-orange {
+  color: $gray-100;
+  background-color: $red-400;
+}
