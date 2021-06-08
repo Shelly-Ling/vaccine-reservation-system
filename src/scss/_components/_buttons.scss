@@ -41,7 +41,7 @@
 //==================================================
 //長橢圓按鈕(顏色-東森紅)
 //==================================================
-.round-btn {
+.btn-round-red {
   display: inline-block;
   font-size: 13px;
   font-weight: bold;
@@ -53,7 +53,7 @@
   cursor: pointer;
 }
 
-.round-btn-active {
+.btn-round-red-active {
   color: $gray-100;
   background-color: $red-600;
 }
@@ -69,4 +69,17 @@
 .btn-color-orange {
   color: $gray-100;
   background-color: $red-400;
+}
+
+//==================================================
+// 粉色按鈕
+//==================================================
+
+.btn-pink {
+  background-color: $gray-100;
+  box-shadow: 0 1px 3px 0 $gray-shadow;
+}
+
+.btn-pink-active {
+  background-color: $pink-200;
 }

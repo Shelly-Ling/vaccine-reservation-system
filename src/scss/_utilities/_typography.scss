@@ -34,6 +34,10 @@
   font-size: 26px;
 }
 
+.fz-40 {
+  font-size: 40px;
+}
+
 .fz-bold {
   font-weight: bold;
 }
@@ -44,4 +48,20 @@
 
 .fz-bold-500 {
   font-weight: 500;
+}
+
+.fz-bold-800 {
+  font-weight: 800;
+}
+
+//==================================================
+//文字間距
+//==================================================
+
+.letter-spacing-5 {
+  letter-spacing: 5px;
+}
+
+.letter-spacing-30 {
+  letter-spacing: 30px;
 }
