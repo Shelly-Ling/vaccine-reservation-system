@@ -1,0 +1,9 @@
+@import "../../scss/_helpers/_constant.scss";
+@import "../../scss/_utilities/_typography.scss";
+@import "../../scss/_utilities/_displayFlex.scss";
+
+.footer__wrap {
+  p {
+    background-color: $gray-500;
+  }
+}

@@ -1,11 +1,5 @@
 import "./Header.scss"
-import "../../scss/_utilities/_typography.scss"
-import "../../scss/_utilities/_common.scss"
-import "../../scss/_utilities/_border.scss"
-import "../../scss/_utilities/_displayGeneral.scss"
-import "../../scss/_utilities/_float.scss"
-import "../../scss/_utilities/_spacing.scss"
-import "../../scss/_utilities/_text.scss"
+
 import React, { Component } from "react"
 
 class Header extends Component {

@@ -1,18 +1,17 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import "./index.scss";
-// import Home from "./Home";
-import reportWebVitals from "./reportWebVitals";
-import ReservationBooking from "./container/ReservationBooking/ReservationBooking";
+import React from "react"
+import ReactDOM from "react-dom"
+import "./index.scss"
+import reportWebVitals from "./reportWebVitals"
+import Home from "./container/Home/Home"
 
 ReactDOM.render(
   <React.StrictMode>
-    <ReservationBooking />
+    <Home />
   </React.StrictMode>,
   document.getElementById("root")
-);
+)
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+reportWebVitals()
