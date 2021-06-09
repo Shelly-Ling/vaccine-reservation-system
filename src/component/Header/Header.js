@@ -16,7 +16,6 @@ class Header extends Component {
                 href=""
                 title="疫苗預約"
                 className="btn btn-pink letter-spacing-5 padding-10 margin-20 border-radius-12 fz-bold btn-pink-active"
-                active-white
               >
                 疫苗預約
               </a>
