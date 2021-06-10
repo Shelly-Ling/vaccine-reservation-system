@@ -3,7 +3,10 @@ import "./Home.scss"
 import React, { Component } from "react"
 import Header from "../../component/Header/Header"
 import Footer from "../../component/Footer/Footer"
-import TableList from "../../component/TableList/TableList"
+
+import ReservationBooking from "../../container/Home/ReservationBooking/ReservationBooking"
+import ReservedList from "../ReservedList/ReservedList"
+import EditReservation from "../EditReservation/EditReservation"
 
 /**
  * @description 首頁
@@ -13,7 +16,10 @@ class Home extends Component {
     return (
       <div className="home d-flex flex-col justify-content-between">
         <Header />
-        <TableList />
+
+        {/* <ReservationBooking /> */}
+        <EditReservation />
+        {/* <ReservedList /> */}
         <Footer />
       </div>
     )
