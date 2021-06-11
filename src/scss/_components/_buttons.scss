@@ -72,14 +72,37 @@
 }
 
 //==================================================
-// 粉色按鈕
+// 粉色灰字按鈕
 //==================================================
 
-.btn-pink {
+.btn-color-pink-gray {
+  color: $gray-700;
   background-color: $gray-100;
   box-shadow: 0 1px 3px 0 $gray-shadow;
 }
 
-.btn-pink-active {
+.btn-color-pink-gray-active {
   background-color: $pink-200;
+}
+
+//==================================================
+// 粉色白字按鈕
+//==================================================
+
+.btn-color-pink-white {
+  color: $gray-100;
+  background-color: $pink-300;
+  box-shadow: 0 1px 3px 0 $gray-shadow;
+}
+
+//==================================================
+// <input type="submit"> 的按紐調整，顏色另外設定
+//==================================================
+
+.input-submit-style {
+  cursor: pointer;
+  font-weight: bold;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 10px;
 }
