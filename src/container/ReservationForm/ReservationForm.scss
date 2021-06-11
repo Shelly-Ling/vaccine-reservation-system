@@ -1,0 +1,84 @@
+@import "../../scss/_utilities/_typography.scss";
+@import "../../scss/_utilities/_displayFlex.scss";
+@import "../../scss/_utilities/_float.scss";
+
+@import "../../scss/_utilities/_spacing.scss";
+@import "../../scss/_helpers/_constant.scss";
+@import "../../scss/_components/_buttons.scss";
+@import "../../scss/_components/_inputStyle.scss";
+
+.reservation-form__wrap {
+  margin: 0 auto;
+}
+
+//========================================
+//表單設定
+//========================================
+//表單全域設定
+//========================================
+input {
+  width: 300px;
+}
+
+label {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+//========================================
+//表單內部 grid 排版
+//========================================
+
+.input-list {
+  max-width: 1000px;
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  grid-template-rows: auto;
+  grid-template-areas:
+    "name gender phone"
+    "birthday birthday id "
+    "address address ."
+    "remark remark .";
+
+  div {
+    padding-top: 50px;
+  }
+
+  .name-content {
+    grid-area: name;
+  }
+
+  .gender-content {
+    grid-area: gender;
+    input {
+      width: auto;
+      margin-left: 20px;
+    }
+  }
+
+  .user-id-content {
+    grid-area: id;
+  }
+
+  .birthday-content {
+    grid-area: birthday;
+  }
+
+  .address-content {
+    grid-area: address;
+    input {
+      width: 500px;
+    }
+  }
+
+  .phone-content {
+    grid-area: phone;
+  }
+
+  .remark-content {
+    grid-area: remark;
+    input {
+      width: 500px;
+    }
+  }
+}

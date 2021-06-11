@@ -15,7 +15,7 @@ class Header extends Component {
               <a
                 href=""
                 title="疫苗預約"
-                className="btn btn-pink letter-spacing-5 padding-10 margin-20 border-radius-12 fz-bold btn-pink-active"
+                className="btn btn-color-pink-gray letter-spacing-5 padding-10 margin-20 border-radius-12 fz-bold btn-color-pink-gray-active"
               >
                 疫苗預約
               </a>
@@ -24,7 +24,7 @@ class Header extends Component {
               <a
                 href=""
                 title="已預約名單"
-                className="btn btn-pink letter-spacing-5 padding-10 margin-20 border-radius-12 fz-bold"
+                className="btn btn-color-pink-gray letter-spacing-5 padding-10 margin-20 border-radius-12 fz-bold"
               >
                 已預約名單
               </a>
@@ -33,7 +33,7 @@ class Header extends Component {
               <a
                 href=""
                 title="編輯預約名單"
-                className="btn btn-pink letter-spacing-5 padding-10 margin-20 border-radius-12 fz-bold"
+                className="btn btn-color-pink-gray letter-spacing-5 padding-10 margin-20 border-radius-12 fz-bold"
               >
                 編輯預約名單
               </a>
