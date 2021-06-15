@@ -25,12 +25,15 @@ label {
   padding-right: 10px;
 }
 
+select {
+  width: 300px;
+}
+
 //========================================
 //表單內部 grid 排版
 //========================================
 
 .input-list {
-  max-width: 1000px;
   display: grid;
   grid-template-columns: repeat(3, auto);
   grid-template-rows: auto;
@@ -38,6 +41,9 @@ label {
     "name gender phone"
     "birthday birthday id "
     "address address ."
+    "vaccine vaccine vaccine"
+    "date date date"
+    "time time ."
     "remark remark .";
 
   div {
@@ -50,6 +56,8 @@ label {
 
   .gender-content {
     grid-area: gender;
+    width: 200px;
+    text-align: center;
     input {
       width: auto;
       margin-left: 20px;
@@ -71,8 +79,20 @@ label {
     }
   }
 
+  .booking-date-content {
+    grid-area: date;
+  }
+
+  .booking-time-content {
+    grid-area: time;
+  }
+
   .phone-content {
     grid-area: phone;
+  }
+
+  .vaccine-content {
+    grid-area: vaccine;
   }
 
   .remark-content {

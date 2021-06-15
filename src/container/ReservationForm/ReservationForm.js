@@ -5,7 +5,7 @@ class ReservationForm extends Component {
   render() {
     return (
       <div className="reservation-form__wrap">
-        <h1 className="title fz-35 fz-bold">
+        <h1 className="title fz-35 fz-bold info padding-t-30  padding-l-20">
           疫苗預約單
         </h1>
         <form
@@ -21,7 +21,6 @@ class ReservationForm extends Component {
                 type="text"
                 id="name"
                 className="input-style"
-                placeholder="請輸入姓名"
                 autoFocus
                 required
               />
@@ -53,7 +52,6 @@ class ReservationForm extends Component {
                 type="text"
                 id="user-id"
                 className="input-style"
-                placeholder="請輸入身份證號"
                 pattern="[A-Z]{1}[0-9]{9}"
                 title="開頭為大寫英文與 9 位數字"
                 required
@@ -65,9 +63,9 @@ class ReservationForm extends Component {
                 type="text"
                 id="birthday"
                 className="input-style"
-                placeholder="請輸入生日"
                 pattern="[0-9]{7}"
                 title="生日格式為7位數字"
+                placeholder="範例: 0800101"
                 required
               />
               <p className="fz-16 padding-l-60">
@@ -75,16 +73,38 @@ class ReservationForm extends Component {
               </p>
             </div>
             <div className="address-content">
-              <label htmlFor="address">地址</label>
+              <label htmlFor="address">聯繫地址</label>
 
               <input
                 type="text"
                 id="address"
                 className="input-style"
-                placeholder="請輸入地址"
                 required
               />
             </div>
+            <div className="booking-date-content">
+              <label htmlFor="booking-date">
+                預約接種日期
+              </label>
+              <input
+                type="date"
+                id="booking-date"
+                className="input-style"
+                required
+              />
+            </div>
+            <div className="booking-time-content">
+              <label htmlFor="booking-time">
+                預約接種時間
+              </label>
+              <input
+                type="time"
+                id="booking-time"
+                className="input-style"
+                required
+              />
+            </div>
+
             <div className="phone-content">
               <label htmlFor="phone">手機號碼</label>
               <input
@@ -93,9 +113,28 @@ class ReservationForm extends Component {
                 className="input-style"
                 pattern="\d{10}"
                 title="手機號為10位數字"
-                placeholder="請輸入手機號碼"
                 required
               />
+            </div>
+            <div className="vaccine-content">
+              <label htmlFor="vaccine">
+                選擇疫苗種類
+              </label>
+              <select
+                type="text"
+                id="vaccine"
+                className="input-style"
+                required
+              >
+                <option value="BNT">BNT</option>
+                <option value="莫德納">莫德納</option>
+                <option value="AZ">AZ</option>
+                <option value="嬌生">嬌生</option>
+                <option value="高端/連雅">
+                  高端 / 連雅
+                </option>
+                <option value="科興">科興</option>
+              </select>
             </div>
             <div className="remark-content">
               <label htmlFor="remark">備註</label>
@@ -103,11 +142,10 @@ class ReservationForm extends Component {
                 type="text"
                 id="remark"
                 className="input-style"
-                placeholder="請輸入備註"
                 required
               />
               <p className="fz-16 padding-l-60 ">
-                *有藥物過敏請備註
+                *有藥物過敏或特殊病史請填寫備註
               </p>
             </div>
           </div>
