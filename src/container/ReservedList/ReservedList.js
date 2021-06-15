@@ -11,7 +11,7 @@ class ReservedList extends Component {
             <h1 className="title fz-35 fz-bold">
               已預約名單
             </h1>
-            <ul className="padding-l-50">
+            <ul className="padding-l-50 padding-b-20">
               <li>預約疫苗接種請注意</li>
               <li>
                 *

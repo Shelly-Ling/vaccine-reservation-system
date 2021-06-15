@@ -16,9 +16,9 @@ class Home extends Component {
     return (
       <div className="home d-flex flex-col justify-content-between">
         <Header />
-        <ReservationForm />
-        {/* <EditReservation /> */}
-        {/* <ReservedList /> */}
+        {/* <ReservationForm /> */}
+        <EditReservation />
+        <ReservedList />
         <Footer />
       </div>
     )

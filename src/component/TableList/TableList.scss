@@ -2,11 +2,39 @@
 
 .table-list__wrap {
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  //========================================
+  //條件尋找設定
+  //========================================
+  select {
+    width: 150px;
+  }
 
+  input[type="submit"] {
+    width: 80px;
+  }
+
+  .delete {
+    color: $red-500;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .edit {
+    color: $teal-700;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  //========================================
+  //表格設定
+  //========================================
   table {
-    width: 90%;
-
     td {
       text-align: center;
       padding: 30px;
