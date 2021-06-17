@@ -9,7 +9,7 @@ class ReservationForm extends Component {
           疫苗預約單
         </h1>
         <form
-          className="form clearfix"
+          className="form"
           id="form"
           action=""
           method="get"

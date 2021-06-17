@@ -7,98 +7,220 @@
 @import "../../scss/_components/_buttons.scss";
 @import "../../scss/_components/_inputStyle.scss";
 
-.reservation-form__wrap {
-  margin: 0 auto;
-}
-
 //========================================
 //表單設定
 //========================================
 //表單全域設定
 //========================================
-input {
-  width: 300px;
-}
 
-label {
-  padding-left: 10px;
-  padding-right: 10px;
+input {
+  width: 70%;
 }
 
 select {
-  width: 300px;
+  width: 70%;
 }
 
 //========================================
-//表單內部 grid 排版
+//表單內部排版
 //========================================
 
 .input-list {
-  display: grid;
-  grid-template-columns: repeat(3, auto);
-  grid-template-rows: auto;
-  grid-template-areas:
-    "name gender phone"
-    "birthday birthday id "
-    "address address ."
-    "vaccine vaccine vaccine"
-    "date date date"
-    "time time ."
-    "remark remark .";
-
   div {
-    padding-top: 50px;
-  }
+    padding-top: 20px;
+    display: flex;
+    justify-content: space-between;
 
-  .name-content {
-    grid-area: name;
+    label {
+      width: 30%;
+      min-width: 150px;
+      line-height: 40px;
+      text-align: center;
+    }
   }
 
   .gender-content {
-    grid-area: gender;
-    width: 200px;
-    text-align: center;
-    input {
-      width: auto;
-      margin-left: 20px;
-    }
-  }
-
-  .user-id-content {
-    grid-area: id;
+    width: 350px;
+    padding-left: 170px;
   }
 
   .birthday-content {
-    grid-area: birthday;
-  }
-
-  .address-content {
-    grid-area: address;
-    input {
-      width: 500px;
+    position: relative;
+    z-index: 0;
+    padding-bottom: 25px;
+    p {
+      position: absolute;
+      z-index: 1;
+      top: 60px;
+      right: 0px;
     }
   }
 
-  .booking-date-content {
-    grid-area: date;
-  }
-
-  .booking-time-content {
-    grid-area: time;
-  }
-
-  .phone-content {
-    grid-area: phone;
-  }
-
-  .vaccine-content {
-    grid-area: vaccine;
-  }
-
   .remark-content {
-    grid-area: remark;
-    input {
-      width: 500px;
+    position: relative;
+    z-index: 0;
+    padding-bottom: 25px;
+    p {
+      position: absolute;
+      z-index: 1;
+      top: 60px;
+      right: 0px;
+    }
+  }
+
+  .btn-submit {
+    text-align: center;
+    //想要設定提交按鈕寬度滿版不成功
+    // width: 100%;
+  }
+}
+
+@media (min-width: 768px) {
+  //========================================
+  //表單全域設定
+  //========================================
+  .reservation-form__wrap {
+    margin: 0 auto;
+  }
+
+  input {
+    width: 200px;
+  }
+
+  label {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  //========================================
+  //表單內部 grid 排版
+  //========================================
+
+  .input-list {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    grid-template-rows: auto;
+    grid-template-areas:
+      "name gender phone"
+      "birthday birthday id "
+      "address address address"
+      "vaccine vaccine vaccine"
+      "date date date"
+      "time time time"
+      "remark remark remark";
+
+    div {
+      padding-top: 50px;
+      display: inline-block;
+    }
+
+    .name-content {
+      grid-area: name;
+    }
+
+    .gender-content {
+      grid-area: gender;
+      width: 150px;
+      text-align: center;
+      padding-left: 0;
+      input {
+        width: auto;
+        margin-left: 20px;
+      }
+    }
+
+    .user-id-content {
+      grid-area: id;
+    }
+
+    .birthday-content {
+      grid-area: birthday;
+      p {
+        position: static;
+      }
+    }
+
+    .address-content {
+      grid-area: address;
+      input {
+        width: 400px;
+      }
+    }
+
+    .booking-date-content {
+      grid-area: date;
+    }
+
+    .booking-time-content {
+      grid-area: time;
+    }
+
+    .phone-content {
+      grid-area: phone;
+    }
+
+    .vaccine-content {
+      grid-area: vaccine;
+      select {
+        width: 200px;
+      }
+    }
+
+    .remark-content {
+      grid-area: remark;
+      input {
+        width: 450px;
+      }
+      p {
+        position: static;
+      }
+    }
+  }
+}
+
+@media (min-width: 960px) {
+  //========================================
+  //表單設定
+  //========================================
+  //表單全域設定
+  //========================================
+  input {
+    width: 280px;
+  }
+
+  label {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  //========================================
+  //表單內部 grid 排版
+  //========================================
+
+  .input-list {
+    div {
+      padding-top: 50px;
+    }
+
+    .gender-content {
+      width: 200px;
+    }
+
+    .address-content {
+      input {
+        width: 500px;
+      }
+    }
+
+    .vaccine-content {
+      select {
+        width: 280px;
+      }
+    }
+
+    .remark-content {
+      input {
+        width: 550px;
+      }
     }
   }
 }
