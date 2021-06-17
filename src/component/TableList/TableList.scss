@@ -1,81 +1,125 @@
 @import "../../scss/_helpers/_constant.scss";
+@import "../../scss/_utilities/_overflow.scss";
 
 .table-list__wrap {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
   //========================================
   //條件尋找設定
   //========================================
-  select {
-    width: 150px;
-  }
+  .search-content {
+    min-width: 580px;
 
-  input[type="submit"] {
-    width: 80px;
-  }
-
-  .delete {
-    color: $red-500;
-
-    &:hover {
-      text-decoration: underline;
+    select {
+      width: 130px;
     }
-  }
+    input {
+      width: 180px;
+    }
 
-  .edit {
-    color: $teal-700;
-
-    &:hover {
-      text-decoration: underline;
+    input[type="submit"] {
+      width: 80px;
     }
   }
 
   //========================================
   //表格設定
   //========================================
-  table {
-    td {
-      text-align: center;
-      padding: 30px;
-    }
+  .main {
+    //編刪按鈕設定
+    .delete {
+      color: $red-500;
+      width: 60px;
 
-    thead {
-      background-color: $pink-100;
-
-      //設定表格第一行圓角
-      tr {
-        font-weight: bold;
-        font-size: 26px;
-
-        :first-child {
-          border-top-left-radius: 50px;
-        }
-        :last-child {
-          border-top-right-radius: 50px;
-        }
+      &:hover {
+        text-decoration: underline;
       }
     }
 
-    tbody {
-      //設定跳行換色
-      tr:nth-child(odd) td {
-        background-color: $gray-200;
+    .edit {
+      color: $teal-700;
+      width: 60px;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    //表格設定
+    table {
+      td {
+        text-align: center;
+        padding: 30px;
       }
 
-      tr:nth-child(even) td {
+      thead {
         background-color: $pink-100;
+
+        //設定表格第一行圓角
+        tr {
+          font-weight: bold;
+          font-size: 24px;
+
+          :first-child {
+            border-top-left-radius: 50px;
+          }
+          :last-child {
+            border-top-right-radius: 50px;
+          }
+        }
       }
 
-      //設定表格最後一行圓角
-      :last-child {
-        :first-child {
-          border-bottom-left-radius: 50px;
+      tbody {
+        //設定跳行換色
+        tr:nth-child(odd) td {
+          background-color: $gray-200;
         }
+
+        tr:nth-child(even) td {
+          background-color: $pink-100;
+        }
+
+        //設定表格最後一行圓角
         :last-child {
-          border-bottom-right-radius: 50px;
+          :first-child {
+            border-bottom-left-radius: 50px;
+          }
+          :last-child {
+            border-bottom-right-radius: 50px;
+          }
         }
       }
     }
+  }
+}
+
+@media (min-width: 768px) {
+  .table-list__wrap {
+    .search-content {
+      select {
+        width: 150px;
+      }
+
+      input {
+        width: 300px;
+      }
+    }
+    .main {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      table {
+        thead {
+          tr {
+            font-size: 26px;
+          }
+        }
+      }
+    }
+  }
+}
+@media (min-width: 960px) {
+  .table-list__wrap {
+    max-width: 1300px;
+    margin: 0 auto;
   }
 }

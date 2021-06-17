@@ -8,10 +8,10 @@ class ReservedList extends Component {
       <div className="reserved-list__wrap padding-b-30">
         <div className="d-flex justify-content-center align-self-center">
           <div className="info padding-t-30 padding-b-30 padding-l-20">
-            <h1 className="title fz-35 fz-bold">
+            <h1 className="title fz-30 fz-bold">
               已預約名單
             </h1>
-            <ul className="padding-l-50 padding-b-20">
+            <ul className="padding-l-50 padding-b-20 fz-18">
               <li>預約疫苗接種請注意</li>
               <li>
                 *

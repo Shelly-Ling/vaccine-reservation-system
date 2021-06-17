@@ -12,3 +12,13 @@
   justify-content: center;
   background-color: $gray-300;
 }
+
+@media (min-width: 768px) {
+  .navbar {
+    display: flex;
+    justify-content: center;
+    a {
+      margin: 20px;
+    }
+  }
+}
