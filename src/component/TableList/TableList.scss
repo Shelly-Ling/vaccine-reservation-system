@@ -121,5 +121,9 @@
   .table-list__wrap {
     max-width: 1300px;
     margin: 0 auto;
+
+    .main {
+      overflow-x: unset;
+    }
   }
 }
