@@ -7,6 +7,12 @@
 @import "../../scss/_utilities/_spacing.scss";
 @import "../../scss/_utilities/_text.scss";
 
+.header__wrap {
+  h1 {
+    text-align: center;
+  }
+}
+
 .navbar {
   display: flex;
   justify-content: center;
@@ -14,6 +20,12 @@
 }
 
 @media (min-width: 768px) {
+  .header__wrap {
+    h1 {
+      font-size: 40px;
+      letter-spacing: 30px;
+    }
+  }
   .navbar {
     display: flex;
     justify-content: center;

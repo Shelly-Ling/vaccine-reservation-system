@@ -6,7 +6,7 @@ class Header extends Component {
   render() {
     return (
       <div className="header__wrap">
-        <h1 className="text-align-center letter-spacing-30 fz-40 fz-bold-800 padding-b-10 padding-t-10">
+        <h1 className="text-align-center letter-spacing-20 fz-35 fz-bold-800 padding-b-10 padding-t-10">
           疫苗預約平台
         </h1>
         <nav className="navbar padding-t-15 padding-b-15">
