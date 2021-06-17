@@ -5,7 +5,7 @@ class ReservationForm extends Component {
   render() {
     return (
       <div className="reservation-form__wrap">
-        <h1 className="title fz-35 fz-bold info padding-t-30  padding-l-20">
+        <h1 className="title fz-30 fz-bold info padding-t-30  padding-l-20">
           疫苗預約單
         </h1>
         <form
