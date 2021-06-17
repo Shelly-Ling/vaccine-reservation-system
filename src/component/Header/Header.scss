@@ -29,8 +29,9 @@
   .navbar {
     display: flex;
     justify-content: center;
-    a {
+    button {
       margin: 20px;
+      font-size: 25px;
     }
   }
 }
