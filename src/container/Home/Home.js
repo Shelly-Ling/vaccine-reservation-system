@@ -15,31 +15,43 @@ class Home extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      pageId: 1,
       currentComponentId: 1,
     }
-    this.changePage = this.changePage.bind(this)
   }
 
-  changePage(pageId) {
-    this.setState({ currentComponentId: pageId })
+  changePage = (pageId) => {
+    this.setState({
+      currentComponentId: pageId,
+      pageId: pageId,
+    })
   }
 
   render() {
     return (
       <div className="home d-flex flex-col justify-content-between">
-        <Header changePage={this.changePage} />
+        <Header
+          pageId={this.pageId}
+          changePage={this.changePage}
+        />
 
-        {this.state.currentComponentId === 1 ? (
-          <ReservationForm />
-        ) : null}
+        <ReservationForm
+          showElement={
+            this.state.currentComponentId === 1
+          }
+        />
 
-        {this.state.currentComponentId === 2 ? (
-          <ReservedList />
-        ) : null}
+        <ReservedList
+          showElement={
+            this.state.currentComponentId === 2
+          }
+        />
 
-        {this.state.currentComponentId === 3 ? (
-          <EditReservation />
-        ) : null}
+        <EditReservation
+          showElement={
+            this.state.currentComponentId === 3
+          }
+        />
 
         <Footer />
       </div>

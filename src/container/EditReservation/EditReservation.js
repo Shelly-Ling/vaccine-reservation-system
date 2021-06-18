@@ -5,7 +5,11 @@ import TableList from "../../component/TableList/TableList"
 
 class EditReservation extends Component {
   render() {
-    return (
+    const {
+      props: { showElement },
+    } = this
+
+    return showElement ? (
       <div className="edit-reservation__wrap padding-b-30">
         <div className="d-flex justify-content-center align-self-center">
           <div className="info padding-t-30 padding-b-30 padding-l-20">
@@ -16,7 +20,7 @@ class EditReservation extends Component {
         </div>
         <TableList />
       </div>
-    )
+    ) : null
   }
 }
 

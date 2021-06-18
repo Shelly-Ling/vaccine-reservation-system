@@ -3,7 +3,11 @@ import "./ReservationForm.scss"
 
 class ReservationForm extends Component {
   render() {
-    return (
+    const {
+      props: { showElement },
+    } = this
+
+    return showElement ? (
       <div className="reservation-form__wrap">
         <h1 className="title fz-30 fz-bold info padding-t-30  padding-l-20">
           疫苗預約單
@@ -160,7 +164,7 @@ class ReservationForm extends Component {
         </form>
         <button></button>
       </div>
-    )
+    ) : null
   }
 }
 

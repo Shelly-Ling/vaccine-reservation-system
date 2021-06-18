@@ -20,25 +20,26 @@ const pageData = [
   },
 ]
 class Header extends Component {
+  static defaultProps = {
+    pageId: 1,
+    changePage: () => {},
+  }
+
   constructor(props) {
     super(props)
 
     this.state = {
-      currentPageId: 1,
+      currentPageId: this.pageId ? this.pageId : 1,
     }
-    this.onNavLinkClick = this.onNavLinkClick.bind(this)
-    const { changePage } = props
   }
 
-  onNavLinkClick(e) {
+  onNavLinkClick = (e) => {
     const targetId = Number(e.target.id)
     this.setState({ currentPageId: targetId })
     this.props.changePage(targetId)
   }
 
   render() {
-    // const { changePage } = this.props
-
     return (
       <div className="header__wrap">
         <h1 className="text-align-center letter-spacing-20 fz-35 fz-bold-800 padding-b-10 padding-t-10">
