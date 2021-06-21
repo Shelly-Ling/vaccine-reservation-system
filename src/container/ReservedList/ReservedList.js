@@ -2,7 +2,43 @@ import "./ReservedList.scss"
 import React, { Component } from "react"
 import TableList from "../../component/TableList/TableList"
 
+const reservedList = [
+  {
+    id: 1,
+    name: "陳某某",
+    birth: "800101",
+    identityNumber: "A123456777",
+    phone: "0920222999",
+    vaccineType: "AZ",
+    remark: "dhhthrjy jdtjktuku fgjnjs",
+  },
+  {
+    id: 2,
+    name: "王某",
+    birth: "1020701",
+    identityNumber: "H223455432",
+    phone: "0933333333",
+    vaccineType: "AZ",
+    remark: "dhhthrjy jdtjktuku fgjnjs",
+  },
+  {
+    id: 3,
+    name: "李某某",
+    birth: "1020322",
+    identityNumber: "A111777277",
+    phone: "0944444444",
+    vaccineType: "AZ",
+    remark: "dhhthrjyjku fgjnjs",
+  },
+]
+
 class ReservedList extends Component {
+  constructor() {
+    super()
+    this.state = {
+      showEditButton: true,
+    }
+  }
   render() {
     const {
       props: { showElement },
@@ -33,7 +69,10 @@ class ReservedList extends Component {
             </ul>
           </div>
         </div>
-        <TableList />
+        <TableList
+          dataList={reservedList}
+          showEditButton={this.showEditButton}
+        />
       </div>
     ) : null
   }

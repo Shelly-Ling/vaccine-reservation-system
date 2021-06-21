@@ -3,6 +3,13 @@
 @import "../../scss/_utilities/_table.scss";
 @import "../../scss/_utilities/_textClick.scss";
 
+//========================================
+//無資料可渲染時的提示文字
+//========================================
+.text-info {
+  background-color: $pink-100;
+}
+
 .table-list__wrap {
   //========================================
   //條件尋找設定

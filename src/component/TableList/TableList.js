@@ -6,8 +6,20 @@ import "./TableList.scss"
  */
 
 export class TableList extends Component {
+  static defaultProps = {
+    dataList: [],
+    showEditButton: true,
+  }
+  deleteItem = () => {
+    console.log("deleteItem")
+  }
+
   render() {
-    return (
+    const {
+      props: { dataList, showEditButton },
+    } = this
+
+    return dataList.length ? (
       <div className="table-list__wrap">
         <form className="search-content margin-l-80 margin-b-20">
           <div className="display-inline-block">
@@ -52,79 +64,44 @@ export class TableList extends Component {
                 <td>手機</td>
                 <td>疫苗種類</td>
                 <td>備註</td>
-                <td>編輯</td>
+                {showEditButton ? <td>編輯</td> : null}
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>陳某某</td>
-                <td>800101</td>
-                <td>A123456777</td>
-                <td>0911222222</td>
-                <td>AZ</td>
-                <td>-</td>
-                <td>
-                  <button
-                    className="margin-l-10 fz-20 delete"
-                    id="delete"
-                  >
-                    刪除
-                  </button>
-                  <button
-                    className="margin-l-10 fz-20 edit"
-                    id="edit"
-                  >
-                    編輯
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td>陳某某</td>
-                <td>800101</td>
-                <td>A123456777</td>
-                <td>0911222222</td>
-                <td>AZ</td>
-                <td>-</td>
-                <td>
-                  <button
-                    className="margin-l-10 fz-20 delete"
-                    id="delete"
-                  >
-                    刪除
-                  </button>
-                  <button
-                    className="margin-l-10 fz-20 edit"
-                    id="edit"
-                  >
-                    編輯
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td>陳某某</td>
-                <td>800101</td>
-                <td>A123456777</td>
-                <td>0911222222</td>
-                <td>AZ</td>
-                <td>-</td>
-                <td>
-                  <button
-                    className="margin-l-10 fz-20 delete"
-                    id="delete"
-                  >
-                    刪除
-                  </button>
-                  <button
-                    className="margin-l-10 fz-20 edit"
-                    id="edit"
-                  >
-                    編輯
-                  </button>
-                </td>
-              </tr>
+              {this.props.dataList.map((item) => (
+                <tr key={item.id}>
+                  <td>{item.name}</td>
+                  <td>{item.birth}</td>
+                  <td>{item.identityNumber}</td>
+                  <td>{item.phone}</td>
+                  <td>{item.vaccineType}AZ</td>
+                  <td>{item.remark}</td>
+                  {showEditButton ? (
+                    <td>
+                      <button
+                        className="margin-l-10 fz-20 delete"
+                        id="delete"
+                        onClick={this.deleteItem}
+                      >
+                        刪除
+                      </button>
+                      <button
+                        className="margin-l-10 fz-20 edit"
+                        id="edit"
+                      >
+                        編輯
+                      </button>
+                    </td>
+                  ) : null}
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
+      </div>
+    ) : (
+      <div className="padding-30 text-info fz-30 fz-bold text-align-center">
+        尚無資料可顯示
       </div>
     )
   }
