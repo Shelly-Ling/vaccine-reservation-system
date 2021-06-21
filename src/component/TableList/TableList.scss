@@ -34,6 +34,22 @@
     .edit {
       width: 60px;
     }
+
+    @include tableFlex;
+
+    table {
+      td {
+        padding: 5px;
+      }
+      min-width: 380px;
+      thead {
+        tr {
+          td {
+            padding: 10px;
+          }
+        }
+      }
+    }
   }
 }
 
@@ -49,14 +65,25 @@
       }
     }
     .main {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
+      overflow-x: scroll;
+      @include tableBorderRadius(50px);
+      @include tableOriginalSetting;
 
       table {
         thead {
           tr {
             font-size: 26px;
+            td {
+              padding: 30px;
+            }
+          }
+        }
+        tbody {
+          tr {
+            font-size: 24px;
+            td {
+              padding: 30px;
+            }
           }
         }
       }

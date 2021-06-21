@@ -42,8 +42,8 @@ export class TableList extends Component {
             id="submit"
           />
         </form>
-        <div className="main overflow-x-scroll margin-l-50 margin-r-50">
-          <table className="table-border-less table-striped-pink-gray table-border-radius-50">
+        <div className="main margin-l-50 margin-r-50">
+          <table className="table-border-less table-striped-pink-gray">
             <thead>
               <tr>
                 <td>姓名</td>

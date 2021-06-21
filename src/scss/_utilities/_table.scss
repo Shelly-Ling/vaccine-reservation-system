@@ -18,6 +18,22 @@
   }
 }
 
+@mixin tableBorderLess {
+  .table-border-less {
+    td {
+      text-align: center;
+      padding: 30px;
+    }
+
+    thead {
+      tr {
+        font-weight: bold;
+        font-size: 24px;
+      }
+    }
+  }
+}
+
 //========================================
 //條紋表格樣式 粉色+灰色 條紋
 //========================================
@@ -63,6 +79,117 @@
       }
       :last-child {
         border-bottom-right-radius: 50px;
+      }
+    }
+  }
+}
+
+//========================================
+//表格圓角樣式 mixin
+//========================================
+@mixin tableBorderRadius($radius) {
+  table {
+    thead {
+      //設定表格第一行圓角
+      tr {
+        :first-child {
+          border-top-left-radius: $radius;
+        }
+        :last-child {
+          border-top-right-radius: $radius;
+        }
+      }
+    }
+
+    tbody {
+      //設定表格最後一行圓角
+      :last-child {
+        :first-child {
+          border-bottom-left-radius: $radius;
+        }
+        :last-child {
+          border-bottom-right-radius: $radius;
+        }
+      }
+    }
+  }
+}
+
+//========================================
+//取消表格圓角樣式
+//========================================
+@mixin cancelTableBorderRadius {
+  table {
+    thead {
+      //設定表格第一行圓角
+      tr {
+        :first-child {
+          border-top-left-radius: unset;
+        }
+        :last-child {
+          border-top-right-radius: unset;
+        }
+      }
+    }
+
+    tbody {
+      //設定表格最後一行圓角
+      :last-child {
+        :first-child {
+          border-bottom-left-radius: unset;
+        }
+        :last-child {
+          border-bottom-right-radius: unset;
+        }
+      }
+    }
+  }
+}
+
+//========================================
+//恢復預設表格樣式
+//========================================
+
+@mixin tableOriginalSetting {
+  table {
+    display: table;
+    thead {
+      display: table-header-group;
+
+      tr {
+        display: table-row;
+        td {
+          display: table-cell;
+        }
+      }
+    }
+    tbody {
+      tr {
+        display: table-row;
+        td {
+          display: table-cell;
+        }
+      }
+    }
+  }
+}
+
+//========================================
+//設定表格 tbody flex 直向排版
+//========================================
+
+@mixin tableFlex {
+  table {
+    margin: 0 auto;
+    thead {
+      tr {
+        display: flex;
+      }
+    }
+    tbody {
+      tr {
+        display: flex;
+        flex-direction: column;
       }
     }
   }
