@@ -43,7 +43,7 @@ export class TableList extends Component {
           />
         </form>
         <div className="main overflow-x-scroll margin-l-50 margin-r-50">
-          <table>
+          <table className="table-border-less table-striped-pink-gray table-border-radius-50">
             <thead>
               <tr>
                 <td>姓名</td>

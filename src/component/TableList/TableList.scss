@@ -1,5 +1,7 @@
 @import "../../scss/_helpers/_constant.scss";
 @import "../../scss/_utilities/_overflow.scss";
+@import "../../scss/_utilities/_table.scss";
+@import "../../scss/_utilities/_textClick.scss";
 
 .table-list__wrap {
   //========================================
@@ -26,67 +28,11 @@
   .main {
     //編刪按鈕設定
     .delete {
-      color: $red-500;
       width: 60px;
-
-      &:hover {
-        text-decoration: underline;
-      }
     }
 
     .edit {
-      color: $teal-700;
       width: 60px;
-
-      &:hover {
-        text-decoration: underline;
-      }
-    }
-
-    //表格設定
-    table {
-      td {
-        text-align: center;
-        padding: 30px;
-      }
-
-      thead {
-        background-color: $pink-100;
-
-        //設定表格第一行圓角
-        tr {
-          font-weight: bold;
-          font-size: 24px;
-
-          :first-child {
-            border-top-left-radius: 50px;
-          }
-          :last-child {
-            border-top-right-radius: 50px;
-          }
-        }
-      }
-
-      tbody {
-        //設定跳行換色
-        tr:nth-child(odd) td {
-          background-color: $gray-200;
-        }
-
-        tr:nth-child(even) td {
-          background-color: $pink-100;
-        }
-
-        //設定表格最後一行圓角
-        :last-child {
-          :first-child {
-            border-bottom-left-radius: 50px;
-          }
-          :last-child {
-            border-bottom-right-radius: 50px;
-          }
-        }
-      }
     }
   }
 }

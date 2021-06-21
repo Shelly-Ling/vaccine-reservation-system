@@ -1,0 +1,69 @@
+@import "../_helpers/_constant.scss";
+
+//========================================
+//基本表格樣式
+//========================================
+
+.table-border-less {
+  td {
+    text-align: center;
+    padding: 30px;
+  }
+
+  thead {
+    tr {
+      font-weight: bold;
+      font-size: 24px;
+    }
+  }
+}
+
+//========================================
+//條紋表格樣式 粉色+灰色 條紋
+//========================================
+.table-striped-pink-gray {
+  thead {
+    background-color: $pink-100;
+  }
+
+  tbody {
+    //設定跳行換色
+    tr:nth-child(odd) td {
+      background-color: $gray-200;
+    }
+
+    tr:nth-child(even) td {
+      background-color: $pink-100;
+    }
+  }
+}
+
+//========================================
+//表格圓角樣式
+//========================================
+
+.table-border-radius-50 {
+  thead {
+    //設定表格第一行圓角
+    tr {
+      :first-child {
+        border-top-left-radius: 50px;
+      }
+      :last-child {
+        border-top-right-radius: 50px;
+      }
+    }
+  }
+
+  tbody {
+    //設定表格最後一行圓角
+    :last-child {
+      :first-child {
+        border-bottom-left-radius: 50px;
+      }
+      :last-child {
+        border-bottom-right-radius: 50px;
+      }
+    }
+  }
+}
