@@ -33,12 +33,6 @@ const reservedList = [
 ]
 
 class ReservedList extends Component {
-  constructor() {
-    super()
-    this.state = {
-      showEditButton: true,
-    }
-  }
   render() {
     const {
       props: { showElement },
@@ -71,7 +65,7 @@ class ReservedList extends Component {
         </div>
         <TableList
           dataList={reservedList}
-          showEditButton={this.showEditButton}
+          showEditButton={false}
         />
       </div>
     ) : null

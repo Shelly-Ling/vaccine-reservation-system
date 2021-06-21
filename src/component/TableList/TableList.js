@@ -16,7 +16,7 @@ export class TableList extends Component {
 
   render() {
     const {
-      props: { dataList, showEditButton },
+      props: { dataList },
     } = this
 
     return dataList.length ? (
@@ -64,7 +64,9 @@ export class TableList extends Component {
                 <td>手機</td>
                 <td>疫苗種類</td>
                 <td>備註</td>
-                {showEditButton ? <td>編輯</td> : null}
+                {this.props.showEditButton ? (
+                  <td>編輯</td>
+                ) : null}
               </tr>
             </thead>
             <tbody>
@@ -76,7 +78,7 @@ export class TableList extends Component {
                   <td>{item.phone}</td>
                   <td>{item.vaccineType}AZ</td>
                   <td>{item.remark}</td>
-                  {showEditButton ? (
+                  {this.props.showEditButton ? (
                     <td>
                       <button
                         className="margin-l-10 fz-20 delete"
