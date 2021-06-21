@@ -2,34 +2,22 @@ import "./Header.scss"
 
 import React, { Component } from "react"
 
-const pageData = [
-  {
-    id: 1,
-    pageName: "reservation-form",
-    title: "預約申請",
-  },
-  {
-    id: 2,
-    pageName: "reserved-list",
-    title: "已預約名單",
-  },
-  {
-    id: 3,
-    pageName: "edit-reservation",
-    title: "編輯預約名單",
-  },
-]
 class Header extends Component {
   static defaultProps = {
-    pageId: 1,
     changePage: () => {},
+    pageData: [
+      {
+        id: 1,
+        pageName: "reservation-form",
+        title: "預約申請",
+      },
+    ],
   }
-
   constructor(props) {
     super(props)
 
     this.state = {
-      currentPageId: this.pageId ? this.pageId : 1,
+      currentPageId: this.props.pageData[0].id,
     }
   }
 
@@ -47,7 +35,7 @@ class Header extends Component {
         </h1>
         <nav className="navbar padding-t-15 padding-b-15">
           <ul className="navbar__btns clearfix">
-            {pageData.map((page) => (
+            {this.props.pageData.map((page) => (
               <li key={page.id} className="float-left">
                 <button
                   onClick={this.onNavLinkClick}

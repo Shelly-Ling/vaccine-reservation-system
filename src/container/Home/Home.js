@@ -11,19 +11,38 @@ import ReservationForm from "../ReservationForm/ReservationForm"
 /**
  * @description 首頁
  */
+
+const pageData = [
+  {
+    id: 1,
+    pageName: "reservation-form",
+    title: "預約申請",
+  },
+  {
+    id: 2,
+    pageName: "reserved-list",
+    title: "已預約名單",
+  },
+  {
+    id: 3,
+    pageName: "edit-reservation",
+    title: "編輯預約名單",
+  },
+]
 class Home extends Component {
+  static defaultProps = {}
+
   constructor(props) {
     super(props)
+
     this.state = {
-      pageId: 1,
-      currentComponentId: 1,
+      currentComponentId: pageData[0].id,
     }
   }
 
   changePage = (pageId) => {
     this.setState({
       currentComponentId: pageId,
-      pageId: pageId,
     })
   }
 
@@ -31,25 +50,28 @@ class Home extends Component {
     return (
       <div className="home d-flex flex-col justify-content-between">
         <Header
-          pageId={this.pageId}
+          pageData={pageData}
           changePage={this.changePage}
         />
 
         <ReservationForm
           showElement={
-            this.state.currentComponentId === 1
+            this.state.currentComponentId ===
+            pageData[0].id
           }
         />
 
         <ReservedList
           showElement={
-            this.state.currentComponentId === 2
+            this.state.currentComponentId ===
+            pageData[1].id
           }
         />
 
         <EditReservation
           showElement={
-            this.state.currentComponentId === 3
+            this.state.currentComponentId ===
+            pageData[2].id
           }
         />
 
