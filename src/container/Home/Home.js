@@ -12,25 +12,25 @@ import ReservationForm from "../ReservationForm/ReservationForm"
  * @description 首頁
  */
 
-// const pageData = [
-//   {
-//     id: 1,
-//     pageName: "reservation-form",
-//     title: "預約申請",
-//   },
-//   {
-//     id: 2,
-//     pageName: "reserved-list",
-//     title: "已預約名單",
-//   },
-//   {
-//     id: 3,
-//     pageName: "edit-reservation",
-//     title: "編輯預約名單",
-//   },
-// ]
+const pageData = [
+  {
+    id: 1,
+    pageName: "reservation-form",
+    title: "預約申請",
+  },
+  {
+    id: 2,
+    pageName: "reserved-list",
+    title: "已預約名單",
+  },
+  {
+    id: 3,
+    pageName: "edit-reservation",
+    title: "編輯預約名單",
+  },
+]
 
-// localStorage.setItem("pageData", JSON.stringify(pageData))
+localStorage.setItem("pageData", JSON.stringify(pageData))
 
 class Home extends Component {
   static defaultProps = {}
@@ -46,63 +46,47 @@ class Home extends Component {
   }
 
   changePage = (pageId) => {
-    this.setState(...this.state, {
+    this.setState({
       currentComponentId: pageId,
     })
   }
-  // componentDidMount() {
-  //   const data = JSON.parse(
-  //     localStorage.getItem("pageData")
-  //   )
-  //   console.log("componentDidMount data", data)
-  //   this.setState({
-  //     pageData: data,
-  //     currentComponentId: this.data[0].id,
-  //   })
-  // }
-
-  componentWillMount() {
+  componentDidMount() {
     const data = JSON.parse(
       localStorage.getItem("pageData")
     )
-    console.log("componentWillMount data>>>>>", data)
 
-    this.setState(...this.state, {
-      dataFetchingIsDone: true,
+    this.setState({
       pageData: data,
       currentComponentId: data[0].id,
+      dataFetchingIsDone: true,
     })
   }
 
   render() {
-    return this.dataFetchingIsDone ? (
+    return this.state.dataFetchingIsDone ? (
       <div className="home d-flex flex-col justify-content-between">
         <Header
-          pageData={this.pageData}
+          pageData={this.state.pageData}
           changePage={this.changePage}
         />
-
         <ReservationForm
           showElement={
             this.state.currentComponentId ===
-            this.pageData[0].id
+            this.state.pageData[0].id
           }
         />
-
         <ReservedList
           showElement={
             this.state.currentComponentId ===
-            this.pageData[1].id
+            this.state.pageData[1].id
           }
         />
-
         <EditReservation
           showElement={
             this.state.currentComponentId ===
-            pageData[2].id
+            this.state.pageData[2].id
           }
         />
-
         <Footer />
       </div>
     ) : null
