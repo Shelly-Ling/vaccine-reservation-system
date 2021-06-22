@@ -50,6 +50,7 @@ class Home extends Component {
       currentComponentId: pageId,
     })
   }
+
   componentDidMount() {
     const data = JSON.parse(
       localStorage.getItem("pageData")
@@ -76,6 +77,7 @@ class Home extends Component {
           }
         />
         <ReservedList
+          pageName={this.state.pageData[1].pageName}
           showElement={
             this.state.currentComponentId ===
             this.state.pageData[1].id

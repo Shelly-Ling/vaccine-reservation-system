@@ -35,7 +35,7 @@ const reservedList = [
 class ReservedList extends Component {
   render() {
     const {
-      props: { showElement },
+      props: { showElement, pageName },
     } = this
 
     return showElement ? (
@@ -65,7 +65,11 @@ class ReservedList extends Component {
         </div>
         <TableList
           dataList={reservedList}
-          showEditButton={false}
+          showEditButton={
+            this.props.pageName === "reserved-list"
+              ? false
+              : true
+          }
         />
       </div>
     ) : null
