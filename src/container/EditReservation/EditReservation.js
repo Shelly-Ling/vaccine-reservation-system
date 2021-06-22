@@ -3,7 +3,7 @@ import "./EditReservation.scss"
 import React, { Component } from "react"
 import TableList from "../../component/TableList/TableList"
 
-const reservedList = [
+const reservedListFromAPI = [
   {
     id: 1,
     name: "陳某某",
@@ -53,6 +53,31 @@ const reservedList = [
 ]
 
 class EditReservation extends Component {
+  constructor(props) {
+    super()
+
+    this.state = {
+      reservedList: reservedListFromAPI,
+    }
+  }
+
+  deleteItem = (event) => {
+    const targetParentDom =
+      event.target.parentNode.parentNode
+
+    const deleteItemId = Number(
+      targetParentDom.dataset.id
+    )
+
+    const result = this.state.reservedList.filter(
+      (item) => item.id !== deleteItemId
+    )
+
+    this.setState({
+      reservedList: result,
+    })
+  }
+
   render() {
     const {
       props: { showElement },
@@ -67,7 +92,10 @@ class EditReservation extends Component {
             </h1>
           </div>
         </div>
-        <TableList dataList={reservedList} />
+        <TableList
+          dataList={this.state.reservedList}
+          deleteItem={this.deleteItem}
+        />
       </div>
     ) : null
   }

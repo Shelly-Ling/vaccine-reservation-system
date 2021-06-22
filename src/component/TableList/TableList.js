@@ -9,9 +9,7 @@ export class TableList extends Component {
   static defaultProps = {
     dataList: [],
     showEditButton: true,
-  }
-  deleteItem = () => {
-    console.log("deleteItem")
+    deleteItem: () => {},
   }
 
   render() {
@@ -71,7 +69,7 @@ export class TableList extends Component {
             </thead>
             <tbody>
               {this.props.dataList.map((item) => (
-                <tr key={item.id}>
+                <tr data-id={item.id} key={item.id}>
                   <td>{item.name}</td>
                   <td>{item.birth}</td>
                   <td>{item.identityNumber}</td>
@@ -83,7 +81,7 @@ export class TableList extends Component {
                       <button
                         className="margin-l-10 fz-20 delete"
                         id="delete"
-                        onClick={this.deleteItem}
+                        onClick={this.props.deleteItem}
                       >
                         刪除
                       </button>
