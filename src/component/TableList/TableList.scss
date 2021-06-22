@@ -1,5 +1,4 @@
 @import "../../scss/_helpers/_constant.scss";
-@import "../../scss/_utilities/_overflow.scss";
 @import "../../scss/_utilities/_table.scss";
 @import "../../scss/_utilities/_textClick.scss";
 
@@ -72,24 +71,26 @@
       }
     }
     .main {
-      overflow-x: scroll;
       @include tableBorderRadius(50px);
       @include tableOriginalSetting;
 
       table {
         thead {
           tr {
-            font-size: 26px;
+            font-size: 22px;
+
             td {
-              padding: 30px;
+              padding: 10px;
+              vertical-align: middle;
             }
           }
         }
         tbody {
           tr {
-            font-size: 24px;
+            font-size: 22px;
             td {
-              padding: 30px;
+              padding: 10px;
+              vertical-align: middle;
             }
           }
         }
@@ -99,11 +100,35 @@
 }
 @media (min-width: 960px) {
   .table-list__wrap {
-    max-width: 1300px;
+    max-width: 1400px;
     margin: 0 auto;
-
     .main {
-      overflow-x: unset;
+      table {
+        thead {
+          tr {
+            font-size: 24px;
+            td {
+              padding: 20px;
+            }
+
+            .name {
+              min-width: 105px;
+            }
+
+            .edit-row {
+              min-width: 180px;
+            }
+          }
+        }
+        tbody {
+          tr {
+            font-size: 24px;
+            td {
+              padding: 20px 10px;
+            }
+          }
+        }
+      }
     }
   }
 }

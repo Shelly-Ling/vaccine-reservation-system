@@ -58,14 +58,14 @@ export class TableList extends Component {
           <table className="table-border-less table-striped-pink-gray">
             <thead>
               <tr>
-                <td>姓名</td>
+                <td className="name">姓名</td>
                 <td>生日</td>
                 <td>身分證字號</td>
                 <td>手機</td>
                 <td>疫苗種類</td>
-                <td>備註</td>
+                <td className="remark">備註</td>
                 {this.props.showEditButton ? (
-                  <td>編輯</td>
+                  <td className="edit-row">編輯</td>
                 ) : null}
               </tr>
             </thead>
@@ -76,7 +76,7 @@ export class TableList extends Component {
                   <td>{item.birth}</td>
                   <td>{item.identityNumber}</td>
                   <td>{item.phone}</td>
-                  <td>{item.vaccineType}AZ</td>
+                  <td>{item.vaccineType}</td>
                   <td>{item.remark}</td>
                   {this.props.showEditButton ? (
                     <td>

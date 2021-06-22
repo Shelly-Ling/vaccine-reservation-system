@@ -31,6 +31,25 @@ const reservedList = [
     vaccineType: "AZ",
     remark: "dhhthrjyjku fgjnjs",
   },
+  {
+    id: 4,
+    name: "陳某某",
+    birth: "800101",
+    identityNumber: "A123456777",
+    phone: "0920222999",
+    vaccineType: "AZ",
+    remark:
+      "dhhthrjy jdtjktuku fgjnjs dhhthrjy jdtjktuku fgjnjs dhhthrjy jdtjktuku fgjnjs dhhthrjy jdtjktuku fgjnjs",
+  },
+  {
+    id: 5,
+    name: "陳某某陳某某",
+    birth: "800101",
+    identityNumber: "A123456777",
+    phone: "0920222999",
+    vaccineType: "AZ",
+    remark: "dhhthrjy jdtjktuku fgjnjs",
+  },
 ]
 
 class EditReservation extends Component {
