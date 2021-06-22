@@ -29,6 +29,9 @@ const pageData = [
     title: "編輯預約名單",
   },
 ]
+
+localStorage.setItem("pageData", JSON.stringify(pageData))
+
 class Home extends Component {
   static defaultProps = {}
 
@@ -36,7 +39,9 @@ class Home extends Component {
     super(props)
 
     this.state = {
-      currentComponentId: pageData[0].id,
+      dataFetchingIsDone: false,
+      pageData: [],
+      currentComponentId: 1,
     }
   }
 
@@ -45,39 +50,46 @@ class Home extends Component {
       currentComponentId: pageId,
     })
   }
+  componentDidMount() {
+    const data = JSON.parse(
+      localStorage.getItem("pageData")
+    )
+
+    this.setState({
+      pageData: data,
+      currentComponentId: data[0].id,
+      dataFetchingIsDone: true,
+    })
+  }
 
   render() {
-    return (
+    return this.state.dataFetchingIsDone ? (
       <div className="home d-flex flex-col justify-content-between">
         <Header
-          pageData={pageData}
+          pageData={this.state.pageData}
           changePage={this.changePage}
         />
-
         <ReservationForm
           showElement={
             this.state.currentComponentId ===
-            pageData[0].id
+            this.state.pageData[0].id
           }
         />
-
         <ReservedList
           showElement={
             this.state.currentComponentId ===
-            pageData[1].id
+            this.state.pageData[1].id
           }
         />
-
         <EditReservation
           showElement={
             this.state.currentComponentId ===
-            pageData[2].id
+            this.state.pageData[2].id
           }
         />
-
         <Footer />
       </div>
-    )
+    ) : null
   }
 }
 
