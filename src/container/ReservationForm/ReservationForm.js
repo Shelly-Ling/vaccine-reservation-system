@@ -1,5 +1,4 @@
 import React, { Component } from "react"
-import uuid from "react-uuid"
 import "./ReservationForm.scss"
 
 class ReservationForm extends Component {
@@ -7,7 +6,6 @@ class ReservationForm extends Component {
     super(props)
 
     this.state = {
-      id: -1,
       name: "",
       birth: "",
       identityNumber: "",
@@ -24,7 +22,6 @@ class ReservationForm extends Component {
   onSubmitBtnClick = (event) => {
     const data = {
       ...this.state,
-      id: uuid(),
     }
 
     let reservedList =

@@ -52,16 +52,50 @@ class Home extends Component {
   }
 
   componentDidMount() {
-    const data = JSON.parse(
-      localStorage.getItem("pageData")
-    )
-
-    this.setState({
-      pageData: data,
-      currentComponentId: data[0].id,
-      dataFetchingIsDone: true,
-    })
+    this.updatePageData()
   }
+  getPageData = () => {
+    return JSON.parse(localStorage.getItem("pageData"))
+  }
+  updatePageData = () => {
+    if (this.state.dataFetchingIsDone) {
+      this.setState({
+        pageData: this.getPageData(),
+        currentComponentId: data[0].id,
+        dataFetchingIsDone: true,
+      })
+    }
+  }
+
+  //改寫失敗的部分，調整中:
+
+  // componentDidMount() {
+  //   this.getPageData()
+  //   this.updatePageData()
+  // }
+
+  // getPageData = () => {
+  //   const data = JSON.parse(
+  //     localStorage.getItem("pageData") || []
+  //   )
+
+  //   console.log("data", data)
+  //   this.setState(
+  //     {
+  //       pageData: data,
+  //     },
+  //     console.log(
+  //       "getPageData pageData",
+  //       this.state.pageData
+  //     )
+  //   )
+  // }
+
+  // updatePageData = () => {
+  //   this.setState({
+  //     currentComponentId: this.state.pageData[0].id,
+  //   })
+  // }
 
   render() {
     return this.state.dataFetchingIsDone ? (

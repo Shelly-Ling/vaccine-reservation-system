@@ -71,7 +71,10 @@ export class TableList extends Component {
             </thead>
             <tbody>
               {this.props.dataList.map((item) => (
-                <tr data-id={item.id} key={item.id}>
+                <tr
+                  data-id={item.identityNumber}
+                  key={item.identityNumber}
+                >
                   <td>{item.name}</td>
                   <td>{item.birth}</td>
                   <td>{item.identityNumber}</td>

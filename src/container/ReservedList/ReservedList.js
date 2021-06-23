@@ -4,7 +4,6 @@ import TableList from "../../component/TableList/TableList"
 
 const reservedList = [
   {
-    id: 1,
     name: "陳某某",
     birth: "800101",
     identityNumber: "A123456777",
@@ -13,7 +12,6 @@ const reservedList = [
     remark: "dhhthrjy jdtjktuku fgjnjs",
   },
   {
-    id: 2,
     name: "王某",
     birth: "1020701",
     identityNumber: "H223455432",
@@ -22,7 +20,6 @@ const reservedList = [
     remark: "dhhthrjy jdtjktuku fgjnjs",
   },
   {
-    id: 3,
     name: "李某某",
     birth: "1020322",
     identityNumber: "A111777277",
