@@ -1,7 +1,7 @@
 import "./EditReservation.scss"
-
 import React, { Component } from "react"
 import TableList from "../../component/TableList/TableList"
+import SearchBar from "../../component/SearchBar/SearchBar"
 
 const reservedListFromAPI = [
   {
@@ -88,6 +88,7 @@ class EditReservation extends Component {
         <TableList
           dataList={this.state.reservedList}
           deleteItem={this.deleteItem}
+          children={<SearchBar />}
         />
       </div>
     ) : null

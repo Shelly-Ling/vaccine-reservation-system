@@ -11,24 +11,6 @@
 
 .table-list__wrap {
   //========================================
-  //條件尋找設定
-  //========================================
-  .search-content {
-    min-width: 580px;
-
-    select {
-      width: 130px;
-    }
-    input {
-      width: 180px;
-    }
-
-    input[type="submit"] {
-      width: 80px;
-    }
-  }
-
-  //========================================
   //表格設定
   //========================================
   .main {
@@ -64,15 +46,6 @@
 
 @media (min-width: 768px) {
   .table-list__wrap {
-    .search-content {
-      select {
-        width: 150px;
-      }
-
-      input {
-        width: 300px;
-      }
-    }
     .main {
       table {
         thead {

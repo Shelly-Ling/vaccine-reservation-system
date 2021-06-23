@@ -1,6 +1,7 @@
 import "./ReservedList.scss"
 import React, { Component } from "react"
 import TableList from "../../component/TableList/TableList"
+import SearchBar from "../../component/SearchBar/SearchBar"
 
 const reservedList = [
   {
@@ -61,6 +62,7 @@ class ReservedList extends Component {
           </div>
         </div>
         <TableList
+          children={<SearchBar />}
           dataList={reservedList}
           showEditButton={
             this.props.pageName === "reserved-list"
