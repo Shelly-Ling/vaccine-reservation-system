@@ -22,7 +22,6 @@ class ReservationForm extends Component {
   }
 
   onSubmitBtnClick = (event) => {
-    event.preventDefault()
     const data = {
       ...this.state,
       id: uuid(),
@@ -37,25 +36,6 @@ class ReservationForm extends Component {
       "reservedList",
       JSON.stringify(reservedList)
     )
-
-    // const finalList =
-    //   JSON.parse(localStorage.getItem("reservedList")) ||
-    //   []
-    // console.log("finalList", finalList)
-
-    // this.setState = {
-    //   id: -1,
-    //   name: "",
-    //   birth: "",
-    //   identityNumber: "",
-    //   phone: "",
-    //   address: "",
-    //   dayForVaccination: "",
-    //   timeForVaccinationDay: "",
-    //   vaccineType: "",
-    //   remark: "",
-    //   gender: "",
-    // }
   }
 
   handleInputChange = (event) => {
@@ -84,6 +64,7 @@ class ReservationForm extends Component {
           疫苗預約單
         </h1>
         <form
+          onSubmit={this.onSubmitBtnClick}
           className="form"
           id="form"
           action=""
@@ -261,7 +242,7 @@ class ReservationForm extends Component {
               className="btn-submit fz-26 input-submit-style btn-color-pink-white"
               type="submit"
               value="提 交"
-              onClick={this.onSubmitBtnClick}
+              // onClick={this.onSubmitBtnClick}
             />
           </div>
         </form>
