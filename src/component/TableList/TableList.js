@@ -18,7 +18,7 @@ export class TableList extends Component {
     } = this
 
     return dataList.length ? (
-      <div className="table-list__wrap">
+      <div className="table-list__wrap margin-0-auto">
         <form className="search-content margin-l-80 margin-b-20">
           <div className="display-inline-block">
             <label
@@ -58,7 +58,9 @@ export class TableList extends Component {
               <tr>
                 <td className="name">姓名</td>
                 <td>生日</td>
-                <td>身分證字號</td>
+                <td className="identity-number">
+                  身分證字號
+                </td>
                 <td>手機</td>
                 <td>疫苗種類</td>
                 <td className="remark">備註</td>

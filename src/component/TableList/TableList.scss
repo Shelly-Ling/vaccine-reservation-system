@@ -32,6 +32,8 @@
   //表格設定
   //========================================
   .main {
+    @include tableBorderRadius(50px);
+
     //編刪按鈕設定
     .delete {
       width: 60px;
@@ -41,17 +43,18 @@
       width: 60px;
     }
 
-    @include tableFlex;
-
     table {
+      width: 100%;
       td {
+        font-size: 20px;
         padding: 5px;
+        vertical-align: middle;
       }
-      min-width: 380px;
       thead {
         tr {
           td {
-            padding: 10px;
+            font-size: 22px;
+            padding: 5px;
           }
         }
       }
@@ -71,25 +74,19 @@
       }
     }
     .main {
-      @include tableBorderRadius(50px);
-      @include tableOriginalSetting;
-
       table {
         thead {
           tr {
-            font-size: 22px;
-
             td {
+              font-size: 22px;
               padding: 10px;
-              vertical-align: middle;
             }
           }
         }
         tbody {
           tr {
-            font-size: 22px;
             td {
-              padding: 10px;
+              font-size: 24px;
               vertical-align: middle;
             }
           }
@@ -101,18 +98,21 @@
 @media (min-width: 960px) {
   .table-list__wrap {
     max-width: 1400px;
-    margin: 0 auto;
     .main {
       table {
         thead {
           tr {
-            font-size: 24px;
             td {
               padding: 20px;
+              font-size: 24px;
             }
 
             .name {
               min-width: 105px;
+            }
+
+            .identity-number {
+              min-width: 160px;
             }
 
             .edit-row {
@@ -122,8 +122,8 @@
         }
         tbody {
           tr {
-            font-size: 24px;
             td {
+              font-size: 24px;
               padding: 20px 10px;
             }
           }
