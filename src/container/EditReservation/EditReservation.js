@@ -60,12 +60,10 @@ class EditReservation extends Component {
     const targetParentDom =
       event.target.parentNode.parentNode
 
-    const deleteItemId = Number(
-      targetParentDom.dataset.id
-    )
+    const deleteItemId = targetParentDom.dataset.id
 
     const result = this.state.reservedList.filter(
-      (item) => item.id !== deleteItemId
+      (item) => item.identityNumber !== deleteItemId
     )
 
     this.setState({
