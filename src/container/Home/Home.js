@@ -54,48 +54,21 @@ class Home extends Component {
   componentDidMount() {
     this.updatePageData()
   }
+
   getPageData = () => {
     return JSON.parse(localStorage.getItem("pageData"))
   }
+
   updatePageData = () => {
-    if (this.state.dataFetchingIsDone) {
+    const newData = this.getPageData()
+    if (this.state.dataFetchingIsDone === false) {
       this.setState({
-        pageData: this.getPageData(),
-        currentComponentId: data[0].id,
+        pageData: newData,
+        currentComponentId: newData[0].id,
         dataFetchingIsDone: true,
       })
     }
   }
-
-  //改寫失敗的部分，調整中:
-
-  // componentDidMount() {
-  //   this.getPageData()
-  //   this.updatePageData()
-  // }
-
-  // getPageData = () => {
-  //   const data = JSON.parse(
-  //     localStorage.getItem("pageData") || []
-  //   )
-
-  //   console.log("data", data)
-  //   this.setState(
-  //     {
-  //       pageData: data,
-  //     },
-  //     console.log(
-  //       "getPageData pageData",
-  //       this.state.pageData
-  //     )
-  //   )
-  // }
-
-  // updatePageData = () => {
-  //   this.setState({
-  //     currentComponentId: this.state.pageData[0].id,
-  //   })
-  // }
 
   render() {
     return this.state.dataFetchingIsDone ? (
