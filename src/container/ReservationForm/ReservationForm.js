@@ -58,8 +58,6 @@ class ReservationForm extends Component {
    * @param {string} event
    */
   handleInputChange = (event) => {
-    console.log("handleInputChange")
-
     const target = event.target
 
     const value =
@@ -121,7 +119,6 @@ class ReservationForm extends Component {
    * @param {string} event
    */
   nameFormatCheck = (event) => {
-    console.log("nameFormatCheck")
     //若姓名欄為空
     if (this.state.name.length === 0) {
       this.addInvalidityClass("name", "*姓名欄位不可為空")
@@ -138,10 +135,7 @@ class ReservationForm extends Component {
    * @param {string} event
    */
   phoneFormatCheck = (event) => {
-    console.log("phoneFormatCheck")
-
     if (this.state.phone.length >= 11) {
-      console.log("*手機號碼為10位數字")
       this.addInvalidityClass(
         "phone",
         "*手機號碼為10位數字"
