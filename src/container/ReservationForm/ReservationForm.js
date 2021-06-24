@@ -74,6 +74,7 @@ class ReservationForm extends Component {
       () => {
         this.nameFormatCheck(event)
         this.phoneFormatCheck(event)
+        this.birthFormatCheck(event)
       }
     )
   }
@@ -166,6 +167,57 @@ class ReservationForm extends Component {
         "phone",
         "*手機號碼欄位不可為空"
       )
+    }
+  }
+
+  birthFormatCheck(event) {
+    const number = "1234567890"
+    const birth = this.state.birth
+
+    if (this.state.birth.length === 7) {
+      //this.state.birth 生日資料切下來的 年/月/日 字串
+
+      const birthYear = Number(birth.slice(0, 3))
+      const birthMonth = Number(birth.slice(3, 5))
+      const birthDay = Number(birth.slice(5, 7))
+
+      //驗證生日字串
+      if (birthYear <= 5 || birthYear <= 0) {
+        //假設用戶 105 歲以下
+        this.addInvalidityClass(
+          "birth",
+          "*年份可能輸錯請確認"
+        )
+      } else if (birthMonth > 12 || birthMonth <= 0) {
+        this.addInvalidityClass(
+          "birth",
+          "*月份可能輸錯請確認"
+        )
+      } else if (birthDay >= 32 || birthDay <= 0) {
+        this.addInvalidityClass(
+          "birth",
+          "*出生日可能輸錯請確認"
+        )
+      }
+    } else if (this.state.birth.length >= 8) {
+      this.addInvalidityClass("birth", "*生日為7位數字")
+    } else if (this.state.birth.length !== 0) {
+      this.removeInvalidityClass("birth")
+
+      //生日字串核對
+
+      const phoneNumberString = birth.split("")
+
+      for (let item of phoneNumberString) {
+        let numberIndex = number.indexOf(item)
+
+        if (numberIndex === -1) {
+          this.addInvalidityClass(
+            "birth",
+            "*生日欄位須為數字"
+          )
+        }
+      }
     }
   }
 
@@ -267,11 +319,11 @@ class ReservationForm extends Component {
                 value={this.state.birth}
                 onChange={this.handleInputChange}
               />
+              <p className="padding-t-20 padding-l-80 display-none">
+                *項目不可以為空
+              </p>
               <p className="fz-16 padding-l-80">
                 *若您生日為民國80年1月1日，請輸入0800101
-              </p>
-              <p className="padding-l-80 display-none">
-                *項目不可以為空
               </p>
             </div>
             <div className="address-content">
