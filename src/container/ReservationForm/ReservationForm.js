@@ -36,8 +36,6 @@ class ReservationForm extends Component {
     console.log("onSubmitBtnClick")
     this.nameFormatCheck(event)
     this.phoneFormatCheck(event)
-    //檢查欄位是否為空
-    // this.inputEmptyCheck(event)
 
     //資料提交
     const data = {
@@ -55,53 +53,9 @@ class ReservationForm extends Component {
     )
   }
 
-  inputEmptyCheck(event) {
-    const allInputLength =
-      this.state.name.length &&
-      this.state.birth.length &&
-      this.state.phone.length &&
-      this.state.address.length &&
-      this.state.dayForVaccination.length &&
-      this.state.timeForVaccinationDay.length &&
-      this.state.vaccineType.length
-
-    if (allInputLength === 0) {
-      event.preventDefault()
-      const allRequiredInput =
-        document.querySelectorAll(".required")
-
-      for (let i = 0; i < allRequiredInput.length; i++) {
-        allRequiredInput[i].classList.add("invalidity")
-
-        const invalidityTextNote =
-          allRequiredInput[i].parentElement.lastChild
-
-        invalidityTextNote.classList.add(
-          "invalidity-text"
-        )
-        invalidityTextNote.innerText = "*必填欄位不可為空"
-      }
-    }
-  }
-
-  onChangeDataState = (event) => {
-    //改變資料狀態
-    const target = event.target
-    const value =
-      target.type === "checkbox"
-        ? target.checked
-        : target.value.trim()
-
-    const name = target.name
-
-    this.setState({
-      [name]: value,
-    })
-  }
-
   /**
    * @description 表單輸入資料時同步更新 state
-   * @param {onChange} event
+   * @param {string} event
    */
   handleInputChange = (event) => {
     console.log("handleInputChange")
@@ -126,77 +80,98 @@ class ReservationForm extends Component {
     )
   }
 
+  /**
+   * @description input 欄掛上提示 class 樣式 與欄位提示字串
+   * @param {string} elementId
+   * @param {string} alertString
+   */
+  addInvalidityClass(elementId, alertString) {
+    const idString = `#${elementId}`
+    const pTagString = `#${elementId} ~ p`
+
+    const inputField = document.querySelector(idString)
+
+    const invalidityTextNote =
+      document.querySelector(pTagString)
+
+    inputField.classList.add("invalidity")
+    invalidityTextNote.innerText = alertString
+    invalidityTextNote.classList.add("invalidity-text")
+  }
+
+  /**
+   * @description input 欄移除提示 class 樣式 與欄位提示字串
+   * @param {string} elementId
+   */
+  removeInvalidityClass(elementId) {
+    const idString = `#${elementId}`
+    const pTagString = `#${elementId} ~ p`
+
+    const inputField = document.querySelector(idString)
+
+    const invalidityTextNote =
+      document.querySelector(pTagString)
+
+    inputField.classList.remove("invalidity")
+    invalidityTextNote.classList.remove("invalidity-text")
+  }
+
+  /**
+   *@description 檢查姓名欄位 id: name
+   * @param {string} event
+   */
   nameFormatCheck = (event) => {
     console.log("nameFormatCheck")
-    //驗證資料
-    const nameInput = document.getElementById("name")
-
+    //若姓名欄為空
     if (this.state.name.length === 0) {
-      const inputField = document.querySelector("#name")
-
-      const invalidityTextNote =
-        document.querySelector("#name ~ p")
-
-      invalidityTextNote.innerText = "*姓名欄位不可為空"
-
-      inputField.classList.add("invalidity")
-      invalidityTextNote.classList.add("invalidity-text")
+      this.addInvalidityClass("name", "*姓名欄位不可為空")
     } else if (this.state.name.length !== 0) {
-      const inputField = document.querySelector("#name")
-
-      const invalidityNameTextNote =
-        document.querySelector("#name ~ p")
-
-      inputField.classList.remove("invalidity")
-
-      invalidityNameTextNote.classList.remove(
-        "invalidity-text"
+      this.removeInvalidityClass(
+        "name",
+        "*姓名欄位不可為空"
       )
     }
   }
 
+  /**
+   *@description 檢查手機號碼欄位 id: phone
+   * @param {string} event
+   */
   phoneFormatCheck = (event) => {
     console.log("phoneFormatCheck")
-    //驗證資料
-    const phoneInput = document.getElementById("phone")
 
-    //電話字串核對
-    const number = "0123456789"
-    const phone = this.state.phone
-    const phoneNumberString = phone.split("")
-    console.log("phoneNumberString", phoneNumberString)
-
-    console.log(
-      "phoneNumberString[1]",
-      phoneNumberString[0]
-    )
-
-    console.log(
-      "indexOf",
-      phoneNumberString[0].indexOf("number")
-    )
-
-    if (this.state.phone.length !== 0) {
-      const inputField = document.querySelector("#phone")
-
-      const invalidityTextNote =
-        document.querySelector("#phone ~ p")
-
-      inputField.classList.remove("invalidity")
-
-      invalidityTextNote.classList.remove(
-        "invalidity-text"
+    if (this.state.phone.length >= 11) {
+      console.log("*手機號碼為10位數字")
+      this.addInvalidityClass(
+        "phone",
+        "*手機號碼為10位數字"
       )
+    } else if (this.state.phone.length !== 0) {
+      //若手機號欄位有內容即刻驗證
+
+      this.removeInvalidityClass("phone")
+
+      //電話字串核對
+      const number = "1234567890"
+      const phone = this.state.phone
+      const phoneNumberString = phone.split("")
+
+      for (let item of phoneNumberString) {
+        let numberIndex = number.indexOf(item)
+
+        if (numberIndex === -1) {
+          this.addInvalidityClass(
+            "phone",
+            "*手機號碼須為數字"
+          )
+        }
+      }
     } else if (this.state.phone.length === 0) {
-      const inputField = document.querySelector("#phone")
-
-      const invalidityTextNote =
-        document.querySelector("#phone ~ p")
-
-      inputField.classList.add("invalidity")
-      invalidityTextNote.innerText =
+      //若手機號欄位為空
+      this.addInvalidityClass(
+        "phone",
         "*手機號碼欄位不可為空"
-      invalidityTextNote.classList.add("invalidity-text")
+      )
     }
   }
 
