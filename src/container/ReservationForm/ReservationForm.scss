@@ -22,6 +22,30 @@ select {
 }
 
 //========================================
+//表單 input 驗證不通過的提示
+//========================================
+
+.invalidity {
+  border: 2px solid $red-600;
+}
+.invalidity-text {
+  display: block;
+}
+
+.required-icon {
+  font-size: 22px;
+  line-height: 22px;
+  padding-right: 10px;
+  display: inline-block;
+  color: $red-600;
+}
+
+.required-mark_content {
+  span {
+    color: $red-600;
+  }
+}
+//========================================
 //表單內部排版
 //========================================
 
@@ -30,12 +54,21 @@ select {
     padding-top: 20px;
     display: flex;
     justify-content: space-between;
+    position: relative;
+    z-index: 0;
 
     label {
       width: 30%;
       min-width: 150px;
       line-height: 40px;
       text-align: center;
+    }
+
+    .invalidity-text {
+      font-size: 16px;
+      color: $red-600;
+      position: absolute;
+      z-index: 1;
     }
   }
 
