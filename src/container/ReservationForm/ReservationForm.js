@@ -32,8 +32,12 @@ class ReservationForm extends Component {
    * @param {submit} event
    */
   onSubmitBtnClick = (event) => {
+    event.preventDefault()
+    console.log("onSubmitBtnClick")
+    this.nameFormatCheck(event)
+    this.phoneFormatCheck(event)
     //檢查欄位是否為空
-    this.inputEmptyCheck(event)
+    // this.inputEmptyCheck(event)
 
     //資料提交
     const data = {
@@ -80,25 +84,19 @@ class ReservationForm extends Component {
     }
   }
 
-  formatCheck() {
-    const nameInput = document.getElementById("name")
-    const invalidityNameTextNote = document.querySelector(
-      ".name-content p"
-    )
+  onChangeDataState = (event) => {
+    //改變資料狀態
+    const target = event.target
+    const value =
+      target.type === "checkbox"
+        ? target.checked
+        : target.value.trim()
 
-    const nameInputValue = nameInput.value.trim()
+    const name = target.name
 
-    // if (nameInputValue.length === 0) {
-    //   console.log("nameInput 不可為空")
-    // } else if (nameInputValue === "123") {
-    //   invalidityNameTextNote.innerText = "123"
-    // }
-
-    // if (nameInput.validity.badInput) {
-    //   console.log("Bad input detected…")
-    // } else {
-    //   console.log("Content of input ok.")
-    // }
+    this.setState({
+      [name]: value,
+    })
   }
 
   /**
@@ -106,20 +104,7 @@ class ReservationForm extends Component {
    * @param {onChange} event
    */
   handleInputChange = (event) => {
-    const allRequiredInput =
-      document.querySelectorAll(".required")
-
-    for (let i = 0; i < allRequiredInput.length; i++) {
-      allRequiredInput[i].classList.remove("invalidity")
-
-      const invalidityTextNote =
-        allRequiredInput[i].parentElement.lastChild
-
-      invalidityTextNote.classList.remove(
-        "invalidity-text"
-      )
-      invalidityTextNote.innerText = "*必填欄位不可為空"
-    }
+    console.log("handleInputChange")
 
     const target = event.target
 
@@ -130,9 +115,89 @@ class ReservationForm extends Component {
 
     const name = target.name
 
-    this.setState({
-      [name]: value,
-    })
+    this.setState(
+      {
+        [name]: value,
+      },
+      () => {
+        this.nameFormatCheck(event)
+        this.phoneFormatCheck(event)
+      }
+    )
+  }
+
+  nameFormatCheck = (event) => {
+    console.log("nameFormatCheck")
+    //驗證資料
+    const nameInput = document.getElementById("name")
+
+    if (this.state.name.length === 0) {
+      const inputField = document.querySelector("#name")
+
+      const invalidityTextNote =
+        document.querySelector("#name ~ p")
+
+      invalidityTextNote.innerText = "*姓名欄位不可為空"
+
+      inputField.classList.add("invalidity")
+      invalidityTextNote.classList.add("invalidity-text")
+    } else if (this.state.name.length !== 0) {
+      const inputField = document.querySelector("#name")
+
+      const invalidityNameTextNote =
+        document.querySelector("#name ~ p")
+
+      inputField.classList.remove("invalidity")
+
+      invalidityNameTextNote.classList.remove(
+        "invalidity-text"
+      )
+    }
+  }
+
+  phoneFormatCheck = (event) => {
+    console.log("phoneFormatCheck")
+    //驗證資料
+    const phoneInput = document.getElementById("phone")
+
+    //電話字串核對
+    const number = "0123456789"
+    const phone = this.state.phone
+    const phoneNumberString = phone.split("")
+    console.log("phoneNumberString", phoneNumberString)
+
+    console.log(
+      "phoneNumberString[1]",
+      phoneNumberString[0]
+    )
+
+    console.log(
+      "indexOf",
+      phoneNumberString[0].indexOf("number")
+    )
+
+    if (this.state.phone.length !== 0) {
+      const inputField = document.querySelector("#phone")
+
+      const invalidityTextNote =
+        document.querySelector("#phone ~ p")
+
+      inputField.classList.remove("invalidity")
+
+      invalidityTextNote.classList.remove(
+        "invalidity-text"
+      )
+    } else if (this.state.phone.length === 0) {
+      const inputField = document.querySelector("#phone")
+
+      const invalidityTextNote =
+        document.querySelector("#phone ~ p")
+
+      inputField.classList.add("invalidity")
+      invalidityTextNote.innerText =
+        "*手機號碼欄位不可為空"
+      invalidityTextNote.classList.add("invalidity-text")
+    }
   }
 
   render() {
@@ -152,7 +217,6 @@ class ReservationForm extends Component {
 
         <form
           onSubmit={this.onSubmitBtnClick}
-          onChange={this.formatCheck}
           className="form"
           id="form"
           action=""
