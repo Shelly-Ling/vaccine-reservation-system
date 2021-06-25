@@ -36,6 +36,8 @@ class ReservationForm extends Component {
     console.log("onSubmitBtnClick")
     this.nameFormatCheck(event)
     this.phoneFormatCheck(event)
+    this.birthFormatCheck(event)
+    this.addressFormatCheck(event)
 
     //資料提交
     const data = {
@@ -75,6 +77,7 @@ class ReservationForm extends Component {
         this.nameFormatCheck(event)
         this.phoneFormatCheck(event)
         this.birthFormatCheck(event)
+        this.addressFormatCheck(event)
       }
     )
   }
@@ -172,14 +175,14 @@ class ReservationForm extends Component {
 
   birthFormatCheck(event) {
     const number = "1234567890"
-    const birth = this.state.birth
+    const birthData = this.state.birth
 
-    if (this.state.birth.length === 7) {
+    if (birthData.length === 7) {
       //this.state.birth 生日資料切下來的 年/月/日 字串
 
-      const birthYear = Number(birth.slice(0, 3))
-      const birthMonth = Number(birth.slice(3, 5))
-      const birthDay = Number(birth.slice(5, 7))
+      const birthYear = Number(birthData.slice(0, 3))
+      const birthMonth = Number(birthData.slice(3, 5))
+      const birthDay = Number(birthData.slice(5, 7))
 
       //驗證生日字串
       if (birthYear <= 5 || birthYear <= 0) {
@@ -199,14 +202,14 @@ class ReservationForm extends Component {
           "*出生日可能輸錯請確認"
         )
       }
-    } else if (this.state.birth.length >= 8) {
+    } else if (birthData.length >= 8) {
       this.addInvalidityClass("birth", "*生日為7位數字")
-    } else if (this.state.birth.length !== 0) {
+    } else if (birthData.length !== 0) {
       this.removeInvalidityClass("birth")
 
       //生日字串核對
 
-      const phoneNumberString = birth.split("")
+      const phoneNumberString = birthData.split("")
 
       for (let item of phoneNumberString) {
         let numberIndex = number.indexOf(item)
@@ -218,6 +221,28 @@ class ReservationForm extends Component {
           )
         }
       }
+    } else if (birthData.length === 0) {
+      //若生日號欄位為空
+      this.addInvalidityClass(
+        "birth",
+        "*生日欄位不可為空"
+      )
+    }
+  }
+
+  /**
+   *@description 檢查地址欄位 id: address
+   * @param {string} event
+   */
+  addressFormatCheck = (event) => {
+    //若地址欄為空
+    if (this.state.address.length === 0) {
+      this.addInvalidityClass(
+        "address",
+        "*地址欄位不可為空"
+      )
+    } else if (this.state.address.length !== 0) {
+      this.removeInvalidityClass("address")
     }
   }
 
