@@ -20,7 +20,7 @@ class ReservationForm extends Component {
       phone: "",
       address: "",
       dayForVaccination: "",
-      timeForVaccinationDay: "",
+      timeForVaccination: "",
       vaccineType: "",
       remark: "",
       gender: "",
@@ -39,6 +39,9 @@ class ReservationForm extends Component {
     this.birthFormatCheck(event)
     this.addressFormatCheck(event)
     this.identityNumberFormatCheck(event)
+    this.genderFormatCheck(event)
+    this.dayForVaccinationFormatCheck(event)
+    this.timeForVaccinationFormatCheck(event)
 
     //資料提交
     const data = {
@@ -80,6 +83,9 @@ class ReservationForm extends Component {
         this.birthFormatCheck(event)
         this.addressFormatCheck(event)
         this.identityNumberFormatCheck(event)
+        this.genderFormatCheck(event)
+        this.dayForVaccinationFormatCheck(event)
+        this.timeForVaccinationFormatCheck(event)
       }
     )
   }
@@ -301,6 +307,66 @@ class ReservationForm extends Component {
     }
   }
 
+  /**
+   *@description 檢查性別欄位 id: gender
+   * @param {string} event
+   */
+  genderFormatCheck = (event) => {
+    //若性別欄未選取
+    if (this.state.gender.length === 0) {
+      const invalidityTextNote = document.querySelector(
+        ".gender-content p"
+      )
+
+      invalidityTextNote.innerText = "*請選擇性別"
+      invalidityTextNote.classList.add("invalidity-text")
+    } else if (this.state.gender.length !== 0) {
+      const invalidityTextNote = document.querySelector(
+        ".gender-content p"
+      )
+
+      invalidityTextNote.classList.remove(
+        "invalidity-text"
+      )
+    }
+  }
+
+  /**
+   *@description 檢查施打日期欄位 id: booking-date
+   * @param {string} event
+   */
+  dayForVaccinationFormatCheck = (event) => {
+    //若施打日期欄為空
+    if (this.state.dayForVaccination.length === 0) {
+      this.addInvalidityClass(
+        "booking-date",
+        "*日期欄位不可為空"
+      )
+    } else if (
+      this.state.dayForVaccination.length !== 0
+    ) {
+      this.removeInvalidityClass("booking-date")
+    }
+  }
+
+  /**
+   *@description 檢查地址欄位 id: booking-time
+   * @param {string} event
+   */
+  timeForVaccinationFormatCheck = (event) => {
+    //若施打日期欄為空
+    if (this.state.timeForVaccination.length === 0) {
+      this.addInvalidityClass(
+        "booking-time",
+        "*時間欄位不可為空"
+      )
+    } else if (
+      this.state.timeForVaccination.length !== 0
+    ) {
+      this.removeInvalidityClass("booking-time")
+    }
+  }
+
   render() {
     const {
       props: { showElement },
@@ -421,7 +487,7 @@ class ReservationForm extends Component {
                 *項目不可以為空
               </p>
             </div>
-            <div className="booking-date-content ">
+            <div className="dayForVaccination-content ">
               <label htmlFor="booking-date">
                 <span className="required-icon">*</span>
                 預約接種日期
@@ -446,9 +512,9 @@ class ReservationForm extends Component {
               <input
                 type="time"
                 id="booking-time"
-                name="timeForVaccinationDay"
+                name="timeForVaccination"
                 className="input-style required"
-                value={this.state.timeForVaccinationDay}
+                value={this.state.timeForVaccination}
                 onChange={this.handleInputChange}
               />
               <p className="padding-l-170 display-none">
