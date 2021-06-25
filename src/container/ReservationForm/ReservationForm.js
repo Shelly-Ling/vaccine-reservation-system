@@ -38,6 +38,7 @@ class ReservationForm extends Component {
     this.phoneFormatCheck(event)
     this.birthFormatCheck(event)
     this.addressFormatCheck(event)
+    this.identityNumberFormatCheck(event)
 
     //資料提交
     const data = {
@@ -78,6 +79,7 @@ class ReservationForm extends Component {
         this.phoneFormatCheck(event)
         this.birthFormatCheck(event)
         this.addressFormatCheck(event)
+        this.identityNumberFormatCheck(event)
       }
     )
   }
@@ -230,6 +232,59 @@ class ReservationForm extends Component {
     }
   }
 
+  identityNumberFormatCheck(event) {
+    if (this.state.identityNumber.length === 0) {
+      //若手機號欄位為空
+      this.addInvalidityClass(
+        "identityNumber",
+        "*身分證號欄位不可為空"
+      )
+    } else if (this.state.identityNumber.length >= 11) {
+      this.addInvalidityClass(
+        "identityNumber",
+        "*身分證號超過10位數，請確認"
+      )
+    } else if (this.state.identityNumber.length !== 0) {
+      this.removeInvalidityClass("identityNumber")
+
+      //身分證號核對
+      const upperCaseLetters =
+        "ABCDEFGHIJKLMNOPQRSTUVWXYX"
+      const number = "1234567890"
+
+      const idData = this.state.identityNumber
+      const idDataFirstLetter = idData.slice(0, 1)
+      const idNumbers = idData.slice(1)
+      const idNumbersArray = idData.slice(1).split("")
+
+      const idFirstLetterIndex = upperCaseLetters.indexOf(
+        idDataFirstLetter
+      )
+
+      //身分證號字母轉大寫
+      if (idFirstLetterIndex === -1) {
+        const firstToUpperCase =
+          idDataFirstLetter.toUpperCase()
+        const newId = firstToUpperCase + idNumbers
+
+        this.setState({
+          identityNumber: newId,
+        })
+      }
+
+      for (let item of idNumbersArray) {
+        let numberIndex = number.indexOf(item)
+
+        if (numberIndex === -1) {
+          this.addInvalidityClass(
+            "identityNumber",
+            "*身分證後9碼須為數字"
+          )
+        }
+      }
+    }
+  }
+
   /**
    *@description 檢查地址欄位 id: address
    * @param {string} event
@@ -311,15 +366,14 @@ class ReservationForm extends Component {
                 *項目不可以為空
               </p>
             </div>
-            <div className="user-id-content">
-              <label htmlFor="user-id">
-                {" "}
+            <div className="identityNumber-content">
+              <label htmlFor="identityNumber">
                 <span className="required-icon">*</span>
                 身份證號
               </label>
               <input
                 type="text"
-                id="user-id"
+                id="identityNumber"
                 name="identityNumber"
                 className="input-style required"
                 value={this.state.identityNumber}
@@ -331,7 +385,6 @@ class ReservationForm extends Component {
             </div>
             <div className="birth-content">
               <label htmlFor="birth">
-                {" "}
                 <span className="required-icon">*</span>
                 生日
               </label>
@@ -353,7 +406,6 @@ class ReservationForm extends Component {
             </div>
             <div className="address-content">
               <label htmlFor="address">
-                {" "}
                 <span className="required-icon">*</span>
                 聯繫地址
               </label>
@@ -406,7 +458,6 @@ class ReservationForm extends Component {
 
             <div className="phone-content">
               <label htmlFor="phone">
-                {" "}
                 <span className="required-icon">*</span>
                 手機號碼
               </label>
