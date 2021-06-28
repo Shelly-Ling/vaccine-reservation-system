@@ -190,15 +190,16 @@ class ReservationForm extends Component {
    * @param {string} event
    */
   nameFormatCheck = (event) => {
-    //若姓名欄為空
-    if (this.state.name.length === 0) {
-      this.addInvalidityClass("name", "*姓名欄位不可為空")
-    } else if (this.state.name.length !== 0) {
-      this.removeInvalidityClass(
-        "name",
-        "*姓名欄位不可為空"
-      )
-    }
+    //若姓名欄位為空，加上報錯 class，反之移除報錯 class
+    this.state.name.length === 0
+      ? this.addInvalidityClass(
+          "name",
+          "*姓名欄位不可為空"
+        )
+      : this.removeInvalidityClass(
+          "name",
+          "*姓名欄位不可為空"
+        )
   }
 
   /**
@@ -216,26 +217,17 @@ class ReservationForm extends Component {
         "phone",
         "*手機號碼為10位數字，您輸入低於10位數"
       )
-    } else if (this.state.phone.length !== 0) {
-      //若手機號欄位有內容即刻驗證
+    } else if (this.state.phone.length === 10) {
+      //number 正則說明: 數字
+      const number = `^[0-9]*$`
+      const phoneNumber = this.state.phone
 
-      this.removeInvalidityClass("phone")
-
-      //電話字串核對
-      const number = "1234567890"
-      const phone = this.state.phone
-      const phoneNumberString = phone.split("")
-
-      for (let item of phoneNumberString) {
-        let numberIndex = number.indexOf(item)
-
-        if (numberIndex === -1) {
-          this.addInvalidityClass(
+      phoneNumber.match(number) !== null
+        ? this.removeInvalidityClass("phone")
+        : this.addInvalidityClass(
             "phone",
             "*手機號碼須為數字"
           )
-        }
-      }
     } else if (this.state.phone.length === 0) {
       //若手機號欄位為空
       this.addInvalidityClass(
@@ -246,7 +238,6 @@ class ReservationForm extends Component {
   }
 
   birthFormatCheck(event) {
-    const number = "1234567890"
     const birthData = this.state.birth
 
     if (birthData.length === 7) {
@@ -256,6 +247,17 @@ class ReservationForm extends Component {
       const birthYear = Number(birthData.slice(0, 3))
       const birthMonth = Number(birthData.slice(3, 5))
       const birthDay = Number(birthData.slice(5, 7))
+
+      //number 正則說明: 數字
+      const number = `^[0-9]*$`
+      const birthString = birthData.toString()
+
+      birthString.match(number) !== null
+        ? this.removeInvalidityClass("birth")
+        : this.addInvalidityClass(
+            "birth",
+            "*生日欄位須為數字"
+          )
 
       //驗證生日字串
       if (birthYear <= 5 || birthYear <= 0) {
@@ -282,23 +284,6 @@ class ReservationForm extends Component {
       )
     } else if (birthData.length >= 8) {
       this.addInvalidityClass("birth", "*生日為7位數字")
-    } else if (birthData.length !== 0) {
-      this.removeInvalidityClass("birth")
-
-      //生日字串核對
-
-      const phoneNumberString = birthData.split("")
-
-      for (let item of phoneNumberString) {
-        let numberIndex = number.indexOf(item)
-
-        if (numberIndex === -1) {
-          this.addInvalidityClass(
-            "birth",
-            "*生日欄位須為數字"
-          )
-        }
-      }
     } else if (birthData.length === 0) {
       //若生日號欄位為空
       this.addInvalidityClass(
@@ -309,29 +294,27 @@ class ReservationForm extends Component {
   }
 
   identityNumberFormatCheck(event) {
-    if (this.state.identityNumber.length === 0) {
+    const idNumber = this.state.identityNumber.length
+
+    if (idNumber === 0) {
       //若手機號欄位為空
       this.addInvalidityClass(
         "identityNumber",
         "*身分證號欄位不可為空"
       )
-    } else if (this.state.identityNumber.length >= 11) {
+    } else if (idNumber >= 11) {
       this.addInvalidityClass(
         "identityNumber",
         "*身分證號超過10位數，請確認"
       )
-    } else if (this.state.identityNumber.length === 10) {
-      this.removeInvalidityClass("identityNumber")
-
-      //身分證號核對
+    } else if (idNumber === 10) {
+      // 身分證號核對
       const upperCaseLetters =
         "ABCDEFGHIJKLMNOPQRSTUVWXYX"
-      const number = "1234567890"
 
       const idData = this.state.identityNumber
       const idDataFirstLetter = idData.slice(0, 1)
       const idNumbers = idData.slice(1)
-      const idNumbersArray = idData.slice(1).split("")
 
       const idFirstLetterIndex = upperCaseLetters.indexOf(
         idDataFirstLetter
@@ -348,16 +331,14 @@ class ReservationForm extends Component {
         })
       }
 
-      for (let item of idNumbersArray) {
-        let numberIndex = number.indexOf(item)
-
-        if (numberIndex === -1) {
-          this.addInvalidityClass(
+      //number 正則說明: 數字
+      const number = `^[0-9]*$`
+      idNumbers.match(number) !== null
+        ? this.removeInvalidityClass("identityNumber")
+        : this.addInvalidityClass(
             "identityNumber",
-            "*身分證後9碼須為數字"
+            "*身份證後 9 碼須為數字"
           )
-        }
-      }
     } else if (this.state.identityNumber.length < 10) {
       this.addInvalidityClass(
         "identityNumber",
@@ -371,15 +352,12 @@ class ReservationForm extends Component {
    * @param {string} event
    */
   addressFormatCheck = (event) => {
-    //若地址欄為空
-    if (this.state.address.length === 0) {
-      this.addInvalidityClass(
-        "address",
-        "*地址欄位不可為空"
-      )
-    } else if (this.state.address.length !== 0) {
-      this.removeInvalidityClass("address")
-    }
+    this.state.address.length === 0
+      ? this.addInvalidityClass(
+          "address",
+          "*地址欄位不可為空"
+        )
+      : this.removeInvalidityClass("address")
   }
 
   /**
@@ -418,17 +396,12 @@ class ReservationForm extends Component {
    * @param {string} event
    */
   dayForVaccinationFormatCheck = (event) => {
-    //若施打日期欄為空
-    if (this.state.dayForVaccination.length === 0) {
-      this.addInvalidityClass(
-        "booking-date",
-        "*日期欄位不可為空"
-      )
-    } else if (
-      this.state.dayForVaccination.length !== 0
-    ) {
-      this.removeInvalidityClass("booking-date")
-    }
+    this.state.dayForVaccination.length === 0
+      ? this.addInvalidityClass(
+          "booking-date",
+          "*日期欄位不可為空"
+        )
+      : this.removeInvalidityClass("booking-date")
   }
 
   /**
@@ -436,17 +409,12 @@ class ReservationForm extends Component {
    * @param {string} event
    */
   timeForVaccinationFormatCheck = (event) => {
-    //若施打日期欄為空
-    if (this.state.timeForVaccination.length === 0) {
-      this.addInvalidityClass(
-        "booking-time",
-        "*時間欄位不可為空"
-      )
-    } else if (
-      this.state.timeForVaccination.length !== 0
-    ) {
-      this.removeInvalidityClass("booking-time")
-    }
+    this.state.timeForVaccination.length === 0
+      ? this.addInvalidityClass(
+          "booking-time",
+          "*時間欄位不可為空"
+        )
+      : this.removeInvalidityClass("booking-time")
   }
 
   render() {
