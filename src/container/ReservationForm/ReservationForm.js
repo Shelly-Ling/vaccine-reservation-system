@@ -123,14 +123,13 @@ class ReservationForm extends Component {
    * @param {string} event
    */
   handleInputChange = (event) => {
-    const target = event.target
+    const { target } = event
+    const name = target.name
 
     const value =
       target.type === "checkbox"
         ? target.checked
         : target.value
-
-    const name = target.name
 
     this.setState(
       {

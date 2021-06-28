@@ -48,6 +48,9 @@ select {
 //========================================
 //表單內部排版
 //========================================
+.reservation-form__wrap {
+  margin-bottom: 30px;
+}
 
 .input-list {
   div {
@@ -119,6 +122,7 @@ select {
       font-size: 35px;
     }
     margin: 0 auto;
+    margin-bottom: 30px;
   }
 
   input {
