@@ -5,6 +5,7 @@ import React, { Component } from "react"
 class Header extends Component {
   static defaultProps = {
     changePage: () => {},
+    updateReservedListData: () => {},
     pageData: {
       reservationForm: {
         id: 1,
@@ -33,9 +34,11 @@ class Header extends Component {
   }
 
   onNavLinkClick = (e) => {
+    console.log("onNavLinkClick")
     const targetId = Number(e.target.id)
     this.setState({ currentPageId: targetId })
     this.props.changePage(targetId)
+    this.props.updateReservedListData()
   }
 
   render() {

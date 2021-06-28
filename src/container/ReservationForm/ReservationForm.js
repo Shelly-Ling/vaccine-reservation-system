@@ -10,6 +10,9 @@ import "./ReservationForm.scss"
 // )
 
 class ReservationForm extends Component {
+  static defaultProps = {
+    updateReservedListData: () => {},
+  }
   constructor(props) {
     super(props)
 
@@ -90,6 +93,8 @@ class ReservationForm extends Component {
       this.state.genderFormatCheckCorrect === true
     ) {
       //資料提交
+      event.preventDefault()
+
       const data = {
         name: this.state.name,
         birth: this.state.birth,
@@ -107,6 +112,9 @@ class ReservationForm extends Component {
         JSON.parse(
           localStorage.getItem("reservedList")
         ) || []
+
+      console.log("reservedList", reservedList)
+
       reservedList.unshift(data)
 
       localStorage.setItem(
@@ -115,6 +123,8 @@ class ReservationForm extends Component {
       )
 
       console.log("資料提交儲存完成")
+      this.props.updateReservedListData()
+      console.log("完成資料獲取更新")
     }
   }
 
@@ -136,14 +146,14 @@ class ReservationForm extends Component {
         [name]: value,
       },
       () => {
-        this.nameFormatCheck(event)
-        this.phoneFormatCheck(event)
-        this.birthFormatCheck(event)
-        this.addressFormatCheck(event)
-        this.identityNumberFormatCheck(event)
-        this.genderFormatCheck(event)
-        this.dayForVaccinationFormatCheck(event)
-        this.timeForVaccinationFormatCheck(event)
+        // this.nameFormatCheck(event)
+        // this.phoneFormatCheck(event)
+        // this.birthFormatCheck(event)
+        // this.addressFormatCheck(event)
+        // this.identityNumberFormatCheck(event)
+        // this.genderFormatCheck(event)
+        // this.dayForVaccinationFormatCheck(event)
+        // this.timeForVaccinationFormatCheck(event)
       }
     )
   }

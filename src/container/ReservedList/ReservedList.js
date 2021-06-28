@@ -5,32 +5,10 @@ import SearchBar from "../../component/SearchBar/SearchBar"
 
 class ReservedList extends Component {
   constructor(props) {
-    super()
+    super(props)
 
     this.state = {
-      dataFetchingIsDone: false,
-      reservedList: [],
-    }
-  }
-
-  componentDidMount() {
-    this.updateReservedListData()
-  }
-
-  getReservedListData() {
-    return (
-      JSON.parse(localStorage.getItem("reservedList")) ||
-      []
-    )
-  }
-
-  updateReservedListData() {
-    const reservedListData = this.getReservedListData()
-    if (this.state.dataFetchingIsDone === false) {
-      this.setState({
-        reservedList: reservedListData,
-        dataFetchingIsDone: true,
-      })
+      reservedList: this.props.reservedList,
     }
   }
 
@@ -66,7 +44,7 @@ class ReservedList extends Component {
         </div>
         <TableList
           children={<SearchBar />}
-          dataList={this.state.reservedList}
+          dataList={this.props.reservedList}
           showEditButton={
             this.props.pageName === "reserved-list"
               ? false

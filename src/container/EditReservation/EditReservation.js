@@ -1,35 +1,16 @@
 import "./EditReservation.scss"
 import React, { Component } from "react"
+import PropTypes from "prop-types"
 import TableList from "../../component/TableList/TableList"
 import SearchBar from "../../component/SearchBar/SearchBar"
+
 class EditReservation extends Component {
   constructor(props) {
-    super()
+    super(props)
 
     this.state = {
-      dataFetchingIsDone: false,
-      reservedList: [],
-    }
-  }
-
-  componentDidMount() {
-    this.updateReservedListData()
-  }
-
-  getReservedListData() {
-    return (
-      JSON.parse(localStorage.getItem("reservedList")) ||
-      []
-    )
-  }
-
-  updateReservedListData() {
-    const reservedListData = this.getReservedListData()
-    if (this.state.dataFetchingIsDone === false) {
-      this.setState({
-        reservedList: reservedListData,
-        dataFetchingIsDone: true,
-      })
+      componentReceiveProps: false,
+      reservedList: this.props.reservedList,
     }
   }
 
