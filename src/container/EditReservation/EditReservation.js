@@ -2,57 +2,34 @@ import "./EditReservation.scss"
 import React, { Component } from "react"
 import TableList from "../../component/TableList/TableList"
 import SearchBar from "../../component/SearchBar/SearchBar"
-
-const reservedListFromAPI = [
-  {
-    name: "陳某某",
-    birth: "800101",
-    identityNumber: "A123456777",
-    phone: "0920222999",
-    vaccineType: "AZ",
-    remark: "dhhthrjy jdtjktuku fgjnjs",
-  },
-  {
-    name: "王某",
-    birth: "1020701",
-    identityNumber: "H223455432",
-    phone: "0933333333",
-    vaccineType: "AZ",
-    remark: "dhhthrjy jdtjktuku fgjnjs",
-  },
-  {
-    name: "李某某",
-    birth: "1020322",
-    identityNumber: "A111777277",
-    phone: "0944444444",
-    vaccineType: "AZ",
-    remark: "dhhthrjyjku fgjnjs",
-  },
-  {
-    name: "陳某某",
-    birth: "800101",
-    identityNumber: "A234589000",
-    phone: "0920222999",
-    vaccineType: "AZ",
-    remark:
-      "dhhthrjy jdtjktuku fgjnjs dhhthrjy jdtjktuku fgjnjs dhhthrjy jdtjktuku fgjnjs dhhthrjy jdtjktuku fgjnjs",
-  },
-  {
-    name: "陳某某陳某某",
-    birth: "800101",
-    identityNumber: "A123456787",
-    phone: "0920222999",
-    vaccineType: "AZ",
-    remark: "dhhthrjy jdtjktuku fgjnjs",
-  },
-]
-
 class EditReservation extends Component {
   constructor(props) {
     super()
 
     this.state = {
-      reservedList: reservedListFromAPI,
+      dataFetchingIsDone: false,
+      reservedList: [],
+    }
+  }
+
+  componentDidMount() {
+    this.updateReservedListData()
+  }
+
+  getReservedListData() {
+    return (
+      JSON.parse(localStorage.getItem("reservedList")) ||
+      []
+    )
+  }
+
+  updateReservedListData() {
+    const reservedListData = this.getReservedListData()
+    if (this.state.dataFetchingIsDone === false) {
+      this.setState({
+        reservedList: reservedListData,
+        dataFetchingIsDone: true,
+      })
     }
   }
 

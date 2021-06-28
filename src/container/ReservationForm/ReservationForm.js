@@ -37,14 +37,14 @@ class ReservationForm extends Component {
     if (this.state.formatCheckAllCorrect === false) {
       event.preventDefault()
 
-      this.nameFormatCheck(event)
-      this.phoneFormatCheck(event)
-      this.birthFormatCheck(event)
-      this.addressFormatCheck(event)
-      this.identityNumberFormatCheck(event)
-      this.genderFormatCheck(event)
-      this.dayForVaccinationFormatCheck(event)
-      this.timeForVaccinationFormatCheck(event)
+      // this.nameFormatCheck(event)
+      // this.phoneFormatCheck(event)
+      // this.birthFormatCheck(event)
+      // this.addressFormatCheck(event)
+      // this.identityNumberFormatCheck(event)
+      // this.genderFormatCheck(event)
+      // this.dayForVaccinationFormatCheck(event)
+      // this.timeForVaccinationFormatCheck(event)
 
       //驗證所有欄位
       const allInputField =

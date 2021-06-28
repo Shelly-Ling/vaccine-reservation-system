@@ -3,34 +3,37 @@ import React, { Component } from "react"
 import TableList from "../../component/TableList/TableList"
 import SearchBar from "../../component/SearchBar/SearchBar"
 
-const reservedList = [
-  {
-    name: "陳某某",
-    birth: "800101",
-    identityNumber: "A123456777",
-    phone: "0920222999",
-    vaccineType: "AZ",
-    remark: "dhhthrjy jdtjktuku fgjnjs",
-  },
-  {
-    name: "王某",
-    birth: "1020701",
-    identityNumber: "H223455432",
-    phone: "0933333333",
-    vaccineType: "AZ",
-    remark: "dhhthrjy jdtjktuku fgjnjs",
-  },
-  {
-    name: "李某某",
-    birth: "1020322",
-    identityNumber: "A111777277",
-    phone: "0944444444",
-    vaccineType: "AZ",
-    remark: "dhhthrjyjku fgjnjs",
-  },
-]
-
 class ReservedList extends Component {
+  constructor(props) {
+    super()
+
+    this.state = {
+      dataFetchingIsDone: false,
+      reservedList: [],
+    }
+  }
+
+  componentDidMount() {
+    this.updateReservedListData()
+  }
+
+  getReservedListData() {
+    return (
+      JSON.parse(localStorage.getItem("reservedList")) ||
+      []
+    )
+  }
+
+  updateReservedListData() {
+    const reservedListData = this.getReservedListData()
+    if (this.state.dataFetchingIsDone === false) {
+      this.setState({
+        reservedList: reservedListData,
+        dataFetchingIsDone: true,
+      })
+    }
+  }
+
   render() {
     const {
       props: { showElement, pageName },
@@ -63,7 +66,7 @@ class ReservedList extends Component {
         </div>
         <TableList
           children={<SearchBar />}
-          dataList={reservedList}
+          dataList={this.state.reservedList}
           showEditButton={
             this.props.pageName === "reserved-list"
               ? false

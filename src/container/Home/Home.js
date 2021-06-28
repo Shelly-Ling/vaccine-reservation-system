@@ -29,8 +29,55 @@ const pageData = {
     title: "編輯預約名單",
   },
 }
+const reservedList = [
+  {
+    name: "陳某某",
+    birth: "800101",
+    identityNumber: "A123456777",
+    phone: "0920222999",
+    vaccineType: "AZ",
+    remark: "dhhthrjy jdtjktuku fgjnjs",
+  },
+  {
+    name: "王某",
+    birth: "1020701",
+    identityNumber: "H223455432",
+    phone: "0933333333",
+    vaccineType: "AZ",
+    remark: "dhhthrjy jdtjktuku fgjnjs",
+  },
+  {
+    name: "李某某",
+    birth: "1020322",
+    identityNumber: "A111777277",
+    phone: "0944444444",
+    vaccineType: "AZ",
+    remark: "dhhthrjyjku fgjnjs",
+  },
+  {
+    name: "陳某某",
+    birth: "800101",
+    identityNumber: "A234589000",
+    phone: "0920222999",
+    vaccineType: "AZ",
+    remark:
+      "dhhthrjy jdtjktuku fgjnjs dhhthrjy jdtjktuku fgjnjs dhhthrjy jdtjktuku fgjnjs dhhthrjy jdtjktuku fgjnjs",
+  },
+  {
+    name: "陳某某陳某某",
+    birth: "800101",
+    identityNumber: "A123456787",
+    phone: "0920222999",
+    vaccineType: "AZ",
+    remark: "dhhthrjy jdtjktuku fgjnjs",
+  },
+]
 
 localStorage.setItem("pageData", JSON.stringify(pageData))
+localStorage.setItem(
+  "reservedList",
+  JSON.stringify(reservedList)
+)
 
 class Home extends Component {
   static defaultProps = {}
