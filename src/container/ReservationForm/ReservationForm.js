@@ -190,6 +190,10 @@ class ReservationForm extends Component {
    * @param {string} event
    */
   nameFormatCheck = (event) => {
+    console.log(
+      "this.state.name.length",
+      this.state.name.length
+    )
     //若姓名欄位為空，加上報錯 class，反之移除報錯 class
     this.state.name.length === 0
       ? this.addInvalidityClass(
@@ -641,7 +645,6 @@ class ReservationForm extends Component {
             />
           </div>
         </form>
-        <button></button>
       </div>
     ) : null
   }

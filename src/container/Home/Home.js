@@ -12,23 +12,23 @@ import ReservationForm from "../ReservationForm/ReservationForm"
  * @description 首頁
  */
 
-const pageData = [
-  {
+const pageData = {
+  reservationForm: {
     id: 1,
     pageName: "reservation-form",
     title: "預約申請",
   },
-  {
+  reservedList: {
     id: 2,
     pageName: "reserved-list",
     title: "已預約名單",
   },
-  {
+  editReservation: {
     id: 3,
     pageName: "edit-reservation",
     title: "編輯預約名單",
   },
-]
+}
 
 localStorage.setItem("pageData", JSON.stringify(pageData))
 
@@ -64,7 +64,7 @@ class Home extends Component {
     if (this.state.dataFetchingIsDone === false) {
       this.setState({
         pageData: newData,
-        currentComponentId: newData[0].id,
+        currentComponentId: newData.reservationForm.id,
         dataFetchingIsDone: true,
       })
     }
@@ -80,20 +80,22 @@ class Home extends Component {
         <ReservationForm
           showElement={
             this.state.currentComponentId ===
-            this.state.pageData[0].id
+            this.state.pageData.reservationForm.id
           }
         />
         <ReservedList
-          pageName={this.state.pageData[1].pageName}
+          pageName={
+            this.state.pageData.reservedList.pageName
+          }
           showElement={
             this.state.currentComponentId ===
-            this.state.pageData[1].id
+            this.state.pageData.reservedList.id
           }
         />
         <EditReservation
           showElement={
             this.state.currentComponentId ===
-            this.state.pageData[2].id
+            this.state.pageData.editReservation.id
           }
         />
         <Footer />
