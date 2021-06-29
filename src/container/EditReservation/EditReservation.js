@@ -5,6 +5,9 @@ import TableList from "../../component/TableList/TableList"
 import SearchBar from "../../component/SearchBar/SearchBar"
 
 class EditReservation extends Component {
+  static defaultProps = {
+    deleteItem: () => {},
+  }
   constructor(props) {
     super(props)
 
@@ -12,21 +15,6 @@ class EditReservation extends Component {
       componentReceiveProps: false,
       reservedList: this.props.reservedList,
     }
-  }
-
-  deleteItem = (event) => {
-    const targetParentDom =
-      event.target.parentNode.parentNode
-
-    const deleteItemId = targetParentDom.dataset.id
-
-    const result = this.state.reservedList.filter(
-      (item) => item.identityNumber !== deleteItemId
-    )
-
-    this.setState({
-      reservedList: result,
-    })
   }
 
   render() {
@@ -45,7 +33,7 @@ class EditReservation extends Component {
         </div>
         <TableList
           dataList={this.props.reservedList}
-          deleteItem={this.deleteItem}
+          deleteItem={this.props.deleteItem}
           children={<SearchBar />}
         />
       </div>

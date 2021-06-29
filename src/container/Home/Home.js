@@ -111,6 +111,26 @@ class Home extends Component {
       []
     )
   }
+  deleteItem = (event) => {
+    const targetParentDom =
+      event.target.parentNode.parentNode
+
+    const deleteItemId = targetParentDom.dataset.id
+
+    const result = this.state.reservedList.filter(
+      (item) => item.identityNumber !== deleteItemId
+    )
+
+    localStorage.setItem(
+      "reservedList",
+      JSON.stringify(result)
+    )
+
+    this.setState({
+      reservedList: result,
+    })
+  }
+
   render() {
     return this.state.pageDataFetchingIsDone ? (
       <div className="home d-flex flex-col justify-content-between">
@@ -138,6 +158,7 @@ class Home extends Component {
           }
         />
         <EditReservation
+          deleteItem={this.deleteItem}
           reservedList={this.state.reservedList}
           showElement={
             this.state.currentComponentId ===
