@@ -139,16 +139,14 @@ select {
 
   .input-list {
     display: grid;
-    grid-template-columns: repeat(3, auto);
+    grid-template-columns: repeat(2, auto);
     grid-template-rows: auto;
     grid-template-areas:
-      "name gender phone"
-      "birthday birthday id "
-      "address address address"
-      "vaccine vaccine vaccine"
-      "date date date"
-      "time time time"
-      "remark remark remark";
+      "name phone"
+      "birthday id "
+      "vaccine vaccine"
+      "date date"
+      "remark remark";
 
     div {
       padding-top: 50px;
@@ -181,19 +179,8 @@ select {
       }
     }
 
-    .address-content {
-      grid-area: address;
-      input {
-        width: 400px;
-      }
-    }
-
     .dayForVaccination-content {
       grid-area: date;
-    }
-
-    .booking-time-content {
-      grid-area: time;
     }
 
     .phone-content {
@@ -245,12 +232,6 @@ select {
 
     .gender-content {
       width: 200px;
-    }
-
-    .address-content {
-      input {
-        width: 500px;
-      }
     }
 
     .vaccine-content {

@@ -44,7 +44,7 @@ class ReservedList extends Component {
         </div>
         <TableList
           children={<SearchBar />}
-          dataList={this.props.reservedList}
+          reservedList={this.props.reservedList}
           showEditButton={
             this.props.pageName === "reserved-list"
               ? false

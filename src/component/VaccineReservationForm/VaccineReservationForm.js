@@ -1,14 +1,5 @@
 import React, { Component } from "react"
 import "./VaccineReservationForm.scss"
-
-//========================================
-//表單驗證所需變數
-//========================================
-// const nameInput = document.getElementById("name")
-// const invalidityNameTextNote = document.querySelector(
-//   ".name-content p"
-// )
-
 class ReservationForm extends Component {
   static defaultProps = {
     title: "",
@@ -20,18 +11,16 @@ class ReservationForm extends Component {
     super(props)
 
     this.state = {
-      name: "",
-      birth: "",
-      identityNumber: "",
-      phone: "",
-      address: "",
-      dayForVaccination: "",
-      timeForVaccination: "",
-      vaccineType: "",
-      remark: "",
-      gender: "",
+      fields: {
+        name: "",
+        birth: "",
+        identityNumber: "",
+        phone: "",
+        vaccineType: "",
+        dayForVaccination: "",
+        remark: "",
+      },
       formatCheckAllCorrect: false,
-      genderFormatCheckCorrect: false,
     }
   }
 
@@ -46,11 +35,8 @@ class ReservationForm extends Component {
       // this.nameFormatCheck(event)
       // this.phoneFormatCheck(event)
       // this.birthFormatCheck(event)
-      // this.addressFormatCheck(event)
       // this.identityNumberFormatCheck(event)
-      // this.genderFormatCheck(event)
       // this.dayForVaccinationFormatCheck(event)
-      // this.timeForVaccinationFormatCheck(event)
 
       //驗證所有欄位
       const allInputField =
@@ -71,43 +57,11 @@ class ReservationForm extends Component {
       })
     }
 
-    if (this.state.genderFormatCheckCorrect === false) {
-      //驗證 gender 欄位
-      const genderInputField = document.querySelector(
-        ".gender-content"
-      )
-      if (
-        genderInputField.classList.contains("invalidity")
-      ) {
-        console.log(
-          `gender-content 錯誤 ${genderInputField.classList}`
-        )
-      } else {
-        this.setState({
-          genderFormatCheckCorrect: true,
-        })
-      }
-    }
-
-    if (
-      this.state.formatCheckAllCorrect === true &&
-      this.state.genderFormatCheckCorrect === true
-    ) {
+    if (this.state.formatCheckAllCorrect === true) {
       //資料提交
       event.preventDefault()
 
-      const data = {
-        name: this.state.name,
-        birth: this.state.birth,
-        identityNumber: this.state.identityNumber,
-        phone: this.state.phone,
-        address: this.state.address,
-        dayForVaccination: this.state.dayForVaccination,
-        timeForVaccination: this.state.timeForVaccination,
-        vaccineType: this.state.vaccineType,
-        remark: this.state.remark,
-        gender: this.state.gender,
-      }
+      const data = { ...this.state.fields }
 
       let reservedList =
         JSON.parse(
@@ -144,17 +98,14 @@ class ReservationForm extends Component {
 
     this.setState(
       {
-        [name]: value,
+        fields: { ...this.state.fields, [name]: value },
       },
       () => {
         // this.nameFormatCheck(event)
         // this.phoneFormatCheck(event)
         // this.birthFormatCheck(event)
-        // this.addressFormatCheck(event)
         // this.identityNumberFormatCheck(event)
-        // this.genderFormatCheck(event)
         // this.dayForVaccinationFormatCheck(event)
-        // this.timeForVaccinationFormatCheck(event)
       }
     )
   }
@@ -202,10 +153,10 @@ class ReservationForm extends Component {
   nameFormatCheck = (event) => {
     console.log(
       "this.state.name.length",
-      this.state.name.length
+      this.state.fields.name.length
     )
     //若姓名欄位為空，加上報錯 class，反之移除報錯 class
-    this.state.name.length === 0
+    this.state.fields.name.length === 0
       ? this.addInvalidityClass(
           "name",
           "*姓名欄位不可為空"
@@ -221,20 +172,22 @@ class ReservationForm extends Component {
    * @param {string} event
    */
   phoneFormatCheck = (event) => {
-    if (this.state.phone.length > 10) {
+    const phoneLength = this.state.fields.phone.length
+
+    if (phoneLength > 10) {
       this.addInvalidityClass(
         "phone",
         "*手機號碼為10位數字，您輸入超出10位數"
       )
-    } else if (this.state.phone.length < 10) {
+    } else if (phoneLength < 10) {
       this.addInvalidityClass(
         "phone",
         "*手機號碼為10位數字，您輸入低於10位數"
       )
-    } else if (this.state.phone.length === 10) {
+    } else if (phoneLength === 10) {
       //number 正則說明: 數字
       const number = `^[0-9]*$`
-      const phoneNumber = this.state.phone
+      const phoneNumber = this.state.fields.phone
 
       phoneNumber.match(number) !== null
         ? this.removeInvalidityClass("phone")
@@ -242,7 +195,7 @@ class ReservationForm extends Component {
             "phone",
             "*手機號碼須為數字"
           )
-    } else if (this.state.phone.length === 0) {
+    } else if (phoneLength === 0) {
       //若手機號欄位為空
       this.addInvalidityClass(
         "phone",
@@ -252,12 +205,13 @@ class ReservationForm extends Component {
   }
 
   birthFormatCheck(event) {
-    const birthData = this.state.birth
+    const birthData = this.state.fields.birth
+    const birthDataLength = this.state.fields.birth.length
 
-    if (birthData.length === 7) {
+    if (birthDataLength === 7) {
       this.removeInvalidityClass("birth")
 
-      //this.state.birth 生日資料切下來的 年/月/日 字串
+      //birthData 生日資料切下來的 年/月/日 字串
       const birthYear = Number(birthData.slice(0, 3))
       const birthMonth = Number(birthData.slice(3, 5))
       const birthDay = Number(birthData.slice(5, 7))
@@ -291,14 +245,14 @@ class ReservationForm extends Component {
           "*出生日可能輸錯請確認"
         )
       }
-    } else if (birthData.length < 7) {
+    } else if (birthDataLength < 7) {
       this.addInvalidityClass(
         "birth",
         "*生日為7位數字，目前過少"
       )
-    } else if (birthData.length >= 8) {
+    } else if (birthDataLength >= 8) {
       this.addInvalidityClass("birth", "*生日為7位數字")
-    } else if (birthData.length === 0) {
+    } else if (birthDataLength === 0) {
       //若生日號欄位為空
       this.addInvalidityClass(
         "birth",
@@ -308,25 +262,26 @@ class ReservationForm extends Component {
   }
 
   identityNumberFormatCheck(event) {
-    const idNumber = this.state.identityNumber.length
+    const idNumberLength =
+      this.state.fields.identityNumber.length
 
-    if (idNumber === 0) {
+    if (idNumberLength === 0) {
       //若手機號欄位為空
       this.addInvalidityClass(
         "identityNumber",
         "*身分證號欄位不可為空"
       )
-    } else if (idNumber >= 11) {
+    } else if (idNumberLength >= 11) {
       this.addInvalidityClass(
         "identityNumber",
         "*身分證號超過10位數，請確認"
       )
-    } else if (idNumber === 10) {
+    } else if (idNumberLength === 10) {
       // 身分證號核對
       const upperCaseLetters =
         "ABCDEFGHIJKLMNOPQRSTUVWXYX"
 
-      const idData = this.state.identityNumber
+      const idData = this.state.fields.identityNumber
       const idDataFirstLetter = idData.slice(0, 1)
       const idNumbers = idData.slice(1)
 
@@ -341,7 +296,10 @@ class ReservationForm extends Component {
         const newId = firstToUpperCase + idNumbers
 
         this.setState({
-          identityNumber: newId,
+          fields: {
+            ...this.state.fields,
+            identityNumber: newId,
+          },
         })
       }
 
@@ -353,54 +311,10 @@ class ReservationForm extends Component {
             "identityNumber",
             "*身份證後 9 碼須為數字"
           )
-    } else if (this.state.identityNumber.length < 10) {
+    } else if (idNumberLength < 10) {
       this.addInvalidityClass(
         "identityNumber",
         "*身分證號欄位為英文開頭加數字共10位數"
-      )
-    }
-  }
-
-  /**
-   *@description 檢查地址欄位 id: address
-   * @param {string} event
-   */
-  addressFormatCheck = (event) => {
-    this.state.address.length === 0
-      ? this.addInvalidityClass(
-          "address",
-          "*地址欄位不可為空"
-        )
-      : this.removeInvalidityClass("address")
-  }
-
-  /**
-   *@description 檢查性別欄位 id: gender
-   * @param {string} event
-   */
-  genderFormatCheck = (event) => {
-    //若性別欄未選取
-    if (this.state.gender.length === 0) {
-      const inputField = document.querySelector(
-        ".gender-content"
-      )
-      const invalidityTextNote = document.querySelector(
-        ".gender-content p"
-      )
-
-      inputField.classList.add("invalidity")
-      invalidityTextNote.innerText = "*請選擇性別"
-      invalidityTextNote.classList.add("invalidity-text")
-    } else if (this.state.gender.length !== 0) {
-      const inputField = document.querySelector(
-        ".gender-content"
-      )
-      const invalidityTextNote = document.querySelector(
-        ".gender-content p"
-      )
-      inputField.classList.remove("invalidity")
-      invalidityTextNote.classList.remove(
-        "invalidity-text"
       )
     }
   }
@@ -410,25 +324,12 @@ class ReservationForm extends Component {
    * @param {string} event
    */
   dayForVaccinationFormatCheck = (event) => {
-    this.state.dayForVaccination.length === 0
+    this.state.fields.dayForVaccination.length === 0
       ? this.addInvalidityClass(
           "booking-date",
           "*日期欄位不可為空"
         )
       : this.removeInvalidityClass("booking-date")
-  }
-
-  /**
-   *@description 檢查地址欄位 id: booking-time
-   * @param {string} event
-   */
-  timeForVaccinationFormatCheck = (event) => {
-    this.state.timeForVaccination.length === 0
-      ? this.addInvalidityClass(
-          "booking-time",
-          "*時間欄位不可為空"
-        )
-      : this.removeInvalidityClass("booking-time")
   }
 
   render() {
@@ -461,35 +362,11 @@ class ReservationForm extends Component {
                 name="name"
                 className="input-style required"
                 autoFocus
-                value={this.state.name}
+                value={this.state.fields.name}
                 onChange={this.handleInputChange}
               />
               <p className="padding-l-80 display-none">
                 *項目不可為空
-              </p>
-            </div>
-            <div className="gender-content ">
-              <span className="required-icon">*</span>
-              <input
-                className="gender required"
-                type="radio"
-                name="gender"
-                value="female"
-                checked={this.state.gender === "female"}
-                onChange={this.handleInputChange}
-              />
-              女
-              <input
-                type="radio"
-                name="gender"
-                value="male"
-                className="gender required"
-                checked={this.state.gender === "male"}
-                onChange={this.handleInputChange}
-              />
-              男
-              <p className="padding-t-10 padding-l-50 display-none">
-                *項目不可以為空
               </p>
             </div>
             <div className="identityNumber-content">
@@ -502,7 +379,7 @@ class ReservationForm extends Component {
                 id="identityNumber"
                 name="identityNumber"
                 className="input-style required"
-                value={this.state.identityNumber}
+                value={this.state.fields.identityNumber}
                 onChange={this.handleInputChange}
               />
               <p className="padding-l-130 display-none">
@@ -520,7 +397,7 @@ class ReservationForm extends Component {
                 name="birth"
                 className="input-style required"
                 placeholder="範例: 0800101"
-                value={this.state.birth}
+                value={this.state.fields.birth}
                 onChange={this.handleInputChange}
               />
               <p className="padding-t-20 padding-l-80 display-none">
@@ -530,23 +407,7 @@ class ReservationForm extends Component {
                 *若您生日為民國80年1月1日，請輸入0800101
               </p>
             </div>
-            <div className="address-content">
-              <label htmlFor="address">
-                <span className="required-icon">*</span>
-                聯繫地址
-              </label>
-              <input
-                type="text"
-                id="address"
-                name="address"
-                className="input-style required"
-                value={this.state.address}
-                onChange={this.handleInputChange}
-              />
-              <p className="padding-l-130 display-none">
-                *項目不可以為空
-              </p>
-            </div>
+
             <div className="dayForVaccination-content ">
               <label htmlFor="booking-date">
                 <span className="required-icon">*</span>
@@ -557,24 +418,9 @@ class ReservationForm extends Component {
                 id="booking-date"
                 name="dayForVaccination"
                 className="input-style required"
-                value={this.state.dayForVaccination}
-                onChange={this.handleInputChange}
-              />
-              <p className="padding-l-170 display-none">
-                *項目不可以為空
-              </p>
-            </div>
-            <div className="booking-time-content">
-              <label htmlFor="booking-time">
-                <span className="required-icon">*</span>
-                預約接種時間
-              </label>
-              <input
-                type="time"
-                id="booking-time"
-                name="timeForVaccination"
-                className="input-style required"
-                value={this.state.timeForVaccination}
+                value={
+                  this.state.fields.dayForVaccination
+                }
                 onChange={this.handleInputChange}
               />
               <p className="padding-l-170 display-none">
@@ -592,7 +438,7 @@ class ReservationForm extends Component {
                 id="phone"
                 name="phone"
                 className="input-style required"
-                value={this.state.phone}
+                value={this.state.fields.phone}
                 onChange={this.handleInputChange}
               />
               <p className="padding-l-130 display-none">
@@ -609,7 +455,7 @@ class ReservationForm extends Component {
                 id="vaccine"
                 name="vaccineType"
                 className="input-style required"
-                value={this.state.vaccineType}
+                value={this.state.fields.vaccineType}
                 onChange={this.handleInputChange}
               >
                 <option value="BNT">BNT</option>
@@ -632,7 +478,7 @@ class ReservationForm extends Component {
                 id="remark"
                 name="remark"
                 className="input-style"
-                value={this.state.remark}
+                value={this.state.fields.remark}
                 onChange={this.handleInputChange}
               />
               <p className="fz-16 padding-l-60 ">

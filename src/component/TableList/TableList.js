@@ -7,7 +7,7 @@ import "./TableList.scss"
 
 export class TableList extends Component {
   static defaultProps = {
-    dataList: [],
+    reservedList: [],
     showEditButton: true,
     deleteItem: () => {},
     editItem: () => {},
@@ -16,10 +16,10 @@ export class TableList extends Component {
 
   render() {
     const {
-      props: { dataList },
+      props: { reservedList },
     } = this
 
-    return dataList.length ? (
+    return reservedList.length ? (
       <div className="table-list__wrap margin-0-auto">
         {this.props.children}
         <div className="main margin-l-50 margin-r-50">
@@ -33,6 +33,7 @@ export class TableList extends Component {
                 </td>
                 <td>手機</td>
                 <td>疫苗種類</td>
+                <td className="date">日期</td>
                 <td className="remark">備註</td>
                 {this.props.showEditButton ? (
                   <td className="edit-row">編輯</td>
@@ -40,7 +41,7 @@ export class TableList extends Component {
               </tr>
             </thead>
             <tbody>
-              {this.props.dataList.map((item) => (
+              {this.props.reservedList.map((item) => (
                 <tr
                   data-id={item.identityNumber}
                   key={item.identityNumber}
@@ -50,6 +51,7 @@ export class TableList extends Component {
                   <td>{item.identityNumber}</td>
                   <td>{item.phone}</td>
                   <td>{item.vaccineType}</td>
+                  <td>{item.dayForVaccination}</td>
                   <td>{item.remark}</td>
                   {this.props.showEditButton ? (
                     <td>

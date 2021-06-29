@@ -15,19 +15,22 @@ import ReservationForm from "../ReservationForm/ReservationForm"
 const reservedList = [
   {
     name: "陳某某",
-    birth: "800101",
-    identityNumber: "A123456777",
+    birth: "0790101",
+    identityNumber: "A111111111",
     phone: "0920222999",
     vaccineType: "AZ",
+    dayForVaccination: "2021-06-11",
     remark: "dhhthrjy jdtjktuku fgjnjs",
   },
   {
     name: "王某",
-    birth: "1020701",
-    identityNumber: "H223455432",
-    phone: "0933333333",
+    birth: "0800101",
+    identityNumber: "B222222222",
+    phone: "0920222999",
     vaccineType: "AZ",
-    remark: "dhhthrjy jdtjktuku fgjnjs",
+    dayForVaccination: "2021-06-12",
+    remark:
+      "dhhthrj ydhhthrjy jdtjktuku fgjnjs jdtjktuku fgjnjs",
   },
 ]
 

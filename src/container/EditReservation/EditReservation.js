@@ -91,7 +91,7 @@ class EditReservation extends Component {
           </div>
         </div>
         <TableList
-          dataList={this.props.reservedList}
+          reservedList={this.props.reservedList}
           deleteItem={this.props.deleteItem}
           editItem={this.editItem}
           children={<SearchBar />}
