@@ -10,6 +10,7 @@ export class TableList extends Component {
     dataList: [],
     showEditButton: true,
     deleteItem: () => {},
+    editItem: () => {},
     children: null,
   }
 
@@ -62,6 +63,8 @@ export class TableList extends Component {
                       <button
                         className="margin-l-10 fz-20 edit"
                         id="edit"
+                        data-id={item.identityNumber}
+                        onClick={this.props.editItem}
                       >
                         編輯
                       </button>

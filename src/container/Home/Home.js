@@ -142,6 +142,9 @@ class Home extends Component {
           }
         />
         <ReservationForm
+          title={
+            this.state.pageData.reservationForm.title
+          }
           showElement={
             this.state.currentComponentId ===
             this.state.pageData.reservationForm.id
