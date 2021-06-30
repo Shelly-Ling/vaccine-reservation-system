@@ -52,11 +52,17 @@ class Home extends Component {
     }
   }
 
+  onNavLinkClick = (e) => {
+    const targetId = Number(e.target.id)
+    this.setState({ currentComponentId: targetId })
+    this.changePage(targetId)
+    this.updateReservedListData()
+  }
+
   changePage = (pageId) => {
     this.setState({
       currentComponentId: pageId,
     })
-    this.updateReservedListData()
   }
 
   componentDidMount() {
@@ -103,12 +109,13 @@ class Home extends Component {
 
   updateReservedListData = () => {
     const reservedListData = this.getReservedListData()
+
     this.setState({
       reservedList: reservedListData,
     })
   }
 
-  getReservedListData() {
+  getReservedListData = () => {
     return (
       JSON.parse(localStorage.getItem("reservedList")) ||
       []
@@ -153,6 +160,7 @@ class Home extends Component {
       "reservedList",
       JSON.stringify(newReservedList)
     )
+
     this.updateReservedListData()
   }
 
@@ -160,7 +168,11 @@ class Home extends Component {
     return this.state.pageDataFetchingIsDone ? (
       <div className="home d-flex flex-col justify-content-between">
         <Header
+          currentComponentId={
+            this.state.currentComponentId
+          }
           pageData={this.state.pageData}
+          onNavLinkClick={this.onNavLinkClick}
           changePage={this.changePage}
           updateReservedListData={
             this.updateReservedListData
@@ -171,6 +183,7 @@ class Home extends Component {
           title={
             this.state.pageData.reservationForm.title
           }
+          changePage={this.changePage}
           showElement={
             this.state.currentComponentId ===
             this.state.pageData.reservationForm.id

@@ -4,6 +4,7 @@ import VaccineReservationForm from "../../component/VaccineReservationForm/Vacci
 
 class ReservationForm extends Component {
   static defaultProps = {
+    changePage: () => {},
     pageData: {},
     title: "",
   }
@@ -32,6 +33,7 @@ class ReservationForm extends Component {
         nowPageId={this.state.nowPageId}
         pageData={this.props.pageData}
         title={this.props.title}
+        changePage={this.props.changePage}
         editItem={this.props.editItem}
       />
     ) : null

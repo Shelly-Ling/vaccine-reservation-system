@@ -5,7 +5,9 @@ import React, { Component } from "react"
 class Header extends Component {
   static defaultProps = {
     changePage: () => {},
+    onNavLinkClick: () => {},
     updateReservedListData: () => {},
+    currentComponentId: -1,
     pageData: {
       reservationForm: {
         id: 1,
@@ -28,17 +30,25 @@ class Header extends Component {
     super(props)
 
     this.state = {
-      currentPageId:
-        this.props.pageData.reservationForm.id,
+      currentComponentId: this.props.currentComponentId,
     }
   }
 
-  onNavLinkClick = (e) => {
-    console.log("onNavLinkClick")
-    const targetId = Number(e.target.id)
-    this.setState({ currentPageId: targetId })
-    this.props.changePage(targetId)
-    this.props.updateReservedListData()
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (
+      prevProps.currentComponentId !==
+      this.props.currentComponentId
+    ) {
+      this.setState(
+        {
+          currentComponentId:
+            this.props.currentComponentId,
+        },
+        () => {
+          this.props.updateReservedListData()
+        }
+      )
+    }
   }
 
   render() {
@@ -51,14 +61,16 @@ class Header extends Component {
           <ul className="navbar__btns clearfix">
             <li className="float-left">
               <button
-                onClick={this.onNavLinkClick}
+                onClick={(event) =>
+                  this.props.onNavLinkClick(event)
+                }
                 id={
                   this.props.pageData.reservationForm.id
                 }
                 title="疫苗預約"
                 className={`btn btn-color-pink-gray letter-spacing-5 padding-10 margin-5 border-radius-12 fz-bold fz-20 ${
                   this.props.pageData.reservationForm
-                    .id === this.state.currentPageId
+                    .id === this.props.currentComponentId
                     ? "btn-color-pink-gray-active"
                     : ""
                 }`}
@@ -71,12 +83,14 @@ class Header extends Component {
             </li>
             <li className="float-left">
               <button
-                onClick={this.onNavLinkClick}
+                onClick={(event) =>
+                  this.props.onNavLinkClick(event)
+                }
                 id={this.props.pageData.reservedList.id}
                 title="疫苗預約"
                 className={`btn btn-color-pink-gray letter-spacing-5 padding-10 margin-5 border-radius-12 fz-bold fz-20 ${
                   this.props.pageData.reservedList.id ===
-                  this.state.currentPageId
+                  this.props.currentComponentId
                     ? "btn-color-pink-gray-active"
                     : ""
                 }`}
@@ -86,14 +100,16 @@ class Header extends Component {
             </li>
             <li className="float-left">
               <button
-                onClick={this.onNavLinkClick}
+                onClick={(event) =>
+                  this.props.onNavLinkClick(event)
+                }
                 id={
                   this.props.pageData.editReservation.id
                 }
                 title="疫苗預約"
                 className={`btn btn-color-pink-gray letter-spacing-5 padding-10 margin-5 border-radius-12 fz-bold fz-20 ${
                   this.props.pageData.editReservation
-                    .id === this.state.currentPageId
+                    .id === this.props.currentComponentId
                     ? "btn-color-pink-gray-active"
                     : ""
                 }`}

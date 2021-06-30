@@ -10,6 +10,7 @@ class VaccineReservationForm extends Component {
     updateReservedListData: () => {},
     handleEditItemSubmit: () => {},
     editItem: () => {},
+    changePage: () => {},
   }
   constructor(props) {
     super(props)
@@ -68,22 +69,28 @@ class VaccineReservationForm extends Component {
         JSON.stringify(reservedList)
       )
 
-      console.log("資料提交儲存完成")
       this.props.updateReservedListData()
-      console.log("完成資料獲取更新")
 
-      this.setState({
-        fields: {
-          name: "",
-          birth: "",
-          identityNumber: "",
-          phone: "",
-          vaccineType: "",
-          dayForVaccination: "",
-          remark: "",
+      const nextPageId =
+        this.props.pageData.reservedList.id
+
+      this.setState(
+        {
+          fields: {
+            name: "",
+            birth: "",
+            identityNumber: "",
+            phone: "",
+            vaccineType: "",
+            dayForVaccination: "",
+            remark: "",
+          },
+          formatCheckAllCorrect: false,
         },
-        formatCheckAllCorrect: false,
-      })
+        () => {
+          this.props.changePage(nextPageId)
+        }
+      )
     }
   }
 
