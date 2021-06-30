@@ -7,13 +7,16 @@ import VaccineReservationForm from "../../component/VaccineReservationForm/Vacci
 
 class EditReservation extends Component {
   static defaultProps = {
+    pageData: {},
     deleteItem: () => {},
     handleEditItemSubmit: () => {},
+    updateReservedListData: () => {},
   }
   constructor(props) {
     super(props)
 
     this.state = {
+      nowPageId: -1,
       componentReceiveProps: false,
       reservedList: this.props.reservedList,
       isEditing: true,
@@ -29,7 +32,16 @@ class EditReservation extends Component {
     }
   }
 
-  editItem = (event) => {
+  componentDidMount() {
+    this.setState({
+      nowPageId: this.props.pageData.editReservation.id,
+    })
+  }
+
+  onEditBtnClick = (event) => {
+    console.log("onEditBtnClick")
+    console.log("onEditBtnClick event", event)
+
     const targetParentDom =
       event.target.parentNode.parentNode
 
@@ -39,17 +51,37 @@ class EditReservation extends Component {
       (item) => item.identityNumber === editItemId
     )
 
+    console.log(
+      "onEditBtnClick 點擊時的 userEditingData",
+      this.state.userEditingData
+    )
+
     this.setState(
       {
         userEditingData: { ...data },
       },
       () => {
         console.log(
-          "this.state.userReservationData",
+          "onEditBtnClick setStatec後的回呼 userEditingData",
           this.state.userEditingData
         )
       }
     )
+  }
+
+  clearUserEditingData = () => {
+    console.log("clearUserEditingData>>>>>>>!!!!!!")
+    this.setState({
+      userEditingData: {
+        name: "",
+        birth: "",
+        identityNumber: "",
+        phone: "",
+        vaccineType: "",
+        dayForVaccination: "",
+        remark: "",
+      },
+    })
   }
 
   render() {
@@ -67,15 +99,19 @@ class EditReservation extends Component {
           }`}
         >
           <VaccineReservationForm
+            nowPageId={this.state.nowPageId}
+            pageData={this.props.pageData}
             title="編輯預約資訊表"
             className="margin-0-auto"
-            editItem={this.editItem}
             handleEditItemSubmit={
               this.props.handleEditItemSubmit
             }
             userEditingData={this.state.userEditingData}
-            fillInEditingData={
-              this.props.fillInEditingData
+            clearUserEditingData={
+              this.clearUserEditingData
+            }
+            updateReservedListData={
+              this.props.updateReservedListData
             }
           />
         </div>
@@ -89,7 +125,7 @@ class EditReservation extends Component {
         <TableList
           reservedList={this.props.reservedList}
           deleteItem={this.props.deleteItem}
-          editItem={this.editItem}
+          onEditBtnClick={this.onEditBtnClick}
           children={<SearchBar />}
         />
       </div>

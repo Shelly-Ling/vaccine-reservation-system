@@ -4,7 +4,22 @@ import VaccineReservationForm from "../../component/VaccineReservationForm/Vacci
 
 class ReservationForm extends Component {
   static defaultProps = {
+    pageData: {},
     title: "",
+  }
+
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      nowPageId: -1,
+    }
+  }
+
+  componentDidMount() {
+    this.setState({
+      nowPageId: this.props.pageData.reservationForm.id,
+    })
   }
 
   render() {
@@ -14,6 +29,8 @@ class ReservationForm extends Component {
 
     return showElement ? (
       <VaccineReservationForm
+        nowPageId={this.state.nowPageId}
+        pageData={this.props.pageData}
         title={this.props.title}
         editItem={this.props.editItem}
       />

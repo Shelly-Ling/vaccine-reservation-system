@@ -135,10 +135,28 @@ class Home extends Component {
   }
 
   handleEditItemSubmit = (data) => {
+    console.log("handleEditItemSubmit run")
     console.log(
-      "handleEditItemSubmit data >>>XXXXXX ",
-      data
+      "handleEditItemSubmit identityNumber >>>XXXXXX ",
+      data.identityNumber
     )
+    let newReservedList = []
+
+    reservedList.map((item) => {
+      if (item.identityNumber === data.identityNumber) {
+        newReservedList.push(data)
+      } else {
+        newReservedList.push(item)
+      }
+    })
+
+    console.log("newReservedList array", newReservedList)
+
+    localStorage.setItem(
+      "reservedList",
+      JSON.stringify(newReservedList)
+    )
+    this.getReservedListData()
   }
 
   render() {
@@ -152,6 +170,7 @@ class Home extends Component {
           }
         />
         <ReservationForm
+          pageData={this.state.pageData}
           title={
             this.state.pageData.reservationForm.title
           }
@@ -171,12 +190,16 @@ class Home extends Component {
           }
         />
         <EditReservation
+          pageData={this.state.pageData}
           deleteItem={this.deleteItem}
           reservedList={this.state.reservedList}
           handleEditItemSubmit={this.handleEditItemSubmit}
           showElement={
             this.state.currentComponentId ===
             this.state.pageData.editReservation.id
+          }
+          updateReservedListData={
+            this.updateReservedListData
           }
         />
         <Footer />

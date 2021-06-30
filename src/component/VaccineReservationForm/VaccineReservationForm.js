@@ -1,9 +1,12 @@
 import React, { Component } from "react"
 import "./VaccineReservationForm.scss"
-class ReservationForm extends Component {
+class VaccineReservationForm extends Component {
   static defaultProps = {
+    nowPageId: -1,
+    pageData: {},
     title: "",
     userEditingData: {},
+    clearUserEditingData: () => {},
     updateReservedListData: () => {},
     handleEditItemSubmit: () => {},
     editItem: () => {},
@@ -30,9 +33,14 @@ class ReservationForm extends Component {
       prevProps.userEditingData.name !==
       this.props.userEditingData.name
     ) {
-      this.setState({
-        fields: { ...this.props.userEditingData },
-      })
+      this.setState(
+        {
+          fields: { ...this.props.userEditingData },
+        },
+        () => {
+          this.AllFormatCheck()
+        }
+      )
     }
   }
 
@@ -40,9 +48,9 @@ class ReservationForm extends Component {
    * @description 預約表單提交，更新 localStorage 的 reservedList
    * @param {submit} event
    */
-  onSubmitBtnClick = (event) => {
+  onReserveSubmitBtnClick = (event) => {
     event.preventDefault()
-    this.formatCheck()
+    this.AllFormatCheck(event)
 
     if (this.state.formatCheckAllCorrect) {
       //資料提交
@@ -76,11 +84,43 @@ class ReservationForm extends Component {
           dayForVaccination: "",
           remark: "",
         },
+        formatCheckAllCorrect: false,
       })
     }
   }
 
-  formatCheck = (event) => {
+  onEditSubmitBtnClick = (event) => {
+    event.preventDefault()
+    this.AllFormatCheck(event)
+
+    if (this.state.formatCheckAllCorrect) {
+      //資料提交
+      const data = { ...this.state.fields }
+
+      this.props.handleEditItemSubmit(data)
+      // this.props.clearUserEditingData()
+
+      this.setState(
+        {
+          fields: {
+            name: "",
+            birth: "",
+            identityNumber: "",
+            phone: "",
+            vaccineType: "",
+            dayForVaccination: "",
+            remark: "",
+          },
+          formatCheckAllCorrect: false,
+        },
+        () => {
+          this.props.clearUserEditingData()
+        }
+      )
+    }
+  }
+
+  AllFormatCheck = (event) => {
     if (this.state.formatCheckAllCorrect === false) {
       this.nameFormatCheck(event)
       this.phoneFormatCheck(event)
@@ -118,7 +158,15 @@ class ReservationForm extends Component {
         this.setState({
           formatCheckAllCorrect: true,
         })
+      } else {
+        this.setState({
+          formatCheckAllCorrect: false,
+        })
       }
+    } else {
+      this.setState({
+        formatCheckAllCorrect: false,
+      })
     }
   }
 
@@ -127,6 +175,8 @@ class ReservationForm extends Component {
    * @param {string} event
    */
   handleInputChange = (event) => {
+    this.AllFormatCheck(event)
+
     const { target } = event
     const name = target.name
 
@@ -135,14 +185,9 @@ class ReservationForm extends Component {
         ? target.checked
         : target.value
 
-    this.setState(
-      {
-        fields: { ...this.state.fields, [name]: value },
-      },
-      () => {
-        this.formatCheck(event)
-      }
-    )
+    this.setState({
+      fields: { ...this.state.fields, [name]: value },
+    })
   }
 
   /**
@@ -414,6 +459,22 @@ class ReservationForm extends Component {
     }
   }
 
+  determineSubmitFunction = (event) => {
+    const reservationFormPageId =
+      this.props.pageData.reservationForm.id
+
+    const editReservationPageId =
+      this.props.pageData.editReservation.id
+
+    if (this.props.nowPageId === reservationFormPageId) {
+      return this.onReserveSubmitBtnClick(event)
+    } else if (
+      this.props.nowPageId === editReservationPageId
+    ) {
+      return this.onEditSubmitBtnClick(event)
+    }
+  }
+
   render() {
     return (
       <div className="reservation-form__wrap">
@@ -426,7 +487,9 @@ class ReservationForm extends Component {
         </span>
 
         <form
-          onSubmit={this.onSubmitBtnClick}
+          onSubmit={(event) =>
+            this.determineSubmitFunction(event)
+          }
           className="form"
           id="form"
           action=""
@@ -584,4 +647,4 @@ class ReservationForm extends Component {
   }
 }
 
-export default ReservationForm
+export default VaccineReservationForm

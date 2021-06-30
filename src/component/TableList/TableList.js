@@ -10,7 +10,7 @@ export class TableList extends Component {
     reservedList: [],
     showEditButton: true,
     deleteItem: () => {},
-    editItem: () => {},
+    onEditBtnClick: () => {},
     children: null,
   }
 
@@ -66,7 +66,9 @@ export class TableList extends Component {
                         className="margin-l-10 fz-20 edit"
                         id="edit"
                         data-id={item.identityNumber}
-                        onClick={this.props.editItem}
+                        onClick={
+                          this.props.onEditBtnClick
+                        }
                       >
                         編輯
                       </button>
