@@ -61,8 +61,6 @@ class VaccineReservationForm extends Component {
           localStorage.getItem("reservedList")
         ) || []
 
-      console.log("reservedList", reservedList)
-
       reservedList.unshift(data)
 
       localStorage.setItem(
@@ -98,7 +96,6 @@ class VaccineReservationForm extends Component {
       const data = { ...this.state.fields }
 
       this.props.handleEditItemSubmit(data)
-      // this.props.clearUserEditingData()
 
       this.setState(
         {
@@ -185,9 +182,14 @@ class VaccineReservationForm extends Component {
         ? target.checked
         : target.value
 
-    this.setState({
-      fields: { ...this.state.fields, [name]: value },
-    })
+    this.setState(
+      {
+        fields: { ...this.state.fields, [name]: value },
+      },
+      () => {
+        this.AllFormatCheck(event)
+      }
+    )
   }
 
   /**
@@ -476,6 +478,9 @@ class VaccineReservationForm extends Component {
   }
 
   render() {
+    const editReservationPageId =
+      this.props.pageData.editReservation.id
+
     return (
       <div className="reservation-form__wrap">
         <h1 className="title fz-30 fz-bold padding-t-30 display-inline-block padding-l-20">
@@ -526,6 +531,10 @@ class VaccineReservationForm extends Component {
                 className="input-style required"
                 value={this.state.fields.identityNumber}
                 onChange={this.handleInputChange}
+                disabled={
+                  this.props.nowPageId ===
+                  editReservationPageId
+                }
               />
               <p className="padding-l-130 display-none">
                 *項目不可以為空

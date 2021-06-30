@@ -135,14 +135,13 @@ class Home extends Component {
   }
 
   handleEditItemSubmit = (data) => {
-    console.log("handleEditItemSubmit run")
-    console.log(
-      "handleEditItemSubmit identityNumber >>>XXXXXX ",
-      data.identityNumber
+    const localReservedList = JSON.parse(
+      localStorage.getItem("reservedList")
     )
+
     let newReservedList = []
 
-    reservedList.map((item) => {
+    localReservedList.map((item) => {
       if (item.identityNumber === data.identityNumber) {
         newReservedList.push(data)
       } else {
@@ -150,13 +149,11 @@ class Home extends Component {
       }
     })
 
-    console.log("newReservedList array", newReservedList)
-
     localStorage.setItem(
       "reservedList",
       JSON.stringify(newReservedList)
     )
-    this.getReservedListData()
+    this.updateReservedListData()
   }
 
   render() {

@@ -8,6 +8,7 @@ import VaccineReservationForm from "../../component/VaccineReservationForm/Vacci
 class EditReservation extends Component {
   static defaultProps = {
     pageData: {},
+    reservedList: [],
     deleteItem: () => {},
     handleEditItemSubmit: () => {},
     updateReservedListData: () => {},
@@ -38,10 +39,17 @@ class EditReservation extends Component {
     })
   }
 
-  onEditBtnClick = (event) => {
-    console.log("onEditBtnClick")
-    console.log("onEditBtnClick event", event)
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (
+      prevState.reservedList !== this.state.reservedList
+    ) {
+      this.setState({
+        reservedList: this.props.reservedList,
+      })
+    }
+  }
 
+  onEditBtnClick = (event) => {
     const targetParentDom =
       event.target.parentNode.parentNode
 
@@ -51,26 +59,12 @@ class EditReservation extends Component {
       (item) => item.identityNumber === editItemId
     )
 
-    console.log(
-      "onEditBtnClick 點擊時的 userEditingData",
-      this.state.userEditingData
-    )
-
-    this.setState(
-      {
-        userEditingData: { ...data },
-      },
-      () => {
-        console.log(
-          "onEditBtnClick setStatec後的回呼 userEditingData",
-          this.state.userEditingData
-        )
-      }
-    )
+    this.setState({
+      userEditingData: { ...data },
+    })
   }
 
   clearUserEditingData = () => {
-    console.log("clearUserEditingData>>>>>>>!!!!!!")
     this.setState({
       userEditingData: {
         name: "",
