@@ -8,6 +8,7 @@ import VaccineReservationForm from "../../component/VaccineReservationForm/Vacci
 class EditReservation extends Component {
   static defaultProps = {
     deleteItem: () => {},
+    handleEditItemSubmit: () => {},
   }
   constructor(props) {
     super(props)
@@ -21,31 +22,23 @@ class EditReservation extends Component {
         birth: "",
         identityNumber: "",
         phone: "",
-        address: "",
-        dayForVaccination: "",
-        timeForVaccination: "",
         vaccineType: "",
+        dayForVaccination: "",
         remark: "",
-        gender: "",
       },
     }
   }
 
   editItem = (event) => {
-    console.log("editItem")
-    console.log(
-      "event.target.dataset",
-      event.target.dataset
-    )
     const targetParentDom =
       event.target.parentNode.parentNode
 
     const editItemId = targetParentDom.dataset.id
 
-    const data = this.props.reservedList.filter(
+    const data = this.props.reservedList.find(
       (item) => item.identityNumber === editItemId
     )
-    console.log("data editItem", data)
+
     this.setState(
       {
         userEditingData: { ...data },
@@ -77,6 +70,9 @@ class EditReservation extends Component {
             title="編輯預約資訊表"
             className="margin-0-auto"
             editItem={this.editItem}
+            handleEditItemSubmit={
+              this.props.handleEditItemSubmit
+            }
             userEditingData={this.state.userEditingData}
             fillInEditingData={
               this.props.fillInEditingData

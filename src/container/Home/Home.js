@@ -134,6 +134,13 @@ class Home extends Component {
     })
   }
 
+  handleEditItemSubmit = (data) => {
+    console.log(
+      "handleEditItemSubmit data >>>XXXXXX ",
+      data
+    )
+  }
+
   render() {
     return this.state.pageDataFetchingIsDone ? (
       <div className="home d-flex flex-col justify-content-between">
@@ -166,6 +173,7 @@ class Home extends Component {
         <EditReservation
           deleteItem={this.deleteItem}
           reservedList={this.state.reservedList}
+          handleEditItemSubmit={this.handleEditItemSubmit}
           showElement={
             this.state.currentComponentId ===
             this.state.pageData.editReservation.id
