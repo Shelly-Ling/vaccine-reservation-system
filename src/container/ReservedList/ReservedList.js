@@ -4,17 +4,53 @@ import TableList from "../../component/TableList/TableList"
 import SearchBar from "../../component/SearchBar/SearchBar"
 
 class ReservedList extends Component {
+  static defaultProps = {
+    reservedList: [],
+    pageName: "",
+  }
   constructor(props) {
     super(props)
 
     this.state = {
       reservedList: this.props.reservedList,
+      filterReservedList: [],
+      searchKeyword: "",
+      conditionSelect: "",
+    }
+  }
+
+  filterListBySearch = (keyword, conditionSelect) => {
+    console.log(keyword, conditionSelect)
+
+    if (keyword.length === 0) {
+      alert("請輸入關鍵字")
+    } else if (
+      keyword.length !== 0 &&
+      conditionSelect.length === 0
+    ) {
+      alert("請選擇條件")
+    } else {
+      const filterReservedList =
+        this.props.reservedList.filter((item) => {
+          return item[conditionSelect].match(keyword)
+        })
+
+      this.setState({
+        searchKeyword: keyword,
+        conditionSelect: conditionSelect,
+        reservedList: filterReservedList,
+      })
+
+      console.log(
+        "filterReservedList",
+        filterReservedList
+      )
     }
   }
 
   render() {
     const {
-      props: { showElement, pageName },
+      props: { showElement },
     } = this
 
     return showElement ? (
@@ -43,8 +79,16 @@ class ReservedList extends Component {
           </div>
         </div>
         <TableList
-          children={<SearchBar />}
-          reservedList={this.props.reservedList}
+          children={
+            <SearchBar
+              filterListBySearch={this.filterListBySearch}
+            />
+          }
+          reservedList={
+            this.state.filterReservedList.length !== 0
+              ? this.state.filterReservedList
+              : this.props.reservedList
+          }
           showEditButton={
             this.props.pageName === "reserved-list"
               ? false
