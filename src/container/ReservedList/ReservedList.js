@@ -28,6 +28,10 @@ class ReservedList extends Component {
           return item[conditionSelect].match(keyword)
         })
 
+      if (filterReservedList.length === 0) {
+        alert("搜尋結果為 0 個")
+      }
+
       this.setState({
         filterReservedList: filterReservedList,
       })

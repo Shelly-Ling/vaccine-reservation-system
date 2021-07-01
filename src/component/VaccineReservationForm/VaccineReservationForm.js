@@ -133,30 +133,13 @@ class VaccineReservationForm extends Component {
       this.vaccineTypeFormatCheck(event)
       this.dayForVaccinationFormatCheck(event)
 
-      const nameCheckBoolean = this.nameFormatCheck(event)
-
-      const phoneCheckBoolean =
-        this.phoneFormatCheck(event)
-
-      const birthCheckBoolean =
-        this.birthFormatCheck(event)
-
-      const identityCheckBoolean =
-        this.identityNumberFormatCheck(event)
-
-      const vaccineTypeCheckBoolean =
-        this.vaccineTypeFormatCheck(event)
-
-      const dayForVaccinationCheckBoolean =
-        this.dayForVaccinationFormatCheck(event)
-
       const formatCheckIsDone =
-        nameCheckBoolean &&
-        phoneCheckBoolean &&
-        birthCheckBoolean &&
-        identityCheckBoolean &&
-        vaccineTypeCheckBoolean &&
-        dayForVaccinationCheckBoolean
+        this.nameFormatCheck(event) &&
+        this.phoneFormatCheck(event) &&
+        this.birthFormatCheck(event) &&
+        this.identityNumberFormatCheck(event) &&
+        this.vaccineTypeFormatCheck(event) &&
+        this.dayForVaccinationFormatCheck(event)
 
       if (formatCheckIsDone) {
         this.setState({
@@ -242,7 +225,7 @@ class VaccineReservationForm extends Component {
   nameFormatCheck = (event) => {
     //若姓名欄位為空，加上報錯 class，反之移除報錯 class
 
-    if (this.state.fields.name.length) {
+    if (this.state.fields.name !== "") {
       this.removeInvalidityClass(
         "name",
         "*姓名欄位不可為空"

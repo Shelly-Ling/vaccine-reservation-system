@@ -122,6 +122,7 @@ class Home extends Component {
     )
   }
   deleteItem = (event) => {
+    console.log("deleteItem  event.target", event.target)
     const targetParentDom =
       event.target.parentNode.parentNode
 

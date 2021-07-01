@@ -21,6 +21,11 @@ class EditReservation extends Component {
       componentReceiveProps: false,
       reservedList: this.props.reservedList,
       isEditing: true,
+      filterReservedList: [],
+      keywordFromSearchBar: {
+        searchKeyword: "",
+        conditionSelect: "",
+      },
       userEditingData: {
         name: "",
         birth: "",
@@ -30,7 +35,6 @@ class EditReservation extends Component {
         dayForVaccination: "",
         remark: "",
       },
-      filterReservedList: [],
     }
   }
 
@@ -42,11 +46,28 @@ class EditReservation extends Component {
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (
-      prevState.reservedList !== this.state.reservedList
+      prevProps.reservedList !== this.props.reservedList
     ) {
-      this.setState({
-        reservedList: this.props.reservedList,
-      })
+      this.setState(
+        {
+          reservedList: this.props.reservedList,
+        },
+        () => {
+          this.updateFilterListBySearch()
+        }
+      )
+    }
+  }
+
+  updateFilterListBySearch = () => {
+    const { searchKeyword, conditionSelect } =
+      this.state.keywordFromSearchBar
+
+    if (searchKeyword && conditionSelect) {
+      this.filterListBySearch(
+        searchKeyword,
+        conditionSelect
+      )
     }
   }
 
@@ -79,6 +100,15 @@ class EditReservation extends Component {
     })
   }
 
+  clearKeywordFromSearchBar = () => {
+    this.setState({
+      keywordFromSearchBar: {
+        searchKeyword: "",
+        conditionSelect: "",
+      },
+    })
+  }
+
   filterListBySearch = (keyword, conditionSelect) => {
     if (keyword === "") {
       alert("請輸入關鍵字")
@@ -92,7 +122,15 @@ class EditReservation extends Component {
 
       this.setState({
         filterReservedList: filterReservedList,
+        keywordFromSearchBar: {
+          searchKeyword: keyword,
+          conditionSelect: conditionSelect,
+        },
       })
+
+      if (filterReservedList.length === 0) {
+        alert("搜尋結果為 0 個")
+      }
     }
   }
 
@@ -151,6 +189,9 @@ class EditReservation extends Component {
           searchBarComponent={
             <SearchBar
               filterListBySearch={this.filterListBySearch}
+              clearKeywordFromSearchBar={
+                this.clearKeywordFromSearchBar
+              }
               clearFilterReservedList={
                 this.clearFilterReservedList
               }

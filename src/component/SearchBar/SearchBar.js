@@ -9,6 +9,7 @@ export class SearchBar extends Component {
   static defaultProps = {
     filterListBySearch: () => {},
     clearFilterReservedList: () => {},
+    clearKeywordFromSearchBar: () => {},
   }
   constructor(props) {
     super(props)
@@ -18,9 +19,14 @@ export class SearchBar extends Component {
     }
   }
 
+  componentWillUnmount() {
+    this.props.clearFilterReservedList()
+    this.props.clearKeywordFromSearchBar()
+  }
+
   handleSearchSubmit = (event) => {
     event.preventDefault()
-    const keyword = this.state.searchKeyword
+    const keyword = this.state.searchKeyword.trim()
     const conditionSelect = this.state.conditionSelect
     this.props.filterListBySearch(
       keyword,
@@ -47,6 +53,7 @@ export class SearchBar extends Component {
       },
       () => {
         this.props.clearFilterReservedList()
+        this.props.clearKeywordFromSearchBar()
       }
     )
   }
@@ -63,7 +70,7 @@ export class SearchBar extends Component {
               className="padding-r-20"
               htmlFor="search-input"
             >
-              條件搜尋
+              關鍵字搜尋
             </label>
             <input
               type="text"
