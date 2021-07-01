@@ -11,7 +11,7 @@ export class TableList extends Component {
     showEditButton: true,
     deleteItem: () => {},
     onEditBtnClick: () => {},
-    children: null,
+    searchBarComponent: null,
   }
 
   render() {
@@ -21,7 +21,7 @@ export class TableList extends Component {
 
     return reservedList.length ? (
       <div className="table-list__wrap margin-0-auto">
-        {this.props.children}
+        {this.props.searchBarComponent}
         <div className="main margin-l-50 margin-r-50">
           <table className="table-border-less table-striped-pink-gray">
             <thead>

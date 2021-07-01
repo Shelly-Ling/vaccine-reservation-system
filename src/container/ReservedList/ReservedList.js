@@ -14,20 +14,13 @@ class ReservedList extends Component {
     this.state = {
       reservedList: this.props.reservedList,
       filterReservedList: [],
-      searchKeyword: "",
-      conditionSelect: "",
     }
   }
 
   filterListBySearch = (keyword, conditionSelect) => {
-    console.log(keyword, conditionSelect)
-
-    if (keyword.length === 0) {
+    if (keyword === "") {
       alert("請輸入關鍵字")
-    } else if (
-      keyword.length !== 0 &&
-      conditionSelect.length === 0
-    ) {
+    } else if (keyword !== "" && conditionSelect === "") {
       alert("請選擇條件")
     } else {
       const filterReservedList =
@@ -36,16 +29,15 @@ class ReservedList extends Component {
         })
 
       this.setState({
-        searchKeyword: keyword,
-        conditionSelect: conditionSelect,
-        reservedList: filterReservedList,
+        filterReservedList: filterReservedList,
       })
-
-      console.log(
-        "filterReservedList",
-        filterReservedList
-      )
     }
+  }
+
+  clearFilterReservedList = () => {
+    this.setState({
+      filterReservedList: [],
+    })
   }
 
   render() {
@@ -79,11 +71,6 @@ class ReservedList extends Component {
           </div>
         </div>
         <TableList
-          children={
-            <SearchBar
-              filterListBySearch={this.filterListBySearch}
-            />
-          }
           reservedList={
             this.state.filterReservedList.length !== 0
               ? this.state.filterReservedList
@@ -93,6 +80,14 @@ class ReservedList extends Component {
             this.props.pageName === "reserved-list"
               ? false
               : true
+          }
+          searchBarComponent={
+            <SearchBar
+              filterListBySearch={this.filterListBySearch}
+              clearFilterReservedList={
+                this.clearFilterReservedList
+              }
+            />
           }
         />
       </div>

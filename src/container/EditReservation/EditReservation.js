@@ -30,6 +30,7 @@ class EditReservation extends Component {
         dayForVaccination: "",
         remark: "",
       },
+      filterReservedList: [],
     }
   }
 
@@ -78,6 +79,29 @@ class EditReservation extends Component {
     })
   }
 
+  filterListBySearch = (keyword, conditionSelect) => {
+    if (keyword === "") {
+      alert("請輸入關鍵字")
+    } else if (keyword !== "" && conditionSelect === "") {
+      alert("請選擇條件")
+    } else {
+      const filterReservedList =
+        this.props.reservedList.filter((item) => {
+          return item[conditionSelect].match(keyword)
+        })
+
+      this.setState({
+        filterReservedList: filterReservedList,
+      })
+    }
+  }
+
+  clearFilterReservedList = () => {
+    this.setState({
+      filterReservedList: [],
+    })
+  }
+
   render() {
     const {
       props: { showElement },
@@ -117,10 +141,21 @@ class EditReservation extends Component {
           </div>
         </div>
         <TableList
-          reservedList={this.props.reservedList}
           deleteItem={this.props.deleteItem}
           onEditBtnClick={this.onEditBtnClick}
-          children={<SearchBar />}
+          reservedList={
+            this.state.filterReservedList.length !== 0
+              ? this.state.filterReservedList
+              : this.props.reservedList
+          }
+          searchBarComponent={
+            <SearchBar
+              filterListBySearch={this.filterListBySearch}
+              clearFilterReservedList={
+                this.clearFilterReservedList
+              }
+            />
+          }
         />
       </div>
     ) : null
