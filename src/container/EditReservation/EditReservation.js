@@ -20,7 +20,7 @@ class EditReservation extends Component {
       nowPageId: -1,
       componentReceiveProps: false,
       reservedList: this.props.reservedList,
-      isEditing: true,
+      isEditing: false,
       filterReservedList: [],
       keywordFromSearchBar: {
         searchKeyword: "",
@@ -83,6 +83,13 @@ class EditReservation extends Component {
 
     this.setState({
       userEditingData: { ...data },
+      isEditing: true,
+    })
+  }
+
+  changeIsEditingState = () => {
+    this.setState({
+      isEditing: false,
     })
   }
 
@@ -147,30 +154,6 @@ class EditReservation extends Component {
 
     return showElement ? (
       <div className="edit-reservation__wrap padding-b-30">
-        <div
-          className={`modal edit-modal margin-r-50 margin-l-50 margin-b-20 padding-10 border-radius-50 ${
-            this.state.isEditing
-              ? "display-block"
-              : "display-none"
-          }`}
-        >
-          <VaccineReservationForm
-            nowPageId={this.state.nowPageId}
-            pageData={this.props.pageData}
-            title="編輯預約資訊表"
-            className="margin-0-auto"
-            handleEditItemSubmit={
-              this.props.handleEditItemSubmit
-            }
-            userEditingData={this.state.userEditingData}
-            clearUserEditingData={
-              this.clearUserEditingData
-            }
-            updateReservedListData={
-              this.props.updateReservedListData
-            }
-          />
-        </div>
         <div className="d-flex justify-content-center align-self-center">
           <div className="info padding-t-30 padding-b-30 padding-l-20">
             <h1 className="title fz-30 fz-bold padding-b-20">
@@ -198,6 +181,33 @@ class EditReservation extends Component {
             />
           }
         />
+        <div
+          className={`modal edit-modal margin-r-50 margin-l-50 margin-b-20 padding-10 border-radius-50 ${
+            this.state.isEditing
+              ? "display-block"
+              : "display-none"
+          }`}
+        >
+          <VaccineReservationForm
+            nowPageId={this.state.nowPageId}
+            pageData={this.props.pageData}
+            title="編輯預約資訊表"
+            className="margin-0-auto"
+            handleEditItemSubmit={
+              this.props.handleEditItemSubmit
+            }
+            changeIsEditingState={
+              this.changeIsEditingState
+            }
+            userEditingData={this.state.userEditingData}
+            clearUserEditingData={
+              this.clearUserEditingData
+            }
+            updateReservedListData={
+              this.props.updateReservedListData
+            }
+          />
+        </div>
       </div>
     ) : null
   }

@@ -9,6 +9,7 @@ class VaccineReservationForm extends Component {
     clearUserEditingData: () => {},
     updateReservedListData: () => {},
     handleEditItemSubmit: () => {},
+    changeIsEditingState: () => {},
     editItem: () => {},
     changePage: () => {},
   }
@@ -102,6 +103,7 @@ class VaccineReservationForm extends Component {
       //資料提交
       const data = { ...this.state.fields }
 
+      this.props.changeIsEditingState()
       this.props.handleEditItemSubmit(data)
 
       this.setState(
