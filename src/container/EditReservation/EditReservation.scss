@@ -8,6 +8,17 @@
   .info {
     width: 90%;
   }
+
+  .modal {
+    background-color: $gray-200;
+    border: 10px solid $pink-200;
+    position: absolute;
+    z-index: 1;
+    top: 15%;
+    right: 10%;
+    left: 10%;
+    bottom: 5%;
+  }
 }
 @media (min-width: 768px) {
   .info {
@@ -20,5 +31,8 @@
   .info {
     max-width: 1300px;
     margin: 0 auto;
+  }
+  .modal {
+    max-width: 1000px;
   }
 }

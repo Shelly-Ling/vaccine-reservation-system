@@ -182,7 +182,7 @@ class EditReservation extends Component {
           }
         />
         <div
-          className={`modal edit-modal margin-r-50 margin-l-50 margin-b-20 padding-10 border-radius-50 ${
+          className={`modal edit-modal margin-0-auto padding-10 border-radius-50 ${
             this.state.isEditing
               ? "display-block"
               : "display-none"
