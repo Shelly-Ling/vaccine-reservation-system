@@ -49,15 +49,16 @@ select {
 //表單內部排版
 //========================================
 .reservation-form__wrap {
+  min-width: 500px;
   margin-bottom: 30px;
 }
 
 .input-list {
+  padding-left: 20px;
+
   div {
     padding-top: 20px;
-    display: flex;
     justify-content: space-between;
-    position: relative;
     z-index: 0;
 
     label {
@@ -66,51 +67,11 @@ select {
       line-height: 40px;
       text-align: center;
     }
-
+    .name,
     .invalidity-text {
-      // display: block;
       font-size: 16px;
       color: $red-600;
-      position: static;
-      z-index: 1;
     }
-  }
-
-  .gender-content {
-    padding-top: unset;
-    margin-top: 50px;
-    width: 350px;
-    padding-left: 170px;
-  }
-
-  .birthday-content {
-    position: relative;
-    z-index: 0;
-    padding-bottom: 25px;
-    p {
-      position: absolute;
-      z-index: 1;
-      top: 60px;
-      right: 0px;
-    }
-  }
-
-  .remark-content {
-    position: relative;
-    z-index: 0;
-    padding-bottom: 25px;
-    p {
-      position: absolute;
-      z-index: 1;
-      top: 60px;
-      right: 0px;
-    }
-  }
-
-  .btn-submit {
-    text-align: center;
-    //想要設定提交按鈕寬度滿版不成功
-    // width: 100%;
   }
 }
 
@@ -119,6 +80,7 @@ select {
   //表單全域設定
   //========================================
   .reservation-form__wrap {
+    min-width: 775px;
     h1 {
       font-size: 35px;
     }
@@ -152,21 +114,13 @@ select {
     div {
       padding-top: 50px;
       display: inline-block;
+      p {
+        padding-left: 170px;
+      }
     }
 
     .name-content {
       grid-area: name;
-    }
-
-    .gender-content {
-      grid-area: gender;
-      width: 150px;
-      text-align: center;
-      padding-left: 0;
-      input {
-        width: auto;
-        margin-left: 20px;
-      }
     }
 
     .identityNumber-content {
@@ -175,9 +129,6 @@ select {
 
     .birthday-content {
       grid-area: birthday;
-      p {
-        position: static;
-      }
     }
 
     .dayForVaccination-content {
@@ -199,9 +150,6 @@ select {
       grid-area: remark;
       input {
         width: 450px;
-      }
-      p {
-        position: static;
       }
     }
   }
@@ -229,15 +177,6 @@ select {
   .input-list {
     div {
       padding-top: 50px;
-
-      .invalidity-text {
-        position: absolute;
-        // z-index: 1;
-      }
-    }
-
-    .gender-content {
-      width: 200px;
     }
 
     .vaccine-content {

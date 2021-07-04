@@ -494,7 +494,10 @@ class VaccineReservationForm extends Component {
         >
           <div className="input-list">
             <div className="name-content">
-              <label htmlFor="name">
+              <label
+                htmlFor="name"
+                className="margin-r-40 margin-l-40"
+              >
                 <span className="required-icon">*</span>
                 姓名
               </label>
@@ -502,17 +505,20 @@ class VaccineReservationForm extends Component {
                 type="text"
                 id="name"
                 name="name"
-                className="input-style required"
+                className="name input-style required"
                 autoFocus
                 value={this.state.fields.name}
                 onChange={this.handleInputChange}
               />
-              <p className="padding-l-80 display-none">
+              <p className="padding-l-140 display-none">
                 *項目不可為空
               </p>
             </div>
             <div className="identityNumber-content">
-              <label htmlFor="identityNumber">
+              <label
+                htmlFor="identityNumber"
+                className="margin-r-20 margin-l-20"
+              >
                 <span className="required-icon">*</span>
                 身份證號
               </label>
@@ -528,12 +534,15 @@ class VaccineReservationForm extends Component {
                   editReservationPageId
                 }
               />
-              <p className="padding-l-130 display-none">
+              <p className="padding-l-140 display-none">
                 *項目不可以為空
               </p>
             </div>
             <div className="birth-content">
-              <label htmlFor="birth">
+              <label
+                htmlFor="birth"
+                className="margin-r-40 margin-l-40"
+              >
                 <span className="required-icon">*</span>
                 生日
               </label>
@@ -546,10 +555,10 @@ class VaccineReservationForm extends Component {
                 value={this.state.fields.birth}
                 onChange={this.handleInputChange}
               />
-              <p className="padding-t-20 padding-l-80 display-none">
+              <p className="padding-l-140 display-none">
                 *項目不可以為空
               </p>
-              <p className="fz-16 padding-l-80">
+              <p className="fz-16 padding-l-140">
                 *若您生日為民國80年1月1日，請輸入0800101
               </p>
             </div>
@@ -569,13 +578,16 @@ class VaccineReservationForm extends Component {
                 }
                 onChange={this.handleInputChange}
               />
-              <p className="padding-l-170 display-none">
+              <p className="padding-l-140 display-none">
                 *項目不可以為空
               </p>
             </div>
 
             <div className="phone-content">
-              <label htmlFor="phone">
+              <label
+                htmlFor="phone"
+                className="margin-r-20 margin-l-20"
+              >
                 <span className="required-icon">*</span>
                 手機號碼
               </label>
@@ -587,7 +599,7 @@ class VaccineReservationForm extends Component {
                 value={this.state.fields.phone}
                 onChange={this.handleInputChange}
               />
-              <p className="padding-l-130 display-none">
+              <p className="padding-l-140 display-none">
                 *項目不可以為空
               </p>
             </div>
@@ -614,12 +626,17 @@ class VaccineReservationForm extends Component {
                 </option>
                 <option value="科興">科興</option>
               </select>
-              <p className="padding-l-170 display-none">
+              <p className="padding-l-140 display-none">
                 *項目不可以為空
               </p>
             </div>
             <div className="remark-content">
-              <label htmlFor="remark">備註</label>
+              <label
+                htmlFor="remark"
+                className="margin-r-50 margin-l-50"
+              >
+                備註
+              </label>
               <input
                 type="text"
                 id="remark"
@@ -628,7 +645,7 @@ class VaccineReservationForm extends Component {
                 value={this.state.fields.remark}
                 onChange={this.handleInputChange}
               />
-              <p className="fz-16 padding-l-60 ">
+              <p className="fz-16 padding-l-140">
                 *有藥物過敏或特殊病史請填寫備註
               </p>
             </div>
