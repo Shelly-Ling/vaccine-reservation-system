@@ -227,7 +227,7 @@ class VaccineReservationForm extends Component {
   nameFormatCheck = (event) => {
     //若姓名欄位為空，加上報錯 class，反之移除報錯 class
 
-    if (this.state.fields.name !== "") {
+    if (this.state.fields.name) {
       this.removeInvalidityClass(
         "name",
         "*姓名欄位不可為空"

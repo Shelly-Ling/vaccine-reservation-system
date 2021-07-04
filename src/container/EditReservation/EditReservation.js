@@ -119,7 +119,7 @@ class EditReservation extends Component {
   filterListBySearch = (keyword, conditionSelect) => {
     if (keyword === "") {
       alert("請輸入關鍵字")
-    } else if (keyword !== "" && conditionSelect === "") {
+    } else if (keyword && conditionSelect === "") {
       alert("請選擇條件")
     } else {
       const filterReservedList =
@@ -165,7 +165,7 @@ class EditReservation extends Component {
           deleteItem={this.props.deleteItem}
           onEditBtnClick={this.onEditBtnClick}
           reservedList={
-            this.state.filterReservedList.length !== 0
+            this.state.filterReservedList.length
               ? this.state.filterReservedList
               : this.props.reservedList
           }
