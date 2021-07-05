@@ -40,7 +40,7 @@ class VaccineReservationForm extends Component {
           fields: { ...this.props.userEditingData },
         },
         () => {
-          this.AllFormatCheck()
+          this.allFormatCheck()
         }
       )
     }
@@ -52,7 +52,7 @@ class VaccineReservationForm extends Component {
    */
   onReserveSubmitBtnClick = (event) => {
     event.preventDefault()
-    this.AllFormatCheck(event)
+    this.allFormatCheck(event)
 
     if (this.state.formatCheckAllCorrect) {
       //資料提交
@@ -97,7 +97,7 @@ class VaccineReservationForm extends Component {
 
   onEditSubmitBtnClick = (event) => {
     event.preventDefault()
-    this.AllFormatCheck(event)
+    this.allFormatCheck(event)
 
     if (this.state.formatCheckAllCorrect) {
       //資料提交
@@ -126,22 +126,22 @@ class VaccineReservationForm extends Component {
     }
   }
 
-  AllFormatCheck = (event) => {
+  allFormatCheck = () => {
     if (this.state.formatCheckAllCorrect === false) {
-      this.nameFormatCheck(event)
-      this.phoneFormatCheck(event)
-      this.birthFormatCheck(event)
-      this.identityNumberFormatCheck(event)
-      this.vaccineTypeFormatCheck(event)
-      this.dayForVaccinationFormatCheck(event)
+      this.nameFormatCheck()
+      this.phoneFormatCheck()
+      this.birthFormatCheck()
+      this.identityNumberFormatCheck()
+      this.vaccineTypeFormatCheck()
+      this.dayForVaccinationFormatCheck()
 
       const formatCheckIsDone =
-        this.nameFormatCheck(event) &&
-        this.phoneFormatCheck(event) &&
-        this.birthFormatCheck(event) &&
-        this.identityNumberFormatCheck(event) &&
-        this.vaccineTypeFormatCheck(event) &&
-        this.dayForVaccinationFormatCheck(event)
+        this.nameFormatCheck() &&
+        this.phoneFormatCheck() &&
+        this.birthFormatCheck() &&
+        this.identityNumberFormatCheck() &&
+        this.vaccineTypeFormatCheck() &&
+        this.dayForVaccinationFormatCheck()
 
       if (formatCheckIsDone) {
         this.setState({
@@ -164,7 +164,7 @@ class VaccineReservationForm extends Component {
    * @param {string} event
    */
   handleInputChange = (event) => {
-    this.AllFormatCheck(event)
+    this.allFormatCheck(event)
 
     const { target } = event
     const name = target.name
@@ -179,7 +179,7 @@ class VaccineReservationForm extends Component {
         fields: { ...this.state.fields, [name]: value },
       },
       () => {
-        this.AllFormatCheck(event)
+        this.allFormatCheck(event)
       }
     )
   }
@@ -222,11 +222,9 @@ class VaccineReservationForm extends Component {
 
   /**
    *@description 檢查姓名欄位 id: name
-   * @param {string} event
    */
-  nameFormatCheck = (event) => {
+  nameFormatCheck = () => {
     //若姓名欄位為空，加上報錯 class，反之移除報錯 class
-
     if (this.state.fields.name) {
       this.removeInvalidityClass(
         "name",
@@ -241,25 +239,25 @@ class VaccineReservationForm extends Component {
 
   /**
    *@description 檢查手機號碼欄位 id: phone
-   * @param {string} event
    */
-  phoneFormatCheck = (event) => {
+  phoneFormatCheck = () => {
     const phoneLength = this.state.fields.phone.length
+    const requestPhoneNumberLength = 10
 
-    if (phoneLength > 10) {
+    if (phoneLength > requestPhoneNumberLength) {
       this.addInvalidityClass(
         "phone",
         "*手機號碼為10位數字，您輸入超出10位數"
       )
       return false
-    } else if (phoneLength < 10) {
+    } else if (phoneLength < requestPhoneNumberLength) {
       this.addInvalidityClass(
         "phone",
         "*手機號碼為10位數字，您輸入低於10位數"
       )
       return false
-    } else if (phoneLength === 10) {
-      //number 正則說明: 數字
+    } else if (phoneLength === requestPhoneNumberLength) {
+      //number 正則說明: 數字格式
       const number = `^[0-9]*$`
       const phoneNumber = this.state.fields.phone
 
@@ -273,7 +271,7 @@ class VaccineReservationForm extends Component {
         )
         return false
       }
-    } else if (phoneLength === 0) {
+    } else if (this.state.fields.phone === "") {
       //若手機號欄位為空
       this.addInvalidityClass(
         "phone",
@@ -285,38 +283,80 @@ class VaccineReservationForm extends Component {
     }
   }
 
-  birthFormatCheck(event) {
+  birthFormatCheck() {
     const birthData = this.state.fields.birth
     const birthDataLength = this.state.fields.birth.length
-    if (birthDataLength < 7) {
+    const requestBirthDataLength = 7
+
+    if (birthData === "") {
+      //若生日號欄位為空
+      this.addInvalidityClass(
+        "birth",
+        "*生日欄位不可為空"
+      )
+      return false
+    } else if (birthDataLength < requestBirthDataLength) {
       this.addInvalidityClass(
         "birth",
         "*生日為7位數字，目前過少"
       )
       return false
-    } else if (birthDataLength === 7) {
+    } else if (
+      birthDataLength === requestBirthDataLength
+    ) {
       this.removeInvalidityClass("birth")
 
+      const birthYearStartIndex = 0
+      const birthYearEndIndex = 3
+      const birthMonthStartIndex = 3
+      const birthMonthEndIndex = 5
+      const birthDayStartIndex = 5
+      const birthDayEndIndex = 7
+
       //birthData 生日資料切下來的 年/月/日 字串
-      const birthYear = Number(birthData.slice(0, 3))
-      const birthMonth = Number(birthData.slice(3, 5))
-      const birthDay = Number(birthData.slice(5, 7))
+      const birthYear = Number(
+        birthData.slice(
+          birthYearStartIndex,
+          birthYearEndIndex
+        )
+      )
+      const birthMonth = Number(
+        birthData.slice(
+          birthMonthStartIndex,
+          birthMonthEndIndex
+        )
+      )
+      const birthDay = Number(
+        birthData.slice(
+          birthDayStartIndex,
+          birthDayEndIndex
+        )
+      )
+
+      const requestMinNumber = 1
+      const monthMaxNumber = 12
+      const dayMaxNumber = 31
 
       //驗證生日字串
-      if (birthYear <= 5 || birthYear <= 0) {
-        //假設用戶 105 歲以下
+      if (birthYear < requestMinNumber) {
         this.addInvalidityClass(
           "birth",
           "*年份可能輸錯請確認"
         )
         return false
-      } else if (birthMonth > 12 || birthMonth <= 0) {
+      } else if (
+        birthMonth > monthMaxNumber ||
+        birthMonth < requestMinNumber
+      ) {
         this.addInvalidityClass(
           "birth",
           "*月份可能輸錯請確認"
         )
         return false
-      } else if (birthDay >= 32 || birthDay <= 0) {
+      } else if (
+        birthDay > dayMaxNumber ||
+        birthDay < requestMinNumber
+      ) {
         this.addInvalidityClass(
           "birth",
           "*出生日可能輸錯請確認"
@@ -324,65 +364,75 @@ class VaccineReservationForm extends Component {
         return false
       }
 
-      //number 正則說明: 數字
+      //number 正則說明: 數字格式
       const number = `^[0-9]*$`
       const birthString = birthData.toString()
 
-      if (birthString.match(number) !== null) {
-        this.removeInvalidityClass("birth")
-        return true
-      } else {
+      if (birthString.match(number) === null) {
         this.addInvalidityClass(
           "birth",
           "*生日欄位須為數字"
         )
         return false
+      } else {
+        this.removeInvalidityClass("birth")
+        return true
       }
-    } else if (birthDataLength >= 8) {
+    } else if (birthDataLength > requestBirthDataLength) {
       this.addInvalidityClass("birth", "*生日為7位數字")
-      return false
-    } else if (birthDataLength === 0) {
-      //若生日號欄位為空
-      this.addInvalidityClass(
-        "birth",
-        "*生日欄位不可為空"
-      )
       return false
     }
   }
 
-  identityNumberFormatCheck(event) {
+  /**
+   *@description 檢查手機號碼欄位 id: identityNumber
+   */
+  identityNumberFormatCheck() {
     const idNumberLength =
       this.state.fields.identityNumber.length
 
-    if (idNumberLength === 0) {
+    const requestIdNumberLength = 10
+
+    if (this.state.fields.identityNumber === "") {
       //若手機號欄位為空
       this.addInvalidityClass(
         "identityNumber",
         "*身分證號欄位不可為空"
       )
       return false
-    } else if (idNumberLength >= 11) {
+    } else if (idNumberLength > requestIdNumberLength) {
       this.addInvalidityClass(
         "identityNumber",
         "*身分證號超過10位數，請確認"
       )
       return false
-    } else if (idNumberLength === 10) {
+    } else if (idNumberLength === requestIdNumberLength) {
       // 身分證號核對
-      const upperCaseLetters =
-        "ABCDEFGHIJKLMNOPQRSTUVWXYX"
+      const idFirstLetterStartIndex = 0
+      const idFirstLetterEndIndex = 1
+      const idNumberStartIndex = 1
+
+      //lowerCaseLetters 正則說明: 英文小寫
+      const lowerCaseLetters = "[a-z]"
+      const letters = "[a-zA-Z]"
 
       const idData = this.state.fields.identityNumber
-      const idDataFirstLetter = idData.slice(0, 1)
-      const idNumbers = idData.slice(1)
-
-      const idFirstLetterIndex = upperCaseLetters.indexOf(
-        idDataFirstLetter
+      const idDataFirstLetter = idData.slice(
+        idFirstLetterStartIndex,
+        idFirstLetterEndIndex
       )
+      const idNumbers = idData.slice(idNumberStartIndex)
 
-      //身分證號字母轉大寫
-      if (idFirstLetterIndex === -1) {
+      if (idDataFirstLetter.match(letters) === null) {
+        this.addInvalidityClass(
+          "identityNumber",
+          "*身份證開頭須為大寫英文字母"
+        )
+        return false
+      } else if (
+        idDataFirstLetter.match(lowerCaseLetters) !== null
+      ) {
+        //身分證號字母轉大寫
         const firstToUpperCase =
           idDataFirstLetter.toUpperCase()
         const newId = firstToUpperCase + idNumbers
@@ -395,21 +445,21 @@ class VaccineReservationForm extends Component {
         })
       }
 
-      //number 正則說明: 數字
+      //number 正則說明: 數字格式
       const number = `^[0-9]*$`
 
-      if (idNumbers.match(number) !== null) {
-        this.removeInvalidityClass("identityNumber")
-
-        return true
-      } else {
+      if (idNumbers.match(number) === null) {
         this.addInvalidityClass(
           "identityNumber",
           "*身份證後 9 碼須為數字"
         )
         return false
+      } else {
+        this.removeInvalidityClass("identityNumber")
+
+        return true
       }
-    } else if (idNumberLength < 10) {
+    } else if (idNumberLength < requestIdNumberLength) {
       this.addInvalidityClass(
         "identityNumber",
         "*身分證號欄位為英文開頭加數字共10位數"
@@ -420,9 +470,8 @@ class VaccineReservationForm extends Component {
 
   /**
    *@description 檢查疫苗種類欄位 id: vaccine-type
-   * @param {string} event
    */
-  vaccineTypeFormatCheck = (event) => {
+  vaccineTypeFormatCheck = () => {
     if (this.state.fields.vaccineType) {
       this.removeInvalidityClass("vaccine-type")
       return true
@@ -437,10 +486,9 @@ class VaccineReservationForm extends Component {
 
   /**
    *@description 檢查施打日期欄位 id: booking-date
-   * @param {string} event
    */
-  dayForVaccinationFormatCheck = (event) => {
-    if (this.state.fields.dayForVaccination.length) {
+  dayForVaccinationFormatCheck = () => {
+    if (this.state.fields.dayForVaccination) {
       this.removeInvalidityClass("booking-date")
 
       return true
@@ -453,30 +501,19 @@ class VaccineReservationForm extends Component {
     }
   }
 
-  determineSubmitFunction = (event) => {
-    const reservationFormPageId =
-      this.props.pageData.reservationForm.id
-
-    const editReservationPageId =
-      this.props.pageData.editReservation.id
-
-    if (this.props.nowPageId === reservationFormPageId) {
-      return this.onReserveSubmitBtnClick(event)
-    } else if (
-      this.props.nowPageId === editReservationPageId
-    ) {
-      return this.onEditSubmitBtnClick(event)
-    }
-  }
-
   render() {
-    const editReservationPageId =
-      this.props.pageData.editReservation.id
+    const {
+      props: { nowPageId, pageData, title },
+    } = this
+
+    const {
+      state: { fields },
+    } = this
 
     return (
       <div className="reservation-form__wrap">
         <h1 className="title fz-30 fz-bold padding-t-30 display-inline-block padding-l-20">
-          {this.props.title}
+          {title}
         </h1>
         <span className="required-mark_content fz-24 padding-l-40">
           <span className="required-icon">*</span>
@@ -485,7 +522,11 @@ class VaccineReservationForm extends Component {
 
         <form
           onSubmit={(event) =>
-            this.determineSubmitFunction(event)
+            nowPageId === pageData.reservationForm.id
+              ? this.onReserveSubmitBtnClick(event)
+              : nowPageId === pageData.editReservation.id
+              ? this.onEditSubmitBtnClick(event)
+              : this.onReserveSubmitBtnClick(event)
           }
           className="form"
           id="form"
@@ -507,7 +548,7 @@ class VaccineReservationForm extends Component {
                 name="name"
                 className="name input-style required"
                 autoFocus
-                value={this.state.fields.name}
+                value={fields.name}
                 onChange={this.handleInputChange}
               />
               <p className="padding-l-140 display-none">
@@ -527,11 +568,11 @@ class VaccineReservationForm extends Component {
                 id="identityNumber"
                 name="identityNumber"
                 className="input-style required"
-                value={this.state.fields.identityNumber}
+                value={fields.identityNumber}
                 onChange={this.handleInputChange}
                 disabled={
-                  this.props.nowPageId ===
-                  editReservationPageId
+                  nowPageId ===
+                  pageData.editReservation.id
                 }
               />
               <p className="padding-l-140 display-none">
@@ -552,7 +593,7 @@ class VaccineReservationForm extends Component {
                 name="birth"
                 className="input-style required"
                 placeholder="範例: 0800101"
-                value={this.state.fields.birth}
+                value={fields.birth}
                 onChange={this.handleInputChange}
               />
               <p className="padding-l-140 display-none">
@@ -573,9 +614,7 @@ class VaccineReservationForm extends Component {
                 id="booking-date"
                 name="dayForVaccination"
                 className="input-style required"
-                value={
-                  this.state.fields.dayForVaccination
-                }
+                value={fields.dayForVaccination}
                 onChange={this.handleInputChange}
               />
               <p className="padding-l-140 display-none">
@@ -596,7 +635,7 @@ class VaccineReservationForm extends Component {
                 id="phone"
                 name="phone"
                 className="input-style required"
-                value={this.state.fields.phone}
+                value={fields.phone}
                 onChange={this.handleInputChange}
               />
               <p className="padding-l-140 display-none">
@@ -613,7 +652,7 @@ class VaccineReservationForm extends Component {
                 id="vaccine-type"
                 name="vaccineType"
                 className="input-style required"
-                value={this.state.fields.vaccineType}
+                value={fields.vaccineType}
                 onChange={this.handleInputChange}
               >
                 <option value="請選擇">--請選擇--</option>
@@ -642,7 +681,7 @@ class VaccineReservationForm extends Component {
                 id="remark"
                 name="remark"
                 className="input-style"
-                value={this.state.fields.remark}
+                value={fields.remark}
                 onChange={this.handleInputChange}
               />
               <p className="fz-16 padding-l-140">

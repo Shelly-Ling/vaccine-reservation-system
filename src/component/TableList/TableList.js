@@ -57,14 +57,13 @@ export class TableList extends Component {
                     <td>
                       <button
                         className="margin-l-10 fz-20 delete"
-                        id="delete"
+                        data-id={item.identityNumber}
                         onClick={this.props.deleteItem}
                       >
                         刪除
                       </button>
                       <button
                         className="margin-l-10 fz-20 edit"
-                        id="edit"
                         data-id={item.identityNumber}
                         onClick={
                           this.props.onEditBtnClick

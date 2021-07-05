@@ -1,12 +1,12 @@
 import "./EditReservation.scss"
 import React, { Component } from "react"
-import PropTypes from "prop-types"
 import TableList from "../../component/TableList/TableList"
 import SearchBar from "../../component/SearchBar/SearchBar"
 import VaccineReservationForm from "../../component/VaccineReservationForm/VaccineReservationForm"
 
 class EditReservation extends Component {
   static defaultProps = {
+    showElement: false,
     pageData: {},
     reservedList: [],
     deleteItem: () => {},
@@ -19,7 +19,6 @@ class EditReservation extends Component {
     this.state = {
       nowPageId: -1,
       componentReceiveProps: false,
-      reservedList: this.props.reservedList,
       isEditing: false,
       filterReservedList: [],
       keywordFromSearchBar: {
@@ -72,10 +71,7 @@ class EditReservation extends Component {
   }
 
   onEditBtnClick = (event) => {
-    const targetParentDom =
-      event.target.parentNode.parentNode
-
-    const editItemId = targetParentDom.dataset.id
+    const editItemId = event.target.dataset.id
 
     const data = this.props.reservedList.find(
       (item) => item.identityNumber === editItemId
@@ -117,9 +113,9 @@ class EditReservation extends Component {
   }
 
   filterListBySearch = (keyword, conditionSelect) => {
-    if (keyword === "") {
+    if (keyword === "" && conditionSelect === "") {
       alert("請輸入關鍵字")
-    } else if (keyword && conditionSelect === "") {
+    } else if (keyword !== "" && conditionSelect === "") {
       alert("請選擇條件")
     } else {
       const filterReservedList =
@@ -149,7 +145,23 @@ class EditReservation extends Component {
 
   render() {
     const {
-      props: { showElement },
+      props: {
+        pageData,
+        reservedList,
+        showElement,
+        deleteItem,
+        handleEditItemSubmit,
+        updateReservedListData,
+      },
+    } = this
+
+    const {
+      state: {
+        nowPageId,
+        filterReservedList,
+        isEditing,
+        userEditingData,
+      },
     } = this
 
     return showElement ? (
@@ -162,12 +174,12 @@ class EditReservation extends Component {
           </div>
         </div>
         <TableList
-          deleteItem={this.props.deleteItem}
+          deleteItem={deleteItem}
           onEditBtnClick={this.onEditBtnClick}
           reservedList={
-            this.state.filterReservedList.length
-              ? this.state.filterReservedList
-              : this.props.reservedList
+            filterReservedList.length
+              ? filterReservedList
+              : reservedList
           }
           searchBarComponent={
             <SearchBar
@@ -183,28 +195,24 @@ class EditReservation extends Component {
         />
         <div
           className={`modal edit-modal margin-0-auto padding-10 border-radius-50 ${
-            this.state.isEditing
-              ? "display-block"
-              : "display-none"
+            isEditing ? "display-block" : "display-none"
           }`}
         >
           <VaccineReservationForm
-            nowPageId={this.state.nowPageId}
-            pageData={this.props.pageData}
+            nowPageId={nowPageId}
+            pageData={pageData}
             title="編輯預約資訊表"
             className="margin-0-auto"
-            handleEditItemSubmit={
-              this.props.handleEditItemSubmit
-            }
+            handleEditItemSubmit={handleEditItemSubmit}
             changeIsEditingState={
               this.changeIsEditingState
             }
-            userEditingData={this.state.userEditingData}
+            userEditingData={userEditingData}
             clearUserEditingData={
               this.clearUserEditingData
             }
             updateReservedListData={
-              this.props.updateReservedListData
+              updateReservedListData
             }
           />
         </div>

@@ -5,6 +5,7 @@ import SearchBar from "../../component/SearchBar/SearchBar"
 
 class ReservedList extends Component {
   static defaultProps = {
+    showElement: false,
     reservedList: [],
     pageName: "",
   }
@@ -12,7 +13,6 @@ class ReservedList extends Component {
     super(props)
 
     this.state = {
-      reservedList: this.props.reservedList,
       filterReservedList: [],
     }
   }
@@ -46,7 +46,11 @@ class ReservedList extends Component {
 
   render() {
     const {
-      props: { showElement },
+      props: { showElement, reservedList, pageName },
+    } = this
+
+    const {
+      state: { filterReservedList },
     } = this
 
     return showElement ? (
@@ -76,14 +80,12 @@ class ReservedList extends Component {
         </div>
         <TableList
           reservedList={
-            this.state.filterReservedList.length
-              ? this.state.filterReservedList
-              : this.props.reservedList
+            filterReservedList.length
+              ? filterReservedList
+              : reservedList
           }
           showEditButton={
-            this.props.pageName === "reserved-list"
-              ? false
-              : true
+            pageName === "reserved-list" ? false : true
           }
           searchBarComponent={
             <SearchBar

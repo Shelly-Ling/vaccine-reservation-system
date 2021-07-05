@@ -122,11 +122,7 @@ class Home extends Component {
     )
   }
   deleteItem = (event) => {
-    console.log("deleteItem  event.target", event.target)
-    const targetParentDom =
-      event.target.parentNode.parentNode
-
-    const deleteItemId = targetParentDom.dataset.id
+    const deleteItemId = event.target.dataset.id
 
     const result = this.state.reservedList.filter(
       (item) => item.identityNumber !== deleteItemId
@@ -166,13 +162,20 @@ class Home extends Component {
   }
 
   render() {
-    return this.state.pageDataFetchingIsDone ? (
+    const {
+      state: {
+        pageDataFetchingIsDone,
+        pageData,
+        reservedList,
+        currentComponentId,
+      },
+    } = this
+
+    return pageDataFetchingIsDone ? (
       <div className="home d-flex flex-col justify-content-between">
         <Header
-          currentComponentId={
-            this.state.currentComponentId
-          }
-          pageData={this.state.pageData}
+          currentComponentId={currentComponentId}
+          pageData={pageData}
           onNavLinkClick={this.onNavLinkClick}
           changePage={this.changePage}
           updateReservedListData={
@@ -180,34 +183,30 @@ class Home extends Component {
           }
         />
         <ReservationForm
-          pageData={this.state.pageData}
-          title={
-            this.state.pageData.reservationForm.title
-          }
+          pageData={pageData}
+          title={pageData.reservationForm.title}
           changePage={this.changePage}
           showElement={
-            this.state.currentComponentId ===
-            this.state.pageData.reservationForm.id
+            currentComponentId ===
+            pageData.reservationForm.id
           }
         />
         <ReservedList
-          reservedList={this.state.reservedList}
-          pageName={
-            this.state.pageData.reservedList.pageName
-          }
+          reservedList={reservedList}
+          pageName={pageData.reservedList.pageName}
           showElement={
-            this.state.currentComponentId ===
-            this.state.pageData.reservedList.id
+            currentComponentId ===
+            pageData.reservedList.id
           }
         />
         <EditReservation
-          pageData={this.state.pageData}
+          pageData={pageData}
           deleteItem={this.deleteItem}
-          reservedList={this.state.reservedList}
+          reservedList={reservedList}
           handleEditItemSubmit={this.handleEditItemSubmit}
           showElement={
-            this.state.currentComponentId ===
-            this.state.pageData.editReservation.id
+            currentComponentId ===
+            pageData.editReservation.id
           }
           updateReservedListData={
             this.updateReservedListData
