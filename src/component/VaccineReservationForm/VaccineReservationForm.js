@@ -1,570 +1,45 @@
-import React, { Component } from "react"
+import React, { useState } from "react"
 import "./VaccineReservationForm.scss"
 import DeleteIcon from "../Icons/DeleteIcon/DeleteIcon"
-class VaccineReservationForm extends Component {
-  static defaultProps = {
-    nowPageId: -1,
-    pageData: {},
-    title: "",
-    userEditingData: {},
-    clearUserEditingData: () => {},
-    updateReservedListData: () => {},
-    handleEditItemSubmit: () => {},
-    changeIsEditingStateToFalse: () => {},
-    onCancelEditBtnClick: () => {},
-    editItem: () => {},
-    changePage: () => {},
-  }
-  constructor(props) {
-    super(props)
 
-    this.state = {
-      fields: {
-        name: "",
-        birth: "",
-        identityNumber: "",
-        phone: "",
-        vaccineType: "",
-        dayForVaccination: "",
-        remark: "",
-      },
-      formatCheckAllCorrect: false,
-    }
-  }
+const pageData = {
+  reservationForm: {
+    id: 1,
+    pageName: "reservation-form",
+    title: "預約申請",
+  },
+  reservedList: {
+    id: 2,
+    pageName: "reserved-list",
+    title: "已預約名單",
+  },
+  editReservation: {
+    id: 3,
+    pageName: "edit-reservation",
+    title: "編輯預約名單",
+  },
+}
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    if (
-      prevProps.userEditingData.name !==
-      this.props.userEditingData.name
-    ) {
-      this.setState(
-        {
-          fields: { ...this.props.userEditingData },
-        },
-        () => {
-          this.allFormatCheck()
-        }
-      )
-    }
-  }
-
-  /**
-   * @description 預約表單提交，更新 localStorage 的 reservedList
-   * @param {submit} event
-   */
-  onReserveSubmitBtnClick = (event) => {
-    event.preventDefault()
-    this.allFormatCheck(event)
-
-    if (this.state.formatCheckAllCorrect) {
-      //資料提交
-      const data = { ...this.state.fields }
-
-      let reservedList =
-        JSON.parse(
-          localStorage.getItem("reservedList")
-        ) || []
-
-      reservedList.unshift(data)
-
-      localStorage.setItem(
-        "reservedList",
-        JSON.stringify(reservedList)
-      )
-
-      this.props.updateReservedListData()
-
-      const nextPageId =
-        this.props.pageData.reservedList.id
-
-      this.setState(
-        {
-          fields: {
-            name: "",
-            birth: "",
-            identityNumber: "",
-            phone: "",
-            vaccineType: "",
-            dayForVaccination: "",
-            remark: "",
-          },
-          formatCheckAllCorrect: false,
-        },
-        () => {
-          this.props.changePage(nextPageId)
-        }
-      )
-    }
-  }
-
-  onEditSubmitBtnClick = (event) => {
-    event.preventDefault()
-    this.allFormatCheck(event)
-
-    if (this.state.formatCheckAllCorrect) {
-      //資料提交
-      const data = { ...this.state.fields }
-
-      this.props.changeIsEditingStateToFalse()
-      this.props.handleEditItemSubmit(data)
-
-      this.setState(
-        {
-          fields: {
-            name: "",
-            birth: "",
-            identityNumber: "",
-            phone: "",
-            vaccineType: "",
-            dayForVaccination: "",
-            remark: "",
-          },
-          formatCheckAllCorrect: false,
-        },
-        () => {
-          this.props.clearUserEditingData()
-          this.removeInvalidityClass("input-name")
-        }
-      )
-    }
-  }
-
-  allFormatCheck = () => {
-    if (this.state.formatCheckAllCorrect === false) {
-      this.nameFormatCheck()
-      this.phoneFormatCheck()
-      this.birthFormatCheck()
-      this.identityNumberFormatCheck()
-      this.vaccineTypeFormatCheck()
-      this.dayForVaccinationFormatCheck()
-
-      const formatCheckIsDone =
-        this.nameFormatCheck() &&
-        this.phoneFormatCheck() &&
-        this.birthFormatCheck() &&
-        this.identityNumberFormatCheck() &&
-        this.vaccineTypeFormatCheck() &&
-        this.dayForVaccinationFormatCheck()
-
-      if (formatCheckIsDone) {
-        this.setState({
-          formatCheckAllCorrect: true,
-        })
-      } else {
-        this.setState({
-          formatCheckAllCorrect: false,
-        })
-      }
-    } else {
-      this.setState({
-        formatCheckAllCorrect: false,
-      })
-    }
-  }
-
-  /**
-   * @description 表單輸入資料時同步更新 state
-   * @param {string} event
-   */
-  handleInputChange = (event) => {
-    this.allFormatCheck(event)
-
-    const { target } = event
-    const name = target.name
-
-    const value =
-      target.type === "checkbox"
-        ? target.checked
-        : target.value
-
-    this.setState(
-      {
-        fields: { ...this.state.fields, [name]: value },
-      },
-      () => {
-        this.allFormatCheck(event)
-      }
-    )
-  }
-
-  /**
-   * @description input 欄掛上提示 class 樣式 與欄位提示字串
-   * @param {string} elementId
-   * @param {string} alertString
-   */
-  addInvalidityClass(elementId, alertString) {
-    const idString = `.${elementId}`
-    const pTagString = `.${elementId} ~ p`
-
-    const inputField = document.querySelector(idString)
-
-    const invalidityTextNote =
-      document.querySelector(pTagString)
-
-    inputField.classList.add("invalidity")
-    invalidityTextNote.innerText = alertString
-    invalidityTextNote.classList.add("invalidity-text")
-  }
-
-  /**
-   * @description input 欄移除提示 class 樣式 與欄位提示字串
-   * @param {string} elementId
-   */
-  removeInvalidityClass(elementId) {
-    const idString = `.${elementId}`
-    const pTagString = `.${elementId} ~ p`
-
-    const inputField = document.querySelector(idString)
-
-    const invalidityTextNote =
-      document.querySelector(pTagString)
-
-    inputField.classList.remove("invalidity")
-    invalidityTextNote.classList.remove("invalidity-text")
-  }
-
-  /**
-   *@description 檢查姓名欄位 class: input-name
-   */
-  nameFormatCheck = () => {
-    //若姓名欄位為空，加上報錯 class，反之移除報錯 class
-    if (this.state.fields.name) {
-      this.removeInvalidityClass("input-name")
-      return true
-    } else {
-      this.addInvalidityClass(
-        "input-name",
-        "*姓名欄位不可為空"
-      )
-      return false
-    }
-  }
-
-  /**
-   *@description 檢查手機號碼欄位 class: phone
-   */
-  phoneFormatCheck = () => {
-    const phoneLength = this.state.fields.phone.length
-    const requestPhoneNumberLength = 10
-
-    if (phoneLength > requestPhoneNumberLength) {
-      this.addInvalidityClass(
-        "phone",
-        "*手機號碼為10位數字，您輸入超出10位數"
-      )
-      return false
-    } else if (phoneLength < requestPhoneNumberLength) {
-      this.addInvalidityClass(
-        "phone",
-        "*手機號碼為10位數字，您輸入低於10位數"
-      )
-      return false
-    } else if (phoneLength === requestPhoneNumberLength) {
-      //number 正則說明: 數字格式
-      const number = `^[0-9]*$`
-      const phoneNumber = this.state.fields.phone
-
-      if (phoneNumber.match(number) !== null) {
-        this.removeInvalidityClass("phone")
-        return true
-      } else {
-        this.addInvalidityClass(
-          "phone",
-          "*手機號碼須為數字"
-        )
-        return false
-      }
-    } else if (this.state.fields.phone === "") {
-      //若手機號欄位為空
-      this.addInvalidityClass(
-        "phone",
-        "*手機號碼欄位不可為空"
-      )
-      return false
-    } else {
-      return true
-    }
-  }
-
-  birthFormatCheck() {
-    const birthData = this.state.fields.birth
-    const birthDataLength = this.state.fields.birth.length
-    const requestBirthDataLength = 7
-
-    if (birthData === "") {
-      //若生日號欄位為空
-      this.addInvalidityClass(
-        "birth",
-        "*生日欄位不可為空"
-      )
-      return false
-    } else if (birthDataLength < requestBirthDataLength) {
-      this.addInvalidityClass(
-        "birth",
-        "*生日為7位數字，目前過少"
-      )
-      return false
-    } else if (
-      birthDataLength === requestBirthDataLength
-    ) {
-      this.removeInvalidityClass("birth")
-
-      const birthYearStartIndex = 0
-      const birthYearEndIndex = 3
-      const birthMonthStartIndex = 3
-      const birthMonthEndIndex = 5
-      const birthDayStartIndex = 5
-      const birthDayEndIndex = 7
-
-      //birthData 生日資料切下來的 年/月/日 字串
-      const birthYear = Number(
-        birthData.slice(
-          birthYearStartIndex,
-          birthYearEndIndex
-        )
-      )
-      const birthMonth = Number(
-        birthData.slice(
-          birthMonthStartIndex,
-          birthMonthEndIndex
-        )
-      )
-      const birthDay = Number(
-        birthData.slice(
-          birthDayStartIndex,
-          birthDayEndIndex
-        )
-      )
-
-      const requestMinNumber = 1
-      const monthMaxNumber = 12
-      const dayMaxNumber = 31
-
-      //驗證生日字串
-      if (birthYear < requestMinNumber) {
-        this.addInvalidityClass(
-          "birth",
-          "*年份可能輸錯請確認"
-        )
-        return false
-      } else if (
-        birthMonth > monthMaxNumber ||
-        birthMonth < requestMinNumber
-      ) {
-        this.addInvalidityClass(
-          "birth",
-          "*月份可能輸錯請確認"
-        )
-        return false
-      } else if (
-        birthDay > dayMaxNumber ||
-        birthDay < requestMinNumber
-      ) {
-        this.addInvalidityClass(
-          "birth",
-          "*出生日可能輸錯請確認"
-        )
-        return false
-      }
-
-      //number 正則說明: 數字格式
-      const number = `^[0-9]*$`
-      const birthString = birthData.toString()
-
-      if (birthString.match(number) === null) {
-        this.addInvalidityClass(
-          "birth",
-          "*生日欄位須為數字"
-        )
-        return false
-      } else {
-        this.removeInvalidityClass("birth")
-        return true
-      }
-    } else if (birthDataLength > requestBirthDataLength) {
-      this.addInvalidityClass("birth", "*生日為7位數字")
-      return false
-    }
-  }
-
-  /**
-   *@description 檢查手機號碼欄位 class: identityNumber
-   */
-  identityNumberFormatCheck() {
-    const idNumberLength =
-      this.state.fields.identityNumber.length
-
-    const requestIdNumberLength = 10
-
-    if (this.state.fields.identityNumber === "") {
-      //若手機號欄位為空
-      this.addInvalidityClass(
-        "identityNumber",
-        "*身分證號欄位不可為空"
-      )
-      return false
-    } else if (idNumberLength > requestIdNumberLength) {
-      this.addInvalidityClass(
-        "identityNumber",
-        "*身分證號超過10位數，請確認"
-      )
-      return false
-    } else if (idNumberLength === requestIdNumberLength) {
-      // 身分證號核對
-      const idFirstLetterStartIndex = 0
-      const idFirstLetterEndIndex = 1
-      const idNumberStartIndex = 1
-
-      //lowerCaseLetters 正則說明: 英文小寫
-      const lowerCaseLetters = "[a-z]"
-      const letters = "[a-zA-Z]"
-
-      const idData = this.state.fields.identityNumber
-      const idDataFirstLetter = idData.slice(
-        idFirstLetterStartIndex,
-        idFirstLetterEndIndex
-      )
-      const idNumbers = idData.slice(idNumberStartIndex)
-
-      if (idDataFirstLetter.match(letters) === null) {
-        this.addInvalidityClass(
-          "identityNumber",
-          "*身份證開頭須為大寫英文字母"
-        )
-        return false
-      } else if (
-        idDataFirstLetter.match(lowerCaseLetters) !== null
-      ) {
-        //身分證號字母轉大寫
-        const firstToUpperCase =
-          idDataFirstLetter.toUpperCase()
-        const newId = firstToUpperCase + idNumbers
-
-        this.setState({
-          fields: {
-            ...this.state.fields,
-            identityNumber: newId,
-          },
-        })
-      }
-
-      //number 正則說明: 數字格式
-      const number = `^[0-9]*$`
-
-      if (idNumbers.match(number) === null) {
-        this.addInvalidityClass(
-          "identityNumber",
-          "*身份證後 9 碼須為數字"
-        )
-        return false
-      } else {
-        this.removeInvalidityClass("identityNumber")
-
-        return true
-      }
-    } else if (idNumberLength < requestIdNumberLength) {
-      this.addInvalidityClass(
-        "identityNumber",
-        "*身分證號欄位為英文開頭加數字共10位數"
-      )
-      return false
-    }
-  }
-
-  /**
-   *@description 檢查疫苗種類欄位 class: vaccine-type
-   */
-  vaccineTypeFormatCheck = () => {
-    if (this.state.fields.vaccineType) {
-      this.removeInvalidityClass("vaccine-type")
-      return true
-    } else if (
-      this.state.fields.vaccineType === "請選擇" ||
-      this.state.fields.vaccineType === ""
-    ) {
-      this.addInvalidityClass(
-        "vaccine-type",
-        "*請選擇疫苗種類"
-      )
-      return false
-    }
-  }
-
-  /**
-   *@description 檢查施打日期欄位 class: booking-date
-   */
-  dayForVaccinationFormatCheck = () => {
-    if (this.state.fields.dayForVaccination) {
-      this.removeInvalidityClass("booking-date")
-
-      return true
-    } else {
-      this.addInvalidityClass(
-        "booking-date",
-        "*日期欄位不可為空"
-      )
-      return false
-    }
-  }
-
-  render() {
-    const {
-      props: {
-        nowPageId,
-        pageData,
-        title,
-        onCancelEditBtnClick,
-      },
-    } = this
-
-    const {
-      state: { fields },
-    } = this
-
-    return (
-      <div className="reservation-form__wrap">
-        <div className="d-flex justify-content-between">
-          <div>
-            <h1 className="title fz-30 fz-bold padding-t-30 display-inline-block padding-l-20">
-              {title}
-            </h1>
-
-            <span className="required-mark_content fz-24 padding-l-40">
-              <span className="required-icon">*</span>
-              <span>為必填</span>
-            </span>
-          </div>
-
-          {nowPageId === pageData.editReservation.id ? (
-            <div onClick={onCancelEditBtnClick}>
-              <DeleteIcon />
-            </div>
-          ) : null}
+function VaccineReservationForm() {
+  return (
+    <div className="reservation-form__wrap">
+      <div className="d-flex justify-content-between">
+        <div className="padding-t-30 padding-l-20">
+          <h1 className="title fz-30 fz-bold display-inline-block">
+            表單標題
+          </h1>
+          <span className="required-mark_content fz-24 padding-l-40">
+            <span className="required-icon">*</span>
+            <span>為必填</span>
+          </span>
         </div>
-
-        <form
-          onSubmit={(event) =>
-            nowPageId === pageData.reservationForm.id
-              ? this.onReserveSubmitBtnClick(event)
-              : nowPageId === pageData.editReservation.id
-              ? this.onEditSubmitBtnClick(event)
-              : this.onReserveSubmitBtnClick(event)
-          }
-          className="form"
-          method="get"
-        >
-          <div
-            className={`input-list ${
-              nowPageId === pageData.editReservation.id
-                ? "edit-modal-style"
-                : ""
-            }`}
-          >
+        {/* <DeleteIcon /> */}
+      </div>
+      <form className="form" method="get">
+        <div className="input-list">
+          <div className="input-list__right">
             <div className="name-content">
-              <label
-                htmlFor="name"
-                className="margin-r-40 margin-l-40"
-              >
+              <label htmlFor="name">
                 <span className="required-icon">*</span>
                 姓名
               </label>
@@ -573,41 +48,29 @@ class VaccineReservationForm extends Component {
                 name="name"
                 className="input-name input-style required"
                 autoFocus
-                value={fields.name}
-                onChange={this.handleInputChange}
               />
-              <p className="padding-l-140 display-none">
-                *項目不可為空
+              <p className="display-none">
+                *項目不可以為空
               </p>
             </div>
             <div className="identityNumber-content">
-              <label
-                htmlFor="identityNumber"
-                className="margin-r-10 margin-l-10"
-              >
+              <label htmlFor="identityNumber">
                 <span className="required-icon">*</span>
                 身份證號
               </label>
               <input
                 type="text"
                 name="identityNumber"
-                className="identityNumber input-style required"
-                value={fields.identityNumber}
-                onChange={this.handleInputChange}
-                disabled={
-                  nowPageId ===
-                  pageData.editReservation.id
-                }
+                className="identityNumber input-style required "
               />
-              <p className="padding-l-140 display-none">
+              <p className="display-none">
                 *項目不可以為空
               </p>
             </div>
+          </div>
+          <div className="input-list__left">
             <div className="birth-content">
-              <label
-                htmlFor="birth"
-                className="margin-r-40 margin-l-40"
-              >
+              <label htmlFor="birth">
                 <span className="required-icon">*</span>
                 生日
               </label>
@@ -616,39 +79,13 @@ class VaccineReservationForm extends Component {
                 name="birth"
                 className="birth input-style required"
                 placeholder="範例: 0800101"
-                value={fields.birth}
-                onChange={this.handleInputChange}
               />
-              <p className="padding-l-140 display-none">
-                *項目不可以為空
-              </p>
-              <p className="fz-16 padding-l-140">
-                *若您生日為民國80年1月1日，請輸入0800101
-              </p>
-            </div>
-
-            <div className="dayForVaccination-content ">
-              <label htmlFor="booking-date">
-                <span className="required-icon">*</span>
-                預約接種日期
-              </label>
-              <input
-                type="date"
-                name="dayForVaccination"
-                className="booking-date input-style required"
-                value={fields.dayForVaccination}
-                onChange={this.handleInputChange}
-              />
-              <p className="padding-l-140 display-none">
+              <p className="display-none">
                 *項目不可以為空
               </p>
             </div>
-
             <div className="phone-content">
-              <label
-                htmlFor="phone"
-                className="margin-r-10 margin-l-10"
-              >
+              <label htmlFor="phone">
                 <span className="required-icon">*</span>
                 手機號碼
               </label>
@@ -656,72 +93,24 @@ class VaccineReservationForm extends Component {
                 type="text"
                 name="phone"
                 className="phone input-style required"
-                value={fields.phone}
-                onChange={this.handleInputChange}
               />
-              <p className="padding-l-140 display-none">
+              <p className="display-none">
                 *項目不可以為空
               </p>
             </div>
-            <div className="vaccine-content">
-              <label htmlFor="vaccine">
-                <span className="required-icon">*</span>
-                選擇疫苗種類
-              </label>
-              <select
-                type="text"
-                name="vaccineType"
-                className="vaccine-type input-style required"
-                value={fields.vaccineType}
-                onChange={this.handleInputChange}
-              >
-                <option value="" disabled>
-                  --請選擇--
-                </option>
-                <option value="BNT">BNT</option>
-                <option value="莫德納">莫德納</option>
-                <option value="AZ">AZ</option>
-                <option value="嬌生">嬌生</option>
-                <option value="高端/連雅">
-                  高端 / 連雅
-                </option>
-                <option value="科興">科興</option>
-              </select>
-              <p className="padding-l-140 display-none">
-                *項目不可以為空
-              </p>
-            </div>
-            <div className="remark-content">
-              <label
-                htmlFor="remark"
-                className="margin-r-50 margin-l-50"
-              >
-                備註
-              </label>
-              <input
-                type="text"
-                name="remark"
-                className="remark input-style"
-                value={fields.remark}
-                onChange={this.handleInputChange}
-              />
-              <p className="fz-16 padding-l-140">
-                *有藥物過敏或特殊病史請填寫備註
-              </p>
-            </div>
           </div>
-          <div className="submit-btn-content padding-t-30 padding-r-30 d-flex justify-content-end">
-            <input
-              name="submit-btn"
-              className="btn-submit fz-26 input-submit-style btn-color-pink-white margin-r-20"
-              type="submit"
-              value="提 交"
-            />
-          </div>
-        </form>
-      </div>
-    )
-  }
+        </div>
+        <div className="submit-btn-content padding-t-20">
+          <input
+            name="submit-btn"
+            className="input-submit-style btn-submit fz-26  btn-color-pink-white"
+            type="submit"
+            value="提 交"
+          />
+        </div>
+      </form>
+    </div>
+  )
 }
 
 export default VaccineReservationForm

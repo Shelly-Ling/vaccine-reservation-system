@@ -1,8 +1,4 @@
 @import "../../scss/_helpers/_constant.scss";
-@import "../../scss/_utilities/_typography.scss";
-@import "../../scss/_utilities/_displayFlex.scss";
-@import "../../scss/_utilities/_spacing.scss";
-@import "../../scss/_components/_buttons.scss";
 
 .edit-reservation__wrap {
   min-width: 768px;
@@ -18,28 +14,32 @@
   }
 
   .modal {
-    min-width: 700px;
-    height: 630px;
+    width: 600px;
+    height: 500px;
     background-color: $gray-200;
     border: 10px solid $pink-200;
     position: absolute;
     z-index: 1;
     top: 15%;
-    right: 5%;
-    left: 5%;
+    right: 10%;
+    left: 10%;
     bottom: 5%;
+
     .form {
+      //width: 70%; 在設定好編輯頁表單的 edit-modal-style 後可以拿掉
       width: 70%;
     }
   }
 }
 
 @media (min-width: 960px) {
-  .info {
-    max-width: 1300px;
-    margin: 0 auto;
-  }
-  .modal {
-    max-width: 1000px;
+  .edit-reservation__wrap {
+    .info {
+      max-width: 1300px;
+      margin: 0 auto;
+    }
+    .modal {
+      width: 750px;
+    }
   }
 }

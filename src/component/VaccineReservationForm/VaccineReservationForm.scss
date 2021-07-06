@@ -12,13 +12,24 @@
 //========================================
 //表單全域設定
 //========================================
+.reservation-form__wrap {
+  margin: 0 auto;
+  padding-left: 30px;
+  padding-right: 30px;
+  min-width: 760px;
+  margin-bottom: 30px;
 
-input {
-  width: 70%;
-}
+  h1 {
+    font-size: 35px;
+  }
 
-select {
-  width: 70%;
+  .btn-submit {
+    width: 100%;
+  }
+
+  .btn-cancel {
+    width: 280px;
+  }
 }
 
 //========================================
@@ -45,16 +56,22 @@ select {
     color: $red-600;
   }
 }
+
 //========================================
 //表單內部排版
 //========================================
-.reservation-form__wrap {
-  margin-bottom: 30px;
-}
-
 .input-list {
-  min-width: 768px;
-  padding-left: 10px;
+  display: flex;
+  justify-content: space-between;
+
+  .input-list__right {
+    width: 100%;
+    margin-right: 30px;
+  }
+
+  .input-list__left {
+    width: 100%;
+  }
 
   div {
     padding-top: 20px;
@@ -62,96 +79,19 @@ select {
     z-index: 0;
 
     label {
+      display: block;
       width: 30%;
       min-width: 150px;
       line-height: 40px;
-      text-align: center;
     }
 
-    .invalidity-text {
+    input {
+      width: 100%;
+    }
+
+    .invalidity-text ~ p {
       font-size: 16px;
       color: $red-600;
-    }
-  }
-}
-
-.btn-cancel {
-  width: 320px;
-}
-
-//========================================
-//表單全域設定
-//========================================
-.reservation-form__wrap {
-  min-width: 760px;
-  h1 {
-    font-size: 35px;
-  }
-  margin: 0 auto;
-  margin-bottom: 30px;
-}
-
-input {
-  width: 200px;
-}
-
-.btn-cancel {
-  width: 280px;
-}
-//========================================
-//表單內部 grid 排版
-//========================================
-
-.input-list {
-  display: grid;
-  grid-template-columns: repeat(2, auto);
-  grid-template-rows: auto;
-  grid-template-areas:
-    "name phone"
-    "birthday id "
-    "vaccine vaccine"
-    "date date"
-    "remark remark";
-
-  div {
-    padding-top: 50px;
-    display: inline-block;
-    p {
-      padding-left: 140px;
-    }
-  }
-
-  .name-content {
-    grid-area: name;
-  }
-
-  .identityNumber-content {
-    grid-area: id;
-  }
-
-  .birthday-content {
-    grid-area: birthday;
-  }
-
-  .dayForVaccination-content {
-    grid-area: date;
-  }
-
-  .phone-content {
-    grid-area: phone;
-  }
-
-  .vaccine-content {
-    grid-area: vaccine;
-    select {
-      width: 200px;
-    }
-  }
-
-  .remark-content {
-    grid-area: remark;
-    input {
-      width: 450px;
     }
   }
 }
@@ -159,75 +99,16 @@ input {
 //========================================
 //編輯頁 編輯功能表單設定
 //========================================
-
-.form {
-  .edit-modal-style {
-    display: grid;
-    grid-template-columns: repeat(2, auto);
-    grid-template-rows: auto;
-    grid-template-areas:
-      "name phone"
-      "birthday id "
-      "vaccine vaccine"
-      "date date"
-      "remark remark";
-
-    div {
-      width: 350px;
-      padding-top: 20px;
-
-      label {
-        min-width: 100px;
-      }
-      input {
-        width: 150px;
-      }
-
-      .invalidity-text {
-        font-size: 16px;
-        color: $red-600;
-      }
-    }
-  }
-  .submit-btn-content {
-    width: 700px;
-  }
+//編輯頁面時 edit-modal-style 加在 reservation-form__wrap 同層
+.edit-modal-style {
+  min-width: 500px;
 }
 
 @media (min-width: 960px) {
-  //========================================
-  //表單設定
-  //========================================
-  //表單全域設定
-  //========================================
-  input {
-    width: 280px;
+  .reservation-form__wrap {
+    min-width: 960px;
   }
-
-  label {
-    padding-left: 10px;
-    padding-right: 10px;
-  }
-
-  //========================================
-  //表單內部 grid 排版
-  //========================================
-
-  .input-list {
-    div {
-      padding-top: 50px;
-    }
-
-    .vaccine-content {
-      select {
-        width: 280px;
-      }
-    }
-
-    .remark-content {
-      input {
-        width: 550px;
-      }
-    }
+  .edit-modal-style {
+    min-width: 700px;
   }
 }
