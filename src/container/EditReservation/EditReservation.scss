@@ -5,28 +5,35 @@
 @import "../../scss/_components/_buttons.scss";
 
 .edit-reservation__wrap {
+  min-width: 768px;
   .info {
     width: 90%;
+
+    h1 {
+      font-size: 30px;
+    }
+    li {
+      font-size: 22px;
+    }
   }
 
   .modal {
+    min-width: 700px;
+    height: 630px;
     background-color: $gray-200;
     border: 10px solid $pink-200;
     position: absolute;
     z-index: 1;
     top: 15%;
-    right: 10%;
-    left: 10%;
+    right: 5%;
+    left: 5%;
     bottom: 5%;
-  }
-}
-@media (min-width: 768px) {
-  .info {
-    h1 {
-      font-size: 35px;
+    .form {
+      width: 70%;
     }
   }
 }
+
 @media (min-width: 960px) {
   .info {
     max-width: 1300px;

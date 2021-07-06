@@ -180,13 +180,12 @@ class EditReservation extends Component {
 
     return (
       <div className="edit-reservation__wrap padding-b-30">
-        <div className="d-flex justify-content-center align-self-center">
-          <div className="info padding-t-30 padding-b-30 padding-l-20">
-            <h1 className="title fz-30 fz-bold padding-b-20">
-              編輯預約名單
-            </h1>
-          </div>
+        <div className="info padding-t-30 padding-b-30 padding-l-20">
+          <h1 className="title fz-bold padding-b-20">
+            編輯預約名單
+          </h1>
         </div>
+
         <TableList
           deleteItem={deleteItem}
           onEditBtnClick={this.onEditBtnClick}
@@ -216,7 +215,7 @@ class EditReservation extends Component {
             nowPageId={nowPageId}
             pageData={pageData}
             title="編輯預約資訊表"
-            className="margin-0-auto"
+            className="form margin-0-auto"
             handleEditItemSubmit={handleEditItemSubmit}
             changeIsEditingStateToFalse={
               this.changeIsEditingStateToFalse

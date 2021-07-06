@@ -49,12 +49,12 @@ select {
 //表單內部排版
 //========================================
 .reservation-form__wrap {
-  min-width: 500px;
   margin-bottom: 30px;
 }
 
 .input-list {
-  padding-left: 20px;
+  min-width: 768px;
+  padding-left: 10px;
 
   div {
     padding-top: 20px;
@@ -79,36 +79,89 @@ select {
   width: 320px;
 }
 
-@media (min-width: 768px) {
-  //========================================
-  //表單全域設定
-  //========================================
-  .reservation-form__wrap {
-    min-width: 775px;
-    h1 {
-      font-size: 35px;
+//========================================
+//表單全域設定
+//========================================
+.reservation-form__wrap {
+  min-width: 760px;
+  h1 {
+    font-size: 35px;
+  }
+  margin: 0 auto;
+  margin-bottom: 30px;
+}
+
+input {
+  width: 200px;
+}
+
+.btn-cancel {
+  width: 280px;
+}
+//========================================
+//表單內部 grid 排版
+//========================================
+
+.input-list {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  grid-template-rows: auto;
+  grid-template-areas:
+    "name phone"
+    "birthday id "
+    "vaccine vaccine"
+    "date date"
+    "remark remark";
+
+  div {
+    padding-top: 50px;
+    display: inline-block;
+    p {
+      padding-left: 140px;
     }
-    margin: 0 auto;
-    margin-bottom: 30px;
   }
 
-  input {
-    width: 200px;
+  .name-content {
+    grid-area: name;
   }
 
-  label {
-    padding-left: 10px;
-    padding-right: 10px;
+  .identityNumber-content {
+    grid-area: id;
   }
 
-  .btn-cancel {
-    width: 280px;
+  .birthday-content {
+    grid-area: birthday;
   }
-  //========================================
-  //表單內部 grid 排版
-  //========================================
 
-  .input-list {
+  .dayForVaccination-content {
+    grid-area: date;
+  }
+
+  .phone-content {
+    grid-area: phone;
+  }
+
+  .vaccine-content {
+    grid-area: vaccine;
+    select {
+      width: 200px;
+    }
+  }
+
+  .remark-content {
+    grid-area: remark;
+    input {
+      width: 450px;
+    }
+  }
+}
+
+//========================================
+//編輯頁 編輯功能表單設定
+//========================================
+
+.form {
+  .edit-modal-style {
     display: grid;
     grid-template-columns: repeat(2, auto);
     grid-template-rows: auto;
@@ -120,46 +173,24 @@ select {
       "remark remark";
 
     div {
-      padding-top: 50px;
-      display: inline-block;
-      p {
-        padding-left: 170px;
+      width: 350px;
+      padding-top: 20px;
+
+      label {
+        min-width: 100px;
       }
-    }
-
-    .name-content {
-      grid-area: name;
-    }
-
-    .identityNumber-content {
-      grid-area: id;
-    }
-
-    .birthday-content {
-      grid-area: birthday;
-    }
-
-    .dayForVaccination-content {
-      grid-area: date;
-    }
-
-    .phone-content {
-      grid-area: phone;
-    }
-
-    .vaccine-content {
-      grid-area: vaccine;
-      select {
-        width: 200px;
-      }
-    }
-
-    .remark-content {
-      grid-area: remark;
       input {
-        width: 450px;
+        width: 150px;
+      }
+
+      .invalidity-text {
+        font-size: 16px;
+        color: $red-600;
       }
     }
+  }
+  .submit-btn-content {
+    width: 700px;
   }
 }
 

@@ -8,30 +8,22 @@
 @import "../../scss/_utilities/_text.scss";
 
 .header__wrap {
+  min-width: 768px;
+
   h1 {
     text-align: center;
+
+    font-size: 40px;
+    letter-spacing: 30px;
   }
 }
-
 .navbar {
   display: flex;
   justify-content: center;
   background-color: $gray-300;
-}
 
-@media (min-width: 768px) {
-  .header__wrap {
-    h1 {
-      font-size: 40px;
-      letter-spacing: 30px;
-    }
-  }
-  .navbar {
-    display: flex;
-    justify-content: center;
-    button {
-      margin: 20px;
-      font-size: 25px;
-    }
+  button {
+    margin: 20px;
+    font-size: 25px;
   }
 }

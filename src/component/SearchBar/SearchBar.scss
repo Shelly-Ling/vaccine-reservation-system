@@ -4,6 +4,7 @@
 //條件尋找設定
 //========================================
 .search-content {
+  min-width: 768px;
   select {
     width: 130px;
   }
@@ -17,17 +18,5 @@
 
   .btn-submit {
     width: 80px;
-  }
-}
-
-@media (min-width: 768px) {
-  .search-content {
-    select {
-      width: 150px;
-    }
-
-    input {
-      width: 300px;
-    }
   }
 }

@@ -553,7 +553,13 @@ class VaccineReservationForm extends Component {
           className="form"
           method="get"
         >
-          <div className="input-list">
+          <div
+            className={`input-list ${
+              nowPageId === pageData.editReservation.id
+                ? "edit-modal-style"
+                : ""
+            }`}
+          >
             <div className="name-content">
               <label
                 htmlFor="name"
@@ -577,7 +583,7 @@ class VaccineReservationForm extends Component {
             <div className="identityNumber-content">
               <label
                 htmlFor="identityNumber"
-                className="margin-r-20 margin-l-20"
+                className="margin-r-10 margin-l-10"
               >
                 <span className="required-icon">*</span>
                 身份證號
@@ -641,7 +647,7 @@ class VaccineReservationForm extends Component {
             <div className="phone-content">
               <label
                 htmlFor="phone"
-                className="margin-r-20 margin-l-20"
+                className="margin-r-10 margin-l-10"
               >
                 <span className="required-icon">*</span>
                 手機號碼
@@ -704,7 +710,7 @@ class VaccineReservationForm extends Component {
               </p>
             </div>
           </div>
-          <div className="padding-t-30 padding-r-30 d-flex justify-content-end">
+          <div className="submit-btn-content padding-t-30 padding-r-30 d-flex justify-content-end">
             <input
               name="submit-btn"
               className="btn-submit fz-26 input-submit-style btn-color-pink-white margin-r-20"

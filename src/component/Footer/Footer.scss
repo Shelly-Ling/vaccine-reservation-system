@@ -3,6 +3,7 @@
 @import "../../scss/_utilities/_displayFlex.scss";
 
 .footer__wrap {
+  min-width: 768px;
   p {
     background-color: $gray-500;
   }

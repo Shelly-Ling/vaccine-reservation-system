@@ -3,21 +3,20 @@
 @import "../../scss/_utilities/_spacing.scss";
 
 .reserved-list__wrap {
+  min-width: 768px;
+
   .info {
     width: 90%;
+
+    h1 {
+      font-size: 30px;
+    }
+    li {
+      font-size: 22px;
+    }
   }
 }
 
-@media (min-width: 768px) {
-  .info {
-    h1 {
-      font-size: 35px;
-    }
-    li {
-      font-size: 24px;
-    }
-  }
-}
 @media (min-width: 960px) {
   .info {
     max-width: 1300px;
