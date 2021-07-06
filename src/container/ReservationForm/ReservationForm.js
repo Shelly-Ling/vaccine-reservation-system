@@ -4,7 +4,6 @@ import VaccineReservationForm from "../../component/VaccineReservationForm/Vacci
 
 class ReservationForm extends Component {
   static defaultProps = {
-    showElement: false,
     pageData: {},
     title: "",
     changePage: () => {},
@@ -27,20 +26,14 @@ class ReservationForm extends Component {
 
   render() {
     const {
-      props: {
-        showElement,
-        pageData,
-        title,
-        changePage,
-        editItem,
-      },
+      props: { pageData, title, changePage, editItem },
     } = this
 
     const {
       state: { nowPageId },
     } = this
 
-    return showElement ? (
+    return (
       <VaccineReservationForm
         nowPageId={nowPageId}
         pageData={pageData}
@@ -48,7 +41,7 @@ class ReservationForm extends Component {
         changePage={changePage}
         editItem={editItem}
       />
-    ) : null
+    )
   }
 }
 

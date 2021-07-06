@@ -5,7 +5,6 @@ import SearchBar from "../../component/SearchBar/SearchBar"
 
 class ReservedList extends Component {
   static defaultProps = {
-    showElement: false,
     reservedList: [],
     pageName: "",
   }
@@ -46,14 +45,14 @@ class ReservedList extends Component {
 
   render() {
     const {
-      props: { showElement, reservedList, pageName },
+      props: { reservedList, pageName },
     } = this
 
     const {
       state: { filterReservedList },
     } = this
 
-    return showElement ? (
+    return (
       <div className="reserved-list__wrap padding-b-30">
         <div className="d-flex justify-content-center align-self-center">
           <div className="info padding-t-30 padding-b-30 padding-l-20">
@@ -97,7 +96,7 @@ class ReservedList extends Component {
           }
         />
       </div>
-    ) : null
+    )
   }
 }
 

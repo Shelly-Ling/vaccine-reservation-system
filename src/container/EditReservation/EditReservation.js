@@ -6,7 +6,6 @@ import VaccineReservationForm from "../../component/VaccineReservationForm/Vacci
 
 class EditReservation extends Component {
   static defaultProps = {
-    showElement: false,
     pageData: {},
     reservedList: [],
     deleteItem: () => {},
@@ -83,10 +82,26 @@ class EditReservation extends Component {
     })
   }
 
-  changeIsEditingState = () => {
+  changeIsEditingStateToFalse = () => {
     this.setState({
       isEditing: false,
     })
+  }
+
+  onCancelEditBtnClick = () => {
+    const originFieldsData = {
+      ...this.state.userEditingData,
+    }
+
+    this.setState(
+      {
+        isEditing: false,
+        userEditingData: originFieldsData,
+      },
+      () => {
+        this.clearUserEditingData()
+      }
+    )
   }
 
   clearUserEditingData = () => {
@@ -148,7 +163,6 @@ class EditReservation extends Component {
       props: {
         pageData,
         reservedList,
-        showElement,
         deleteItem,
         handleEditItemSubmit,
         updateReservedListData,
@@ -164,7 +178,7 @@ class EditReservation extends Component {
       },
     } = this
 
-    return showElement ? (
+    return (
       <div className="edit-reservation__wrap padding-b-30">
         <div className="d-flex justify-content-center align-self-center">
           <div className="info padding-t-30 padding-b-30 padding-l-20">
@@ -204,8 +218,11 @@ class EditReservation extends Component {
             title="編輯預約資訊表"
             className="margin-0-auto"
             handleEditItemSubmit={handleEditItemSubmit}
-            changeIsEditingState={
-              this.changeIsEditingState
+            changeIsEditingStateToFalse={
+              this.changeIsEditingStateToFalse
+            }
+            onCancelEditBtnClick={
+              this.onCancelEditBtnClick
             }
             userEditingData={userEditingData}
             clearUserEditingData={
@@ -217,7 +234,7 @@ class EditReservation extends Component {
           />
         </div>
       </div>
-    ) : null
+    )
   }
 }
 

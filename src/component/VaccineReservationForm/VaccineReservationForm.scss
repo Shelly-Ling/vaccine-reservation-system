@@ -75,6 +75,10 @@ select {
   }
 }
 
+.btn-cancel {
+  width: 320px;
+}
+
 @media (min-width: 768px) {
   //========================================
   //表單全域設定
@@ -95,6 +99,10 @@ select {
   label {
     padding-left: 10px;
     padding-right: 10px;
+  }
+
+  .btn-cancel {
+    width: 280px;
   }
   //========================================
   //表單內部 grid 排版

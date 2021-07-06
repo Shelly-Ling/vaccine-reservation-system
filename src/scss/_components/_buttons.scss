@@ -63,12 +63,22 @@
 //==================================================
 .btn-color-gray {
   color: $gray-100;
-  background-color: $red-600;
+  background-color: $gray-500;
 }
 
 .btn-color-orange {
   color: $gray-100;
-  background-color: $red-400;
+  background-color: $orange-300;
+}
+
+.btn-color-teal {
+  color: $gray-100;
+  background-color: $orange-500;
+}
+
+.btn-color-pink {
+  color: $gray-100;
+  background-color: $pink-600;
 }
 
 //==================================================

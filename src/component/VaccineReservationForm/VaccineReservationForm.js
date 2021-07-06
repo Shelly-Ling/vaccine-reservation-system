@@ -1,5 +1,6 @@
 import React, { Component } from "react"
 import "./VaccineReservationForm.scss"
+import DeleteIcon from "../Icons/DeleteIcon/DeleteIcon"
 class VaccineReservationForm extends Component {
   static defaultProps = {
     nowPageId: -1,
@@ -9,7 +10,8 @@ class VaccineReservationForm extends Component {
     clearUserEditingData: () => {},
     updateReservedListData: () => {},
     handleEditItemSubmit: () => {},
-    changeIsEditingState: () => {},
+    changeIsEditingStateToFalse: () => {},
+    onCancelEditBtnClick: () => {},
     editItem: () => {},
     changePage: () => {},
   }
@@ -103,7 +105,7 @@ class VaccineReservationForm extends Component {
       //資料提交
       const data = { ...this.state.fields }
 
-      this.props.changeIsEditingState()
+      this.props.changeIsEditingStateToFalse()
       this.props.handleEditItemSubmit(data)
 
       this.setState(
@@ -121,6 +123,7 @@ class VaccineReservationForm extends Component {
         },
         () => {
           this.props.clearUserEditingData()
+          this.removeInvalidityClass("input-name")
         }
       )
     }
@@ -190,8 +193,8 @@ class VaccineReservationForm extends Component {
    * @param {string} alertString
    */
   addInvalidityClass(elementId, alertString) {
-    const idString = `#${elementId}`
-    const pTagString = `#${elementId} ~ p`
+    const idString = `.${elementId}`
+    const pTagString = `.${elementId} ~ p`
 
     const inputField = document.querySelector(idString)
 
@@ -208,8 +211,8 @@ class VaccineReservationForm extends Component {
    * @param {string} elementId
    */
   removeInvalidityClass(elementId) {
-    const idString = `#${elementId}`
-    const pTagString = `#${elementId} ~ p`
+    const idString = `.${elementId}`
+    const pTagString = `.${elementId} ~ p`
 
     const inputField = document.querySelector(idString)
 
@@ -221,24 +224,24 @@ class VaccineReservationForm extends Component {
   }
 
   /**
-   *@description 檢查姓名欄位 id: name
+   *@description 檢查姓名欄位 class: input-name
    */
   nameFormatCheck = () => {
     //若姓名欄位為空，加上報錯 class，反之移除報錯 class
     if (this.state.fields.name) {
-      this.removeInvalidityClass(
-        "name",
-        "*姓名欄位不可為空"
-      )
+      this.removeInvalidityClass("input-name")
       return true
     } else {
-      this.addInvalidityClass("name", "*姓名欄位不可為空")
+      this.addInvalidityClass(
+        "input-name",
+        "*姓名欄位不可為空"
+      )
       return false
     }
   }
 
   /**
-   *@description 檢查手機號碼欄位 id: phone
+   *@description 檢查手機號碼欄位 class: phone
    */
   phoneFormatCheck = () => {
     const phoneLength = this.state.fields.phone.length
@@ -385,7 +388,7 @@ class VaccineReservationForm extends Component {
   }
 
   /**
-   *@description 檢查手機號碼欄位 id: identityNumber
+   *@description 檢查手機號碼欄位 class: identityNumber
    */
   identityNumberFormatCheck() {
     const idNumberLength =
@@ -469,13 +472,16 @@ class VaccineReservationForm extends Component {
   }
 
   /**
-   *@description 檢查疫苗種類欄位 id: vaccine-type
+   *@description 檢查疫苗種類欄位 class: vaccine-type
    */
   vaccineTypeFormatCheck = () => {
     if (this.state.fields.vaccineType) {
       this.removeInvalidityClass("vaccine-type")
       return true
-    } else {
+    } else if (
+      this.state.fields.vaccineType === "請選擇" ||
+      this.state.fields.vaccineType === ""
+    ) {
       this.addInvalidityClass(
         "vaccine-type",
         "*請選擇疫苗種類"
@@ -485,7 +491,7 @@ class VaccineReservationForm extends Component {
   }
 
   /**
-   *@description 檢查施打日期欄位 id: booking-date
+   *@description 檢查施打日期欄位 class: booking-date
    */
   dayForVaccinationFormatCheck = () => {
     if (this.state.fields.dayForVaccination) {
@@ -503,7 +509,12 @@ class VaccineReservationForm extends Component {
 
   render() {
     const {
-      props: { nowPageId, pageData, title },
+      props: {
+        nowPageId,
+        pageData,
+        title,
+        onCancelEditBtnClick,
+      },
     } = this
 
     const {
@@ -512,13 +523,24 @@ class VaccineReservationForm extends Component {
 
     return (
       <div className="reservation-form__wrap">
-        <h1 className="title fz-30 fz-bold padding-t-30 display-inline-block padding-l-20">
-          {title}
-        </h1>
-        <span className="required-mark_content fz-24 padding-l-40">
-          <span className="required-icon">*</span>
-          <span>為必填</span>
-        </span>
+        <div className="d-flex justify-content-between">
+          <div>
+            <h1 className="title fz-30 fz-bold padding-t-30 display-inline-block padding-l-20">
+              {title}
+            </h1>
+
+            <span className="required-mark_content fz-24 padding-l-40">
+              <span className="required-icon">*</span>
+              <span>為必填</span>
+            </span>
+          </div>
+
+          {nowPageId === pageData.editReservation.id ? (
+            <div onClick={onCancelEditBtnClick}>
+              <DeleteIcon />
+            </div>
+          ) : null}
+        </div>
 
         <form
           onSubmit={(event) =>
@@ -529,8 +551,6 @@ class VaccineReservationForm extends Component {
               : this.onReserveSubmitBtnClick(event)
           }
           className="form"
-          id="form"
-          action=""
           method="get"
         >
           <div className="input-list">
@@ -544,9 +564,8 @@ class VaccineReservationForm extends Component {
               </label>
               <input
                 type="text"
-                id="name"
                 name="name"
-                className="name input-style required"
+                className="input-name input-style required"
                 autoFocus
                 value={fields.name}
                 onChange={this.handleInputChange}
@@ -565,9 +584,8 @@ class VaccineReservationForm extends Component {
               </label>
               <input
                 type="text"
-                id="identityNumber"
                 name="identityNumber"
-                className="input-style required"
+                className="identityNumber input-style required"
                 value={fields.identityNumber}
                 onChange={this.handleInputChange}
                 disabled={
@@ -589,9 +607,8 @@ class VaccineReservationForm extends Component {
               </label>
               <input
                 type="text"
-                id="birth"
                 name="birth"
-                className="input-style required"
+                className="birth input-style required"
                 placeholder="範例: 0800101"
                 value={fields.birth}
                 onChange={this.handleInputChange}
@@ -611,9 +628,8 @@ class VaccineReservationForm extends Component {
               </label>
               <input
                 type="date"
-                id="booking-date"
                 name="dayForVaccination"
-                className="input-style required"
+                className="booking-date input-style required"
                 value={fields.dayForVaccination}
                 onChange={this.handleInputChange}
               />
@@ -632,9 +648,8 @@ class VaccineReservationForm extends Component {
               </label>
               <input
                 type="text"
-                id="phone"
                 name="phone"
-                className="input-style required"
+                className="phone input-style required"
                 value={fields.phone}
                 onChange={this.handleInputChange}
               />
@@ -649,13 +664,14 @@ class VaccineReservationForm extends Component {
               </label>
               <select
                 type="text"
-                id="vaccine-type"
                 name="vaccineType"
-                className="input-style required"
+                className="vaccine-type input-style required"
                 value={fields.vaccineType}
                 onChange={this.handleInputChange}
               >
-                <option value="請選擇">--請選擇--</option>
+                <option value="" disabled>
+                  --請選擇--
+                </option>
                 <option value="BNT">BNT</option>
                 <option value="莫德納">莫德納</option>
                 <option value="AZ">AZ</option>
@@ -678,9 +694,8 @@ class VaccineReservationForm extends Component {
               </label>
               <input
                 type="text"
-                id="remark"
                 name="remark"
-                className="input-style"
+                className="remark input-style"
                 value={fields.remark}
                 onChange={this.handleInputChange}
               />
@@ -691,9 +706,8 @@ class VaccineReservationForm extends Component {
           </div>
           <div className="padding-t-30 padding-r-30 d-flex justify-content-end">
             <input
-              id="btn-submit"
               name="submit-btn"
-              className="btn-submit fz-26 input-submit-style btn-color-pink-white"
+              className="btn-submit fz-26 input-submit-style btn-color-pink-white margin-r-20"
               type="submit"
               value="提 交"
             />

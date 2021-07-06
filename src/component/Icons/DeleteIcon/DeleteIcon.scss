@@ -1,0 +1,35 @@
+@import "../../../scss/_helpers/_constant.scss";
+
+.deleteIcon__wrap {
+  position: absolute;
+  z-index: 1;
+  top: 15px;
+  right: 15px;
+  background-color: $pink-200;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+
+  :hover {
+    cursor: pointer;
+  }
+
+  span {
+    position: absolute;
+    z-index: 2;
+    background-color: $gray-200;
+    width: 34px;
+    height: 6px;
+    display: block;
+    top: 22px;
+    right: 8px;
+
+    &:first-child {
+      transform: rotate(-135deg);
+    }
+
+    &:nth-child(2) {
+      transform: rotate(-45deg);
+    }
+  }
+}
