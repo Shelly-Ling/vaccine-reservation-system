@@ -53,22 +53,6 @@ function VaccineReservationForm() {
                 *項目不可以為空
               </p>
             </div>
-            <div className="identityNumber-content">
-              <label htmlFor="identityNumber">
-                <span className="required-icon">*</span>
-                身份證號
-              </label>
-              <input
-                type="text"
-                name="identityNumber"
-                className="identityNumber input-style required "
-              />
-              <p className="display-none">
-                *項目不可以為空
-              </p>
-            </div>
-          </div>
-          <div className="input-list__left">
             <div className="birth-content">
               <label htmlFor="birth">
                 <span className="required-icon">*</span>
@@ -84,6 +68,8 @@ function VaccineReservationForm() {
                 *項目不可以為空
               </p>
             </div>
+          </div>
+          <div className="input-list__left">
             <div className="phone-content">
               <label htmlFor="phone">
                 <span className="required-icon">*</span>
@@ -93,6 +79,20 @@ function VaccineReservationForm() {
                 type="text"
                 name="phone"
                 className="phone input-style required"
+              />
+              <p className="display-none">
+                *項目不可以為空
+              </p>
+            </div>
+            <div className="identityNumber-content">
+              <label htmlFor="identityNumber">
+                <span className="required-icon">*</span>
+                身份證號
+              </label>
+              <input
+                type="text"
+                name="identityNumber"
+                className="identityNumber input-style required "
               />
               <p className="display-none">
                 *項目不可以為空
