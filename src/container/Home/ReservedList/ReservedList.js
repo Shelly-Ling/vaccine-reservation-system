@@ -1,7 +1,7 @@
 import "./ReservedList.scss"
 import React, { useState } from "react"
-import TableList from "../../component/TableList/TableList"
-import SearchBar from "../../component/SearchBar/SearchBar"
+import TableList from "../../../component/TableList/TableList"
+import SearchBar from "../../../component/SearchBar/SearchBar"
 
 function ReservedList() {
   return (

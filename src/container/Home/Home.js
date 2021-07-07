@@ -4,9 +4,9 @@ import React, { useState } from "react"
 import Header from "../../component/Header/Header"
 import Footer from "../../component/Footer/Footer"
 
-import ReservedList from "../ReservedList/ReservedList"
-import EditReservation from "../EditReservation/EditReservation"
-import ReservationForm from "../ReservationForm/ReservationForm"
+import ReservedList from "./ReservedList/ReservedList"
+import EditReservation from "./EditReservation/EditReservation"
+import ReservationForm from "./ReservationForm/ReservationForm"
 
 /**
  * @description 首頁
