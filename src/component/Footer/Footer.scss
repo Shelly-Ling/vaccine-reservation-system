@@ -1,6 +1,7 @@
 @import "../../scss/_helpers/_constant.scss";
 
 .footer__wrap {
+  min-width: 768px;
   p {
     background-color: $gray-500;
   }

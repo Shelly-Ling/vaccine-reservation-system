@@ -1,6 +1,7 @@
 @import "../../scss/_helpers/_constant.scss";
 
 .header__wrap {
+  min-width: 768px;
   h1 {
     text-align: center;
   }
