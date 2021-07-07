@@ -1,8 +1,16 @@
 import "./Header.scss"
-import React, { useState } from "react"
+import React, { useContext } from "react"
+import {
+  PageDataContext,
+  NowPageIdContext,
+} from "../../container/Home/Home"
 
-function Header({ pageData = {}, nowPageId = -1 }) {
+function Header() {
+  const pageData = useContext(PageDataContext)
+  const nowPageId = useContext(NowPageIdContext)
+
   const objectValueIndex = 1
+
   return (
     <div className="header__wrap">
       <h1 className="letter-spacing-30 fz-40 fz-bold-800 padding-b-10 padding-t-10">

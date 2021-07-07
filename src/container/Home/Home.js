@@ -1,5 +1,4 @@
 import "./Home.scss"
-
 import React, { useState } from "react"
 import Header from "../../component/Header/Header"
 import Footer from "../../component/Footer/Footer"
@@ -30,6 +29,9 @@ const pageData = {
   },
 }
 
+export const PageDataContext = React.createContext()
+export const NowPageIdContext = React.createContext()
+
 function Home() {
   const [nowPageId, setNowPageId] = useState(
     pageData.reservedList.id
@@ -42,17 +44,21 @@ function Home() {
 
   return (
     <div className="home d-flex flex-col justify-content-between">
-      <Header pageData={pageData} nowPageId={nowPageId} />
-      {nowPageId === pageData.reservationForm.id && (
-        <ReservationForm />
-      )}
-      {nowPageId === pageData.reservedList.id && (
-        <ReservedList />
-      )}
-      {nowPageId === pageData.editReservation.id && (
-        <EditReservation />
-      )}
-      <Footer />
+      <PageDataContext.Provider value={pageData}>
+        <NowPageIdContext.Provider value={nowPageId}>
+          <Header />
+          {nowPageId === pageData.reservationForm.id && (
+            <ReservationForm />
+          )}
+          {nowPageId === pageData.reservedList.id && (
+            <ReservedList />
+          )}
+          {nowPageId === pageData.editReservation.id && (
+            <EditReservation />
+          )}
+          <Footer />
+        </NowPageIdContext.Provider>
+      </PageDataContext.Provider>
     </div>
   )
 }
