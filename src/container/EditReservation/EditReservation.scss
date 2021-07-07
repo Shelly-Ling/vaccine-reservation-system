@@ -15,7 +15,7 @@
 
   .modal {
     width: 600px;
-    height: 500px;
+    height: 700px;
     background-color: $gray-200;
     border: 10px solid $pink-200;
     position: absolute;
@@ -24,18 +24,12 @@
     right: 10%;
     left: 10%;
     bottom: 5%;
-
-    .form {
-      //width: 70%; 在設定好編輯頁表單的 edit-modal-style 後可以拿掉
-      width: 70%;
-    }
   }
 }
 
 @media (min-width: 960px) {
   .edit-reservation__wrap {
     .info {
-      max-width: 1300px;
       margin: 0 auto;
     }
     .modal {
