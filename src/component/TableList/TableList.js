@@ -23,14 +23,15 @@ function TableList({ searchBarComponent }) {
       phone: "0000000000",
       vaccineType: "嬌生",
       dayForVaccination: "2021-07-09",
-      remark: "dhhthrjy  dhhthrjy",
+      remark:
+        "dhhthrjy  dhhthrjydhhthrjy  dhhthrjydhhthrjy  dhhthrjydhhthrjy  dhhthrjy",
     },
   ]
 
   return (
-    <div className="table-list__wrap margin-0-auto">
+    <div className="table-list__wrap">
       {searchBarComponent}
-      <div className="main margin-l-50 margin-r-50">
+      <div className="main">
         <table className="table-border-less table-striped-pink-gray">
           <thead>
             <tr>

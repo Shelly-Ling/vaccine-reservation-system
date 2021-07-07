@@ -1,6 +1,5 @@
 @import "../../scss/_helpers/_constant.scss";
 @import "../../scss/_utilities/_table.scss";
-@import "../../scss/_utilities/_textClick.scss";
 
 //========================================
 //無資料可渲染時的提示文字
@@ -10,9 +9,6 @@
 }
 
 .table-list__wrap {
-  min-width: 768px;
-  position: relative;
-  z-index: 0;
   //========================================
   //表格設定
   //========================================
@@ -32,14 +28,14 @@
       width: 100%;
       td {
         font-size: 20px;
-        padding: 5px;
+        padding: 10px;
         vertical-align: middle;
       }
       thead {
         tr {
           td {
-            font-size: 22px;
             padding: 5px;
+            font-size: 22px;
           }
         }
       }
@@ -47,65 +43,24 @@
   }
 }
 
-@media (min-width: 768px) {
-  .table-list__wrap {
-    .main {
-      table {
-        thead {
-          tr {
-            td {
-              font-size: 22px;
-              padding: 10px;
-            }
-          }
-        }
-        tbody {
-          tr {
-            td {
-              font-size: 24px;
-              vertical-align: middle;
-            }
-          }
-        }
-      }
-    }
-  }
-}
 @media (min-width: 960px) {
   .table-list__wrap {
-    max-width: 1400px;
     .main {
-      table {
-        thead {
-          tr {
-            td {
-              padding: 20px;
-              font-size: 24px;
-            }
+      thead {
+        tr {
+          td {
+            font-size: 24px;
+          }
 
-            .name {
-              min-width: 105px;
-            }
-
-            .identity-number {
-              min-width: 160px;
-            }
-
-            .date {
-              min-width: 150px;
-            }
-
-            .edit-row {
-              min-width: 180px;
-            }
+          .name {
+            min-width: 10px;
           }
         }
-        tbody {
-          tr {
-            td {
-              font-size: 24px;
-              padding: 20px 10px;
-            }
+      }
+      tbody {
+        tr {
+          td {
+            font-size: 24px;
           }
         }
       }

@@ -1,5 +1,4 @@
 import React, { Fragment, useState } from "react"
-
 import "./SearchBar.scss"
 
 /**
@@ -9,7 +8,7 @@ import "./SearchBar.scss"
 function SearchBar() {
   return (
     <Fragment>
-      <form className="search-content margin-l-80 margin-b-20">
+      <form className="search-content padding-b-20">
         <div className="display-inline-block">
           <label
             className="padding-r-20"
@@ -46,7 +45,7 @@ function SearchBar() {
           className="btn-submit margin-l-10 fz-20 input-submit-style btn-color-pink-white "
           id="submit"
         />
-        <button className="btn-submit margin-l-10 padding-r-5 fz-20 input-submit-style btn-color-pink-white display-inline">
+        <button className="btn-submit margin-l-10 fz-20 input-submit-style btn-color-pink-white">
           重置
         </button>
       </form>

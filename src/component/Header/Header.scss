@@ -1,29 +1,18 @@
 @import "../../scss/_helpers/_constant.scss";
-@import "../../scss/_components/_buttons.scss";
-@import "../../scss/_utilities/_typography.scss";
-@import "../../scss/_utilities/_border.scss";
-@import "../../scss/_utilities/_displayGeneral.scss";
-@import "../../scss/_utilities/_float.scss";
-@import "../../scss/_utilities/_spacing.scss";
-@import "../../scss/_utilities/_text.scss";
 
 .header__wrap {
-  min-width: 768px;
-
   h1 {
     text-align: center;
-
-    font-size: 40px;
-    letter-spacing: 30px;
   }
 }
 .navbar {
   display: flex;
   justify-content: center;
   background-color: $gray-300;
-
-  button {
-    margin: 20px;
-    font-size: 25px;
+  > ul {
+    button {
+      margin: 20px;
+      font-size: 25px;
+    }
   }
 }

@@ -6,12 +6,10 @@ import VaccineReservationForm from "../../component/VaccineReservationForm/Vacci
 
 function EditReservation() {
   return (
-    <div className="edit-reservation__wrap padding-b-30">
-      <div className="info padding-t-30 padding-b-30 padding-l-20">
-        <h1 className="title fz-bold padding-b-20">
-          編輯預約名單
-        </h1>
-      </div>
+    <div className="edit-reservation__wrap contain-width margin-l-auto margin-r-auto padding-b-30">
+      <h1 className="title fz-35 fz-bold padding-t-30 padding-b-20">
+        編輯預約名單
+      </h1>
 
       <TableList searchBarComponent={<SearchBar />} />
       {/* <div className="modal edit-modal margin-0-auto padding-10 border-radius-50 ">

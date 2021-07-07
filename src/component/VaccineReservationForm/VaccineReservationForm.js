@@ -23,7 +23,7 @@ const pageData = {
 function VaccineReservationForm() {
   return (
     <div className="reservation-form__wrap contain-width ">
-      <div className="form__header padding-t-60">
+      <div className="form__header padding-t-30">
         <h1 className="title fz-35 fz-bold display-inline-block">
           表單標題
         </h1>
