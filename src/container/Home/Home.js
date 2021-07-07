@@ -1,5 +1,5 @@
 import "./Home.scss"
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import Header from "../../component/Header/Header"
 import Footer from "../../component/Footer/Footer"
 
@@ -32,14 +32,29 @@ const pageData = {
 export const PageDataContext = React.createContext()
 export const NowPageIdContext = React.createContext()
 export const OnNavLinkClickContext = React.createContext()
+export const ReservedListContext = React.createContext()
 
 function Home() {
+  useEffect(() => {
+    getReservedListData()
+  }, [])
+
   const [nowPageId, setNowPageId] = useState(
     pageData.reservedList.id
   )
 
+  const [reservedList, setReservedList] = useState([])
+
   function onNavLinkClick(targetId) {
     setNowPageId(targetId)
+  }
+
+  function getReservedListData() {
+    const data =
+      JSON.parse(localStorage.getItem("reservedList")) ||
+      []
+    console.log("data", data)
+    setReservedList(data)
   }
 
   return (
@@ -54,13 +69,17 @@ function Home() {
               pageData.reservationForm.id && (
               <ReservationForm />
             )}
-            {nowPageId === pageData.reservedList.id && (
-              <ReservedList />
-            )}
-            {nowPageId ===
-              pageData.editReservation.id && (
-              <EditReservation />
-            )}
+            <ReservedListContext.Provider
+              value={reservedList}
+            >
+              {nowPageId === pageData.reservedList.id && (
+                <ReservedList />
+              )}
+              {nowPageId ===
+                pageData.editReservation.id && (
+                <EditReservation />
+              )}
+            </ReservedListContext.Provider>
             <Footer />
           </OnNavLinkClickContext.Provider>
         </NowPageIdContext.Provider>
