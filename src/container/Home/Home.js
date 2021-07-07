@@ -31,32 +31,38 @@ const pageData = {
 
 export const PageDataContext = React.createContext()
 export const NowPageIdContext = React.createContext()
+export const OnNavLinkClickContext = React.createContext()
 
 function Home() {
   const [nowPageId, setNowPageId] = useState(
     pageData.reservedList.id
   )
 
-  function onNavLinkClick(event) {
-    const pageId = event.target.id
-    setNowPageId(pageId)
+  function onNavLinkClick(targetId) {
+    setNowPageId(targetId)
   }
 
   return (
     <div className="home d-flex flex-col justify-content-between">
       <PageDataContext.Provider value={pageData}>
         <NowPageIdContext.Provider value={nowPageId}>
-          <Header />
-          {nowPageId === pageData.reservationForm.id && (
-            <ReservationForm />
-          )}
-          {nowPageId === pageData.reservedList.id && (
-            <ReservedList />
-          )}
-          {nowPageId === pageData.editReservation.id && (
-            <EditReservation />
-          )}
-          <Footer />
+          <OnNavLinkClickContext.Provider
+            value={onNavLinkClick}
+          >
+            <Header />
+            {nowPageId ===
+              pageData.reservationForm.id && (
+              <ReservationForm />
+            )}
+            {nowPageId === pageData.reservedList.id && (
+              <ReservedList />
+            )}
+            {nowPageId ===
+              pageData.editReservation.id && (
+              <EditReservation />
+            )}
+            <Footer />
+          </OnNavLinkClickContext.Provider>
         </NowPageIdContext.Provider>
       </PageDataContext.Provider>
     </div>

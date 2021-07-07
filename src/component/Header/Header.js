@@ -3,11 +3,13 @@ import React, { useContext } from "react"
 import {
   PageDataContext,
   NowPageIdContext,
+  OnNavLinkClickContext,
 } from "../../container/Home/Home"
 
 function Header() {
   const pageData = useContext(PageDataContext)
   const nowPageId = useContext(NowPageIdContext)
+  const onNavLinkClick = useContext(OnNavLinkClickContext)
 
   const objectValueIndex = 1
 
@@ -31,6 +33,11 @@ function Header() {
                       ? "btn-color-pink-gray-active"
                       : ""
                   }`}
+                  onClick={() =>
+                    onNavLinkClick(
+                      item[objectValueIndex].id
+                    )
+                  }
                 >
                   {item[objectValueIndex].title}
                 </button>
