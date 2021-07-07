@@ -31,12 +31,27 @@ const pageData = {
 }
 
 function Home() {
+  const [nowPageId, setNowPageId] = useState(
+    pageData.reservedList.id
+  )
+
+  function onNavLinkClick(event) {
+    const pageId = event.target.id
+    setNowPageId(pageId)
+  }
+
   return (
     <div className="home d-flex flex-col justify-content-between">
-      <Header />
-      <ReservationForm />
-      <ReservedList />
-      <EditReservation />
+      <Header pageData={pageData} nowPageId={nowPageId} />
+      {nowPageId === pageData.reservationForm.id && (
+        <ReservationForm />
+      )}
+      {nowPageId === pageData.reservedList.id && (
+        <ReservedList />
+      )}
+      {nowPageId === pageData.editReservation.id && (
+        <EditReservation />
+      )}
       <Footer />
     </div>
   )
