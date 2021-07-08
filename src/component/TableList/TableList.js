@@ -10,7 +10,25 @@ import "./TableList.scss"
 function TableList({ searchBarComponent }) {
   const AppData = useContext(AppContext)
 
-  return AppData.state.reservedList ? (
+  function deleteItem(event) {
+    const deleteItemId = event.target.dataset.id
+
+    const result = AppData.state.reservedList.filter(
+      (item) => item.identityNumber !== deleteItemId
+    )
+
+    localStorage.setItem(
+      "reservedList",
+      JSON.stringify(result)
+    )
+
+    AppData.dispatch({
+      type: "deleteItem",
+      payload: result,
+    })
+  }
+
+  return AppData.state.reservedList.length ? (
     <div className="table-list__wrap">
       {searchBarComponent}
       <table className="table-border-less table-striped-pink-gray">
@@ -47,7 +65,11 @@ function TableList({ searchBarComponent }) {
               {AppData.nowPageId ===
               AppData.pageData.editReservation.id ? (
                 <td>
-                  <button className="margin-l-10 fz-20 delete">
+                  <button
+                    className="margin-l-10 fz-20 delete"
+                    data-id={item.identityNumber}
+                    onClick={(event) => deleteItem(event)}
+                  >
                     刪除
                   </button>
                   <button className="margin-l-10 fz-20 edit">
@@ -61,7 +83,7 @@ function TableList({ searchBarComponent }) {
       </table>
     </div>
   ) : (
-    <div className="padding-30 text-info fz-30 fz-bold text-align-center">
+    <div className="padding-30 text-info fz-30 fz-bold text-align-center border-radius-30">
       尚無資料可顯示
     </div>
   )

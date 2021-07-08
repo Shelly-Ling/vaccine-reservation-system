@@ -52,6 +52,10 @@ const reducer = (state, action) => {
       return {
         reservedList: action.payload,
       }
+    case "deleteItem":
+      return {
+        reservedList: action.payload,
+      }
     default:
       return {
         reservedList: data,
