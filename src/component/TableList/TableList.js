@@ -1,6 +1,7 @@
 import React, { useContext } from "react"
-import "./TableList.scss"
 import { AppContext } from "../../container/Home/Home"
+
+import "./TableList.scss"
 
 /**
  * @description 清單列表型的表格
@@ -9,7 +10,7 @@ import { AppContext } from "../../container/Home/Home"
 function TableList({ searchBarComponent }) {
   const AppData = useContext(AppContext)
 
-  return AppData.reservedList ? (
+  return AppData.state.reservedList ? (
     <div className="table-list__wrap">
       {searchBarComponent}
       <table className="table-border-less table-striped-pink-gray">
@@ -31,7 +32,7 @@ function TableList({ searchBarComponent }) {
           </tr>
         </thead>
         <tbody>
-          {AppData.reservedList.map((item) => (
+          {AppData.state.reservedList.map((item) => (
             <tr
               data-id={item.identityNumber}
               key={item.identityNumber}

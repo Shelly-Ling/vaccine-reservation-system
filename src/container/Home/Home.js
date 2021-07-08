@@ -1,11 +1,15 @@
 import "./Home.scss"
-import React, { useState, useEffect } from "react"
 import Header from "../../component/Header/Header"
 import Footer from "../../component/Footer/Footer"
-
 import ReservedList from "./ReservedList/ReservedList"
 import EditReservation from "./EditReservation/EditReservation"
 import ReservationForm from "./ReservationForm/ReservationForm"
+
+import React, {
+  useState,
+  useEffect,
+  useReducer,
+} from "react"
 
 /**
  * @description 首頁
@@ -31,37 +35,76 @@ const pageData = {
 
 export const AppContext = React.createContext()
 
-function Home() {
-  useEffect(() => {
-    getReservedListData()
-  }, [])
+const initialState = {
+  reservedList: [],
+}
 
+const data =
+  JSON.parse(localStorage.getItem("reservedList")) || []
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "getReservedListData":
+      return {
+        reservedList: data,
+      }
+    default:
+      return {
+        reservedList: data,
+      }
+  }
+}
+
+function Home() {
   const [nowPageId, setNowPageId] = useState(
     pageData.reservedList.id
   )
 
-  const [reservedList, setReservedList] = useState([])
+  useEffect(() => {
+    // getReservedListData()
+    dispatch({ type: "getReservedListData" })
+  }, [])
+
+  //========================================
+  //用 useState 管理 reservedList
+  //========================================
+
+  // const [reservedList, setReservedList] = useState([])
+
+  // function getReservedListData() {
+  //   const data =
+  //     JSON.parse(localStorage.getItem("reservedList")) ||
+  //     []
+  //   console.log("data", data)
+  //   setReservedList(data)
+  // }
+
+  //========================================
+  //用 useReducer 管理 reservedList
+  //========================================
+  const [state, dispatch] = useReducer(
+    reducer,
+    initialState
+  )
 
   function onNavLinkClick(targetId) {
     setNowPageId(targetId)
   }
 
-  function getReservedListData() {
-    const data =
-      JSON.parse(localStorage.getItem("reservedList")) ||
-      []
-    console.log("data", data)
-    setReservedList(data)
-  }
-
   return (
     <div className="home d-flex flex-col justify-content-between">
       <AppContext.Provider
+        // value={{
+        //   pageData,
+        //   nowPageId,
+        //   onNavLinkClick,
+        //   reservedList,
+        // }}
         value={{
           pageData,
           nowPageId,
+          state,
           onNavLinkClick,
-          reservedList,
         }}
       >
         <Header />
