@@ -22,7 +22,7 @@ const pageData = {
 
 function VaccineReservationForm() {
   return (
-    <div className="reservation-form__wrap contain-width ">
+    <div className="reservation-form__wrap contain-width">
       <div className="form__header padding-t-30">
         <h1 className="title fz-35 fz-bold display-inline-block">
           表單標題
@@ -107,25 +107,6 @@ function VaccineReservationForm() {
               *若您生日為民國80年1月1日，請輸入0800101
             </p>
           </div>
-
-          <div className="dayForVaccination-content padding-l-10">
-            <label htmlFor="booking-date">
-              <span className="required-icon">*</span>
-              預約接種日期
-            </label>
-            <input
-              id="booking-date"
-              type="date"
-              name="dayForVaccination"
-              className="booking-date input-style"
-              // value={fields.dayForVaccination}
-              // onChange={this.handleInputChange}
-            />
-            <p className="fz-16 display-none">
-              *項目不可為空
-            </p>
-          </div>
-
           <div className="phone-content padding-l-10">
             <label htmlFor="phone">
               <span className="required-icon">*</span>
@@ -168,6 +149,23 @@ function VaccineReservationForm() {
               </option>
               <option value="科興">科興</option>
             </select>
+            <p className="fz-16 display-none">
+              *項目不可為空
+            </p>
+          </div>
+          <div className="dayForVaccination-content padding-l-10">
+            <label htmlFor="booking-date">
+              <span className="required-icon">*</span>
+              預約接種日期
+            </label>
+            <input
+              id="booking-date"
+              type="date"
+              name="dayForVaccination"
+              className="booking-date input-style"
+              // value={fields.dayForVaccination}
+              // onChange={this.handleInputChange}
+            />
             <p className="fz-16 display-none">
               *項目不可為空
             </p>

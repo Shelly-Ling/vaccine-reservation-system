@@ -29,10 +29,7 @@ const pageData = {
   },
 }
 
-export const PageDataContext = React.createContext()
-export const NowPageIdContext = React.createContext()
-export const OnNavLinkClickContext = React.createContext()
-export const ReservedListContext = React.createContext()
+export const AppContext = React.createContext()
 
 function Home() {
   useEffect(() => {
@@ -59,31 +56,27 @@ function Home() {
 
   return (
     <div className="home d-flex flex-col justify-content-between">
-      <PageDataContext.Provider value={pageData}>
-        <NowPageIdContext.Provider value={nowPageId}>
-          <OnNavLinkClickContext.Provider
-            value={onNavLinkClick}
-          >
-            <Header />
-            {nowPageId ===
-              pageData.reservationForm.id && (
-              <ReservationForm />
-            )}
-            <ReservedListContext.Provider
-              value={reservedList}
-            >
-              {nowPageId === pageData.reservedList.id && (
-                <ReservedList />
-              )}
-              {nowPageId ===
-                pageData.editReservation.id && (
-                <EditReservation />
-              )}
-            </ReservedListContext.Provider>
-            <Footer />
-          </OnNavLinkClickContext.Provider>
-        </NowPageIdContext.Provider>
-      </PageDataContext.Provider>
+      <AppContext.Provider
+        value={{
+          pageData,
+          nowPageId,
+          onNavLinkClick,
+          reservedList,
+        }}
+      >
+        <Header />
+        {nowPageId === pageData.reservationForm.id && (
+          <ReservationForm />
+        )}
+
+        {nowPageId === pageData.reservedList.id && (
+          <ReservedList />
+        )}
+        {nowPageId === pageData.editReservation.id && (
+          <EditReservation />
+        )}
+        <Footer />
+      </AppContext.Provider>
     </div>
   )
 }

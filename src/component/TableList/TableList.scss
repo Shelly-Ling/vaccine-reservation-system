@@ -12,31 +12,29 @@
   //========================================
   //表格設定
   //========================================
-  .main {
-    @include tableBorderRadius(50px);
+  @include tableBorderRadius(50px);
 
-    //編刪按鈕設定
-    .delete {
-      width: 60px;
+  //編刪按鈕設定
+  .delete {
+    width: 60px;
+  }
+
+  .edit {
+    width: 60px;
+  }
+
+  table {
+    width: 100%;
+    td {
+      font-size: 20px;
+      padding: 10px;
+      vertical-align: middle;
     }
-
-    .edit {
-      width: 60px;
-    }
-
-    table {
-      width: 100%;
-      td {
-        font-size: 20px;
-        padding: 10px;
-        vertical-align: middle;
-      }
-      thead {
-        tr {
-          td {
-            padding: 5px;
-            font-size: 22px;
-          }
+    thead {
+      tr {
+        td {
+          padding: 5px;
+          font-size: 22px;
         }
       }
     }
@@ -45,23 +43,21 @@
 
 @media (min-width: 960px) {
   .table-list__wrap {
-    .main {
-      thead {
-        tr {
-          td {
-            font-size: 24px;
-          }
+    thead {
+      tr {
+        td {
+          font-size: 24px;
+        }
 
-          .name {
-            min-width: 10px;
-          }
+        .name {
+          min-width: 10px;
         }
       }
-      tbody {
-        tr {
-          td {
-            font-size: 24px;
-          }
+    }
+    tbody {
+      tr {
+        td {
+          font-size: 24px;
         }
       }
     }
