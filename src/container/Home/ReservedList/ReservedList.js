@@ -1,5 +1,5 @@
 import "./ReservedList.scss"
-import React, { useState } from "react"
+import React from "react"
 import TableList from "../../../component/TableList/TableList"
 import SearchBar from "../../../component/SearchBar/SearchBar"
 

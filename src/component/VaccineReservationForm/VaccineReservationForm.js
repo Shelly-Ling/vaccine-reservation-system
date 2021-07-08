@@ -1,24 +1,6 @@
-import React, { useState } from "react"
+import React from "react"
 import "./VaccineReservationForm.scss"
-import DeleteIcon from "../Icons/DeleteIcon/DeleteIcon"
-
-const pageData = {
-  reservationForm: {
-    id: 1,
-    pageName: "reservation-form",
-    title: "預約申請",
-  },
-  reservedList: {
-    id: 2,
-    pageName: "reserved-list",
-    title: "已預約名單",
-  },
-  editReservation: {
-    id: 3,
-    pageName: "edit-reservation",
-    title: "編輯預約名單",
-  },
-}
+// import DeleteIcon from "../Icons/DeleteIcon/DeleteIcon"
 
 function VaccineReservationForm() {
   return (

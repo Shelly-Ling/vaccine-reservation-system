@@ -1,8 +1,8 @@
 import "./EditReservation.scss"
-import React, { useState } from "react"
+import React from "react"
 import TableList from "../../../component/TableList/TableList"
 import SearchBar from "../../../component/SearchBar/SearchBar"
-import VaccineReservationForm from "../../../component/VaccineReservationForm/VaccineReservationForm"
+// import VaccineReservationForm from "../../../component/VaccineReservationForm/VaccineReservationForm"
 
 function EditReservation() {
   return (

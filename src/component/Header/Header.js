@@ -4,7 +4,6 @@ import { AppContext } from "../../container/Home/Home"
 
 function Header() {
   const AppData = useContext(AppContext)
-  console.log("AppData", AppData)
 
   return (
     <div className="header__wrap">

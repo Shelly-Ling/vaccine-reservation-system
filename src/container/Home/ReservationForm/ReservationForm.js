@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React from "react"
 import "./ReservationForm.scss"
 import VaccineReservationForm from "../../../component/VaccineReservationForm/VaccineReservationForm"
 
