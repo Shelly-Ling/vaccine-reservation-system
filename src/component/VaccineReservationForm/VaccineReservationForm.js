@@ -1,8 +1,62 @@
-import React from "react"
+import React, { useState, useContext } from "react"
 import "./VaccineReservationForm.scss"
+import { AppContext } from "../../container/Home/Home"
+
 // import DeleteIcon from "../Icons/DeleteIcon/DeleteIcon"
 
 function VaccineReservationForm() {
+  const AppData = useContext(AppContext)
+
+  const [formData, setFormData] = useState({
+    fields: {
+      name: "",
+      birth: "",
+      identityNumber: "",
+      phone: "",
+      vaccineType: "",
+      dayForVaccination: "",
+      remark: "",
+    },
+  })
+
+  function handleInputChange(event) {
+    // this.allFormatCheck(event)
+
+    const { target } = event
+    const name = target.name
+
+    const value =
+      target.type === "checkbox"
+        ? target.checked
+        : target.value
+
+    setFormData({
+      fields: { ...formData.fields, [name]: value },
+    })
+  }
+
+  function onReserveSubmitBtnClick(event) {
+    event.preventDefault()
+
+    const data = { ...formData.fields }
+
+    let newReservedList =
+      JSON.parse(localStorage.getItem("reservedList")) ||
+      []
+
+    newReservedList.unshift(data)
+
+    localStorage.setItem(
+      "reservedList",
+      JSON.stringify(newReservedList)
+    )
+
+    AppData.dispatch({
+      type: "creatNewReservation",
+      payload: [...newReservedList],
+    })
+  }
+
   return (
     <div className="reservation-form__wrap contain-width">
       <div className="form__header padding-t-30">
@@ -16,13 +70,9 @@ function VaccineReservationForm() {
         {/* <DeleteIcon /> */}
       </div>
       <form
-        // onSubmit={(event) =>
-        //   nowPageId === pageData.reservationForm.id
-        //     ? this.onReserveSubmitBtnClick(event)
-        //     : nowPageId === pageData.editReservation.id
-        //     ? this.onEditSubmitBtnClick(event)
-        //     : this.onReserveSubmitBtnClick(event)
-        // }
+        onSubmit={(event) =>
+          onReserveSubmitBtnClick(event)
+        }
         className="form"
         method="POST"
       >
@@ -41,8 +91,10 @@ function VaccineReservationForm() {
               name="name"
               className="input-name input-style"
               autoFocus
-              // value={fields.name}
-              // onChange={this.handleInputChange}
+              value={formData.fields.name}
+              onChange={(event) =>
+                handleInputChange(event)
+              }
             />
             <p className="fz-16 display-none">
               *項目不可為空
@@ -58,8 +110,10 @@ function VaccineReservationForm() {
               type="text"
               name="identityNumber"
               className="identityNumber input-style"
-              // value={fields.identityNumber}
-              // onChange={this.handleInputChange}
+              value={formData.fields.identityNumber}
+              onChange={(event) =>
+                handleInputChange(event)
+              }
               // disabled={
               //   nowPageId === pageData.editReservation.id
               // }
@@ -79,8 +133,10 @@ function VaccineReservationForm() {
               name="birth"
               className="birth input-style"
               placeholder="範例: 0800101"
-              // value={fields.birth}
-              // onChange={this.handleInputChange}
+              value={formData.fields.birth}
+              onChange={(event) =>
+                handleInputChange(event)
+              }
             />
             <p className="fz-16 display-none">
               *項目不可為空
@@ -99,8 +155,10 @@ function VaccineReservationForm() {
               type="text"
               name="phone"
               className="phone input-style"
-              // value={fields.phone}
-              // onChange={this.handleInputChange}
+              value={formData.fields.phone}
+              onChange={(event) =>
+                handleInputChange(event)
+              }
             />
             <p className="fz-16 display-none">
               *項目不可為空
@@ -116,8 +174,10 @@ function VaccineReservationForm() {
               type="text"
               name="vaccineType"
               className="vaccine-type input-style"
-              // value={fields.vaccineType}
-              // onChange={this.handleInputChange}
+              value={formData.fields.vaccineType}
+              onChange={(event) =>
+                handleInputChange(event)
+              }
             >
               <option value="" disabled>
                 --請選擇--
@@ -145,8 +205,10 @@ function VaccineReservationForm() {
               type="date"
               name="dayForVaccination"
               className="booking-date input-style"
-              // value={fields.dayForVaccination}
-              // onChange={this.handleInputChange}
+              value={formData.fields.dayForVaccination}
+              onChange={(event) =>
+                handleInputChange(event)
+              }
             />
             <p className="fz-16 display-none">
               *項目不可為空
@@ -160,8 +222,10 @@ function VaccineReservationForm() {
               type="text"
               name="remark"
               className="remark input-style"
-              // value={fields.remark}
-              // onChange={this.handleInputChange}
+              value={formData.fields.remark}
+              onChange={(event) =>
+                handleInputChange(event)
+              }
             />
             <p className="fz-16">
               *有藥物過敏或特殊病史請填寫備註

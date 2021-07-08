@@ -46,7 +46,11 @@ const reducer = (state, action) => {
   switch (action.type) {
     case "getReservedListData":
       return {
-        reservedList: data,
+        reservedList: action.payload,
+      }
+    case "creatNewReservation":
+      return {
+        reservedList: action.payload,
       }
     default:
       return {
@@ -61,7 +65,10 @@ function Home() {
   )
 
   useEffect(() => {
-    dispatch({ type: "getReservedListData" })
+    dispatch({
+      type: "getReservedListData",
+      payload: [...data],
+    })
   }, [])
 
   const [state, dispatch] = useReducer(
@@ -80,6 +87,7 @@ function Home() {
           pageData,
           nowPageId,
           state,
+          dispatch,
           onNavLinkClick,
         }}
       >
