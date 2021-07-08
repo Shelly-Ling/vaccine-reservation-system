@@ -61,27 +61,9 @@ function Home() {
   )
 
   useEffect(() => {
-    // getReservedListData()
     dispatch({ type: "getReservedListData" })
   }, [])
 
-  //========================================
-  //用 useState 管理 reservedList
-  //========================================
-
-  // const [reservedList, setReservedList] = useState([])
-
-  // function getReservedListData() {
-  //   const data =
-  //     JSON.parse(localStorage.getItem("reservedList")) ||
-  //     []
-  //   console.log("data", data)
-  //   setReservedList(data)
-  // }
-
-  //========================================
-  //用 useReducer 管理 reservedList
-  //========================================
   const [state, dispatch] = useReducer(
     reducer,
     initialState
@@ -94,12 +76,6 @@ function Home() {
   return (
     <div className="home d-flex flex-col justify-content-between">
       <AppContext.Provider
-        // value={{
-        //   pageData,
-        //   nowPageId,
-        //   onNavLinkClick,
-        //   reservedList,
-        // }}
         value={{
           pageData,
           nowPageId,
