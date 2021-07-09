@@ -18,7 +18,8 @@ function Header() {
                 <li key={value.id} className="float-left">
                   <button
                     className={`btn btn-color-pink-gray letter-spacing-5 padding-10 border-radius-12 fz-bold ${
-                      value.id === AppData.nowPageId
+                      value.id ===
+                      AppData.globalState.nowPageId
                         ? "btn-color-pink-gray-active"
                         : ""
                     }`}

@@ -1,4 +1,4 @@
-import React, { useContext } from "react"
+import React, { useContext, useState } from "react"
 import { AppContext } from "../../container/Home/Home"
 
 import "./TableList.scss"
@@ -10,25 +10,7 @@ import "./TableList.scss"
 function TableList({ searchBarComponent }) {
   const AppData = useContext(AppContext)
 
-  function deleteItem(event) {
-    const deleteItemId = event.target.dataset.id
-
-    const result = AppData.state.reservedList.filter(
-      (item) => item.identityNumber !== deleteItemId
-    )
-
-    localStorage.setItem(
-      "reservedList",
-      JSON.stringify(result)
-    )
-
-    AppData.dispatch({
-      type: "deleteItem",
-      payload: result,
-    })
-  }
-
-  return AppData.state.reservedList.length ? (
+  return AppData.globalState.reservedList.length ? (
     <div className="table-list__wrap">
       {searchBarComponent}
       <table className="table-border-less table-striped-pink-gray">
@@ -43,42 +25,56 @@ function TableList({ searchBarComponent }) {
             <td>疫苗種類</td>
             <td className="date">日期</td>
             <td className="remark">備註</td>
-            {AppData.nowPageId ===
+            {AppData.globalState.nowPageId ===
             AppData.pageData.editReservation.id ? (
               <td className="edit-row">編輯</td>
             ) : null}
           </tr>
         </thead>
         <tbody>
-          {AppData.state.reservedList.map((item) => (
-            <tr
-              data-id={item.identityNumber}
-              key={item.identityNumber}
-            >
-              <td>{item.name}</td>
-              <td>{item.birth}</td>
-              <td>{item.identityNumber}</td>
-              <td>{item.phone}</td>
-              <td>{item.vaccineType}</td>
-              <td>{item.dayForVaccination}</td>
-              <td>{item.remark}</td>
-              {AppData.nowPageId ===
-              AppData.pageData.editReservation.id ? (
-                <td>
-                  <button
-                    className="margin-l-10 fz-20 delete"
-                    data-id={item.identityNumber}
-                    onClick={(event) => deleteItem(event)}
-                  >
-                    刪除
-                  </button>
-                  <button className="margin-l-10 fz-20 edit">
-                    編輯
-                  </button>
-                </td>
-              ) : null}
-            </tr>
-          ))}
+          {AppData.globalState.reservedList.map(
+            (item) => (
+              <tr
+                data-id={item.identityNumber}
+                key={item.identityNumber}
+              >
+                <td>{item.name}</td>
+                <td>{item.birth}</td>
+                <td>{item.identityNumber}</td>
+                <td>{item.phone}</td>
+                <td>{item.vaccineType}</td>
+                <td>{item.dayForVaccination}</td>
+                <td>{item.remark}</td>
+                {AppData.globalState.nowPageId ===
+                AppData.pageData.editReservation.id ? (
+                  <td>
+                    <button
+                      className="margin-l-10 fz-20 delete"
+                      onClick={() =>
+                        AppData.dispatch({
+                          type: "deleteItem",
+                          payload: item.identityNumber,
+                        })
+                      }
+                    >
+                      刪除
+                    </button>
+                    <button
+                      className="margin-l-10 fz-20 edit"
+                      onClick={() =>
+                        AppData.dispatch({
+                          type: "onEditBtnClick",
+                          payload: item.identityNumber,
+                        })
+                      }
+                    >
+                      編輯
+                    </button>
+                  </td>
+                ) : null}
+              </tr>
+            )
+          )}
         </tbody>
       </table>
     </div>
