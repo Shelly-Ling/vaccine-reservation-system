@@ -1,4 +1,9 @@
-import React, { Fragment } from "react"
+import React, {
+  Fragment,
+  useState,
+  useContext,
+} from "react"
+import { AppContext } from "../../container/Home/Home"
 import "./SearchBar.scss"
 
 /**
@@ -6,9 +11,37 @@ import "./SearchBar.scss"
  */
 
 function SearchBar() {
+  const AppData = useContext(AppContext)
+
+  const [searchKeywords, setSearchKeywords] = useState({
+    searchKeyword: "",
+    conditionSelect: "",
+  })
+
+  function handleSearchInputChange(event) {
+    const { target } = event
+    const name = target.name
+    const value = target.value.trim()
+
+    setSearchKeywords({
+      ...searchKeywords,
+      [name]: value,
+    })
+  }
+
+  function onSearchResetBtnClick() {
+    setSearchKeywords({
+      searchKeyword: "",
+      conditionSelect: "",
+    })
+    AppData.dispatch({
+      type: "getReservedListData",
+    })
+  }
+
   return (
     <Fragment>
-      <form className="search-content padding-b-20">
+      <div className="search-content padding-b-20">
         <div className="display-inline-block">
           <label
             className="padding-r-20"
@@ -19,16 +52,18 @@ function SearchBar() {
           <input
             type="text"
             name="searchKeyword"
-            id="search-input"
-            className="input-style"
+            className="search-input input-style"
+            value={searchKeywords.searchKeyword}
+            onChange={handleSearchInputChange}
           />
         </div>
         <div className="display-inline-block margin-l-10">
           <select
             type="text"
             name="conditionSelect"
-            id="condition-search"
-            className="input-style"
+            className="condition-search input-style"
+            value={searchKeywords.conditionSelect}
+            onChange={handleSearchInputChange}
           >
             <option>--請選擇--</option>
             <option value="identityNumber">
@@ -40,15 +75,24 @@ function SearchBar() {
             <option value="vaccineType">疫苗種類</option>
           </select>
         </div>
-        <input
-          type="submit"
+        <button
           className="btn-submit margin-l-10 fz-20 input-submit-style btn-color-pink-white "
-          id="submit"
-        />
-        <button className="btn-submit margin-l-10 fz-20 input-submit-style btn-color-pink-white">
+          onClick={() =>
+            AppData.dispatch({
+              type: "onSearchSubmitBtnClick",
+              payload: searchKeywords,
+            })
+          }
+        >
+          提交
+        </button>
+        <button
+          className="btn-reset margin-l-10 fz-20 input-submit-style btn-color-pink-white"
+          onClick={onSearchResetBtnClick}
+        >
           重置
         </button>
-      </form>
+      </div>
     </Fragment>
   )
 }

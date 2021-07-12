@@ -10,7 +10,7 @@ import "./TableList.scss"
 function TableList({ searchBarComponent }) {
   const AppData = useContext(AppContext)
 
-  return AppData.globalState.reservedList.length ? (
+  return AppData.globalState.reservedList ? (
     <div className="table-list__wrap">
       {searchBarComponent}
       <table className="table-border-less table-striped-pink-gray">

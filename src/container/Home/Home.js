@@ -39,20 +39,21 @@ const initialState = {
   editData: {},
 }
 
-const data =
-  JSON.parse(localStorage.getItem("reservedList")) || []
-
 const reducer = (globalState, action) => {
+  const localReservedListData =
+    JSON.parse(localStorage.getItem("reservedList")) || []
+
   switch (action.type) {
     case "setNowPageId":
       return {
         ...globalState,
         nowPageId: action.payload,
+        reservedList: localReservedListData,
       }
     case "getReservedListData":
       return {
         ...globalState,
-        reservedList: action.payload,
+        reservedList: localReservedListData,
       }
     case "creatNewReservation":
       const reserveData = action.payload
@@ -101,7 +102,6 @@ const reducer = (globalState, action) => {
       const result = globalState.reservedList.filter(
         (item) => item.identityNumber !== action.payload
       )
-      console.log("result", result)
 
       localStorage.setItem(
         "reservedList",
@@ -133,13 +133,28 @@ const reducer = (globalState, action) => {
         editData: {},
       }
     case "editItemSubmitClick":
-      console.log("action", action)
       return {
         ...globalState,
         isEditing: false,
         reservedList: action.payload.newReservedList,
         editData: initialState.editData,
       }
+    case "onSearchSubmitBtnClick":
+      const { searchKeyword, conditionSelect } =
+        action.payload
+
+      const filterReservedList =
+        globalState.reservedList.filter((item) => {
+          return item[conditionSelect].match(
+            searchKeyword
+          )
+        })
+
+      return {
+        ...globalState,
+        reservedList: filterReservedList,
+      }
+
     default:
       return {
         ...globalState,
@@ -152,7 +167,6 @@ function Home() {
   useEffect(() => {
     dispatch({
       type: "getReservedListData",
-      payload: [...data],
     })
   }, [])
 
@@ -161,13 +175,6 @@ function Home() {
     initialState
   )
 
-  function onNavLinkClick(targetId) {
-    dispatch({
-      type: "setNowPageId",
-      payload: targetId,
-    })
-  }
-
   return (
     <div className="home d-flex flex-col justify-content-between">
       <AppContext.Provider
@@ -175,7 +182,6 @@ function Home() {
           pageData,
           globalState,
           dispatch,
-          onNavLinkClick,
         }}
       >
         <Header />

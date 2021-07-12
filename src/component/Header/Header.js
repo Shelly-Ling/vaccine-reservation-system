@@ -24,7 +24,10 @@ function Header() {
                         : ""
                     }`}
                     onClick={() =>
-                      AppData.onNavLinkClick(value.id)
+                      AppData.dispatch({
+                        type: "setNowPageId",
+                        payload: value.id,
+                      })
                     }
                   >
                     {value.title}
