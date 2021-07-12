@@ -8,6 +8,14 @@ import { AppStateContext } from "../../container/Home/Home"
 import { AppDispatchContext } from "../../container/Home/Home"
 
 import DeleteIcon from "../Icons/DeleteIcon/DeleteIcon"
+import {
+  nameFormatCheck,
+  phoneFormatCheck,
+  birthFormatCheck,
+  identityNumberFormatCheck,
+  vaccineTypeFormatCheck,
+  dayForVaccinationFormatCheck,
+} from "../../js/fieldsFormatCheck"
 
 function VaccineReservationForm() {
   const AppData = useContext(AppStateContext)
@@ -33,11 +41,52 @@ function VaccineReservationForm() {
         },
       })
     }
-  }, [AppData.globalState.isEditing])
+  }, [
+    AppData.globalState.isEditing,
+    formData.fields.name,
+    formData.fields.birth,
+    formData.fields.identityNumber,
+    formData.fields.phone,
+    formData.fields.vaccineType,
+    formData.fields.dayForVaccination,
+  ])
+
+  function allFormatCheck() {
+    nameFormatCheck(formData.fields.name)
+    phoneFormatCheck(formData.fields.phone)
+    birthFormatCheck(formData.fields.birth)
+    identityNumberFormatCheck(
+      formData.fields.identityNumber
+    )
+    vaccineTypeFormatCheck(formData.fields.vaccineType)
+    dayForVaccinationFormatCheck(
+      formData.fields.dayForVaccination
+    )
+
+    const checkResult =
+      nameFormatCheck(formData.fields.name) &&
+      phoneFormatCheck(formData.fields.phone) &&
+      birthFormatCheck(formData.fields.birth) &&
+      identityNumberFormatCheck(
+        formData.fields.identityNumber
+      ) &&
+      vaccineTypeFormatCheck(
+        formData.fields.vaccineType
+      ) &&
+      dayForVaccinationFormatCheck(
+        formData.fields.dayForVaccination
+      )
+
+    console.log("checkResult 表單驗證通過:", checkResult)
+    return checkResult
+  }
+
+  const reservationFormPageID =
+    AppData.globalState.pageData.reservationForm.id
+  const editReservationPageID =
+    AppData.globalState.pageData.editReservation.id
 
   function handleInputChange(event) {
-    // this.allFormatCheck(event)
-
     const { target } = event
     const name = target.name
 
@@ -49,12 +98,55 @@ function VaccineReservationForm() {
     setFormData((prevState) => ({
       fields: { ...prevState.fields, [name]: value },
     }))
+
+    switch (name) {
+      case "name":
+        nameFormatCheck(formData.fields.name)
+        return
+      case "birth":
+        birthFormatCheck(formData.fields.birth)
+        return
+      case "identityNumber":
+        identityNumberFormatCheck(
+          formData.fields.identityNumber
+        )
+        return
+      case "phone":
+        phoneFormatCheck(formData.fields.phone)
+
+        return
+      case "vaccineType":
+        vaccineTypeFormatCheck(
+          formData.fields.vaccineType
+        )
+        return
+      case "dayForVaccination":
+        dayForVaccinationFormatCheck(
+          formData.fields.dayForVaccination
+        )
+        return
+    }
   }
 
-  const reservationFormPageID =
-    AppData.globalState.pageData.reservationForm.id
-  const editReservationPageID =
-    AppData.globalState.pageData.editReservation.id
+  function onReserveSubmitBtnClick() {
+    console.log("onReserveSubmitBtnClick")
+    if (allFormatCheck()) {
+      AppDispatch.dispatch({
+        type: "creatNewReservation",
+        payload: formData.fields,
+      })
+    }
+  }
+
+  function onEditSubmitBtnClick() {
+    console.log("onEditSubmitBtnClick")
+    if (allFormatCheck()) {
+      AppDispatch.dispatch({
+        type: "onEditSubmitBtnClick",
+        payload: formData.fields,
+      })
+    }
+  }
 
   return (
     <div
@@ -231,14 +323,8 @@ function VaccineReservationForm() {
           onClick={() =>
             AppData.globalState.nowPageId ===
             reservationFormPageID
-              ? AppDispatch.dispatch({
-                  type: "creatNewReservation",
-                  payload: formData.fields,
-                })
-              : AppDispatch.dispatch({
-                  type: "onEditSubmitBtnClick",
-                  payload: formData.fields,
-                })
+              ? onReserveSubmitBtnClick()
+              : onEditSubmitBtnClick()
           }
         >
           提交
