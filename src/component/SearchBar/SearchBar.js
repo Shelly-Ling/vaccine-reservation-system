@@ -3,7 +3,6 @@ import React, {
   useState,
   useContext,
 } from "react"
-import { AppStateContext } from "../../container/Home/Home"
 import { AppDispatchContext } from "../../container/Home/Home"
 
 import "./SearchBar.scss"
@@ -13,7 +12,6 @@ import "./SearchBar.scss"
  */
 
 function SearchBar() {
-  const AppData = useContext(AppStateContext)
   const AppDispatch = useContext(AppDispatchContext)
 
   const [searchKeywords, setSearchKeywords] = useState({
@@ -38,8 +36,23 @@ function SearchBar() {
       conditionSelect: "",
     })
     AppDispatch.dispatch({
-      type: "getReservedListData",
+      type: "onSearchResetBtnClick",
+      payload: searchKeywords,
     })
+  }
+
+  function onSearchSubmitBtnClick() {
+    if (
+      searchKeywords.searchKeyword === "" ||
+      searchKeywords.conditionSelect === ""
+    ) {
+      alert("關鍵字欄位或篩選條件皆不可為空")
+    } else {
+      AppDispatch.dispatch({
+        type: "filterReservedList",
+        payload: searchKeywords,
+      })
+    }
   }
 
   return (
@@ -80,12 +93,7 @@ function SearchBar() {
         </div>
         <button
           className="btn-submit margin-l-10 fz-20 input-submit-style btn-color-pink-white "
-          onClick={() =>
-            AppDispatch.dispatch({
-              type: "onSearchSubmitBtnClick",
-              payload: searchKeywords,
-            })
-          }
+          onClick={onSearchSubmitBtnClick}
         >
           提交
         </button>

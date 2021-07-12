@@ -11,8 +11,12 @@ import "./TableList.scss"
 function TableList({ searchBarComponent }) {
   const AppData = useContext(AppStateContext)
   const AppDispatch = useContext(AppDispatchContext)
+  const list = AppData.globalState.filterReservedList
+    .length
+    ? AppData.globalState.filterReservedList
+    : AppData.globalState.reservedList
 
-  return AppData.globalState.reservedList ? (
+  return list.length ? (
     <div className="table-list__wrap">
       {searchBarComponent}
       <table className="table-border-less table-striped-pink-gray">
@@ -34,49 +38,47 @@ function TableList({ searchBarComponent }) {
           </tr>
         </thead>
         <tbody>
-          {AppData.globalState.reservedList.map(
-            (item) => (
-              <tr
-                data-id={item.identityNumber}
-                key={item.identityNumber}
-              >
-                <td>{item.name}</td>
-                <td>{item.birth}</td>
-                <td>{item.identityNumber}</td>
-                <td>{item.phone}</td>
-                <td>{item.vaccineType}</td>
-                <td>{item.dayForVaccination}</td>
-                <td>{item.remark}</td>
-                {AppData.globalState.nowPageId ===
-                AppData.pageData.editReservation.id ? (
-                  <td>
-                    <button
-                      className="margin-l-10 fz-20 delete"
-                      onClick={() =>
-                        AppDispatch.dispatch({
-                          type: "deleteItem",
-                          payload: item.identityNumber,
-                        })
-                      }
-                    >
-                      刪除
-                    </button>
-                    <button
-                      className="margin-l-10 fz-20 edit"
-                      onClick={() =>
-                        AppDispatch.dispatch({
-                          type: "onEditBtnClick",
-                          payload: item.identityNumber,
-                        })
-                      }
-                    >
-                      編輯
-                    </button>
-                  </td>
-                ) : null}
-              </tr>
-            )
-          )}
+          {list.map((item) => (
+            <tr
+              data-id={item.identityNumber}
+              key={item.identityNumber}
+            >
+              <td>{item.name}</td>
+              <td>{item.birth}</td>
+              <td>{item.identityNumber}</td>
+              <td>{item.phone}</td>
+              <td>{item.vaccineType}</td>
+              <td>{item.dayForVaccination}</td>
+              <td>{item.remark}</td>
+              {AppData.globalState.nowPageId ===
+              AppData.pageData.editReservation.id ? (
+                <td>
+                  <button
+                    className="margin-l-10 fz-20 delete"
+                    onClick={() =>
+                      AppDispatch.dispatch({
+                        type: "deleteItem",
+                        payload: item.identityNumber,
+                      })
+                    }
+                  >
+                    刪除
+                  </button>
+                  <button
+                    className="margin-l-10 fz-20 edit"
+                    onClick={() =>
+                      AppDispatch.dispatch({
+                        type: "onEditBtnClick",
+                        payload: item.identityNumber,
+                      })
+                    }
+                  >
+                    編輯
+                  </button>
+                </td>
+              ) : null}
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>

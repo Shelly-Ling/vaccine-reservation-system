@@ -35,6 +35,7 @@ export const AppDispatchContext = React.createContext()
 const initialState = {
   pageData: pageData,
   reservedList: [],
+  filterReservedList: [],
   nowPageId: pageData.reservationForm.id,
   isEditing: false,
   editData: {},
@@ -100,14 +101,36 @@ const reducer = (globalState, action) => {
         isEditing: false,
       }
     case "deleteItem":
-      const result = globalState.reservedList.filter(
+      const result = localReservedListData.filter(
         (item) => item.identityNumber !== action.payload
       )
-
       localStorage.setItem(
         "reservedList",
         JSON.stringify(result)
       )
+
+      if (globalState.filterReservedList.length) {
+        const filterResult =
+          globalState.filterReservedList.filter(
+            (item) =>
+              item.identityNumber !== action.payload
+          )
+
+        if (filterResult.length === 0) {
+          return {
+            ...globalState,
+            reservedList: result,
+            filterReservedList: [],
+          }
+        }
+
+        return {
+          ...globalState,
+          filterReservedList: filterResult,
+          reservedList: result,
+        }
+      }
+
       return {
         ...globalState,
         reservedList: result,
@@ -140,7 +163,12 @@ const reducer = (globalState, action) => {
         reservedList: action.payload.newReservedList,
         editData: initialState.editData,
       }
-    case "onSearchSubmitBtnClick":
+    case "onSearchResetBtnClick":
+      return {
+        ...globalState,
+        filterReservedList: [],
+      }
+    case "filterReservedList":
       const { searchKeyword, conditionSelect } =
         action.payload
 
@@ -151,9 +179,13 @@ const reducer = (globalState, action) => {
           )
         })
 
+      if (filterReservedList.length === 0) {
+        alert("搜尋結果為 0 個")
+      }
+
       return {
         ...globalState,
-        reservedList: filterReservedList,
+        filterReservedList: filterReservedList,
       }
 
     default:
