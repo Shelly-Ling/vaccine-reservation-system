@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react"
-import { AppContext } from "../../container/Home/Home"
+import { AppStateContext } from "../../container/Home/Home"
+import { AppDispatchContext } from "../../container/Home/Home"
 
 import "./TableList.scss"
 
@@ -8,7 +9,8 @@ import "./TableList.scss"
  */
 
 function TableList({ searchBarComponent }) {
-  const AppData = useContext(AppContext)
+  const AppData = useContext(AppStateContext)
+  const AppDispatch = useContext(AppDispatchContext)
 
   return AppData.globalState.reservedList ? (
     <div className="table-list__wrap">
@@ -51,7 +53,7 @@ function TableList({ searchBarComponent }) {
                     <button
                       className="margin-l-10 fz-20 delete"
                       onClick={() =>
-                        AppData.dispatch({
+                        AppDispatch.dispatch({
                           type: "deleteItem",
                           payload: item.identityNumber,
                         })
@@ -62,7 +64,7 @@ function TableList({ searchBarComponent }) {
                     <button
                       className="margin-l-10 fz-20 edit"
                       onClick={() =>
-                        AppData.dispatch({
+                        AppDispatch.dispatch({
                           type: "onEditBtnClick",
                           payload: item.identityNumber,
                         })

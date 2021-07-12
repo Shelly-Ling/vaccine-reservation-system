@@ -3,7 +3,9 @@ import React, {
   useState,
   useContext,
 } from "react"
-import { AppContext } from "../../container/Home/Home"
+import { AppStateContext } from "../../container/Home/Home"
+import { AppDispatchContext } from "../../container/Home/Home"
+
 import "./SearchBar.scss"
 
 /**
@@ -11,7 +13,8 @@ import "./SearchBar.scss"
  */
 
 function SearchBar() {
-  const AppData = useContext(AppContext)
+  const AppData = useContext(AppStateContext)
+  const AppDispatch = useContext(AppDispatchContext)
 
   const [searchKeywords, setSearchKeywords] = useState({
     searchKeyword: "",
@@ -34,7 +37,7 @@ function SearchBar() {
       searchKeyword: "",
       conditionSelect: "",
     })
-    AppData.dispatch({
+    AppDispatch.dispatch({
       type: "getReservedListData",
     })
   }
@@ -78,7 +81,7 @@ function SearchBar() {
         <button
           className="btn-submit margin-l-10 fz-20 input-submit-style btn-color-pink-white "
           onClick={() =>
-            AppData.dispatch({
+            AppDispatch.dispatch({
               type: "onSearchSubmitBtnClick",
               payload: searchKeywords,
             })

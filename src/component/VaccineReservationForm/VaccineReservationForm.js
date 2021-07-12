@@ -4,11 +4,14 @@ import React, {
   useEffect,
 } from "react"
 import "./VaccineReservationForm.scss"
-import { AppContext } from "../../container/Home/Home"
+import { AppStateContext } from "../../container/Home/Home"
+import { AppDispatchContext } from "../../container/Home/Home"
+
 import DeleteIcon from "../Icons/DeleteIcon/DeleteIcon"
 
 function VaccineReservationForm() {
-  const AppData = useContext(AppContext)
+  const AppData = useContext(AppStateContext)
+  const AppDispatch = useContext(AppDispatchContext)
 
   const [formData, setFormData] = useState({
     fields: {
@@ -73,7 +76,7 @@ function VaccineReservationForm() {
         {AppData.globalState.isEditing ? (
           <div
             onClick={() =>
-              AppData.dispatch({
+              AppDispatch.dispatch({
                 type: "onEditingCancelBtnClick",
               })
             }
@@ -228,11 +231,11 @@ function VaccineReservationForm() {
           onClick={() =>
             AppData.globalState.nowPageId ===
             reservationFormPageID
-              ? AppData.dispatch({
+              ? AppDispatch.dispatch({
                   type: "creatNewReservation",
                   payload: formData.fields,
                 })
-              : AppData.dispatch({
+              : AppDispatch.dispatch({
                   type: "onEditSubmitBtnClick",
                   payload: formData.fields,
                 })

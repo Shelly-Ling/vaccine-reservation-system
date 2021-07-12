@@ -1,9 +1,11 @@
 import "./Header.scss"
 import React, { useContext } from "react"
-import { AppContext } from "../../container/Home/Home"
+import { AppStateContext } from "../../container/Home/Home"
+import { AppDispatchContext } from "../../container/Home/Home"
 
 function Header() {
-  const AppData = useContext(AppContext)
+  const AppData = useContext(AppStateContext)
+  const AppDispatch = useContext(AppDispatchContext)
 
   return (
     <div className="header__wrap">
@@ -24,7 +26,7 @@ function Header() {
                         : ""
                     }`}
                     onClick={() =>
-                      AppData.dispatch({
+                      AppDispatch.dispatch({
                         type: "setNowPageId",
                         payload: value.id,
                       })

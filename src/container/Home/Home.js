@@ -29,7 +29,8 @@ const pageData = {
   },
 }
 
-export const AppContext = React.createContext()
+export const AppStateContext = React.createContext()
+export const AppDispatchContext = React.createContext()
 
 const initialState = {
   pageData: pageData,
@@ -177,27 +178,28 @@ function Home() {
 
   return (
     <div className="home d-flex flex-col justify-content-between">
-      <AppContext.Provider
+      <AppStateContext.Provider
         value={{
           pageData,
           globalState,
-          dispatch,
         }}
       >
-        <Header />
-        {globalState.nowPageId ===
-          pageData.reservationForm.id && (
-          <VaccineReservationForm />
-        )}
+        <AppDispatchContext.Provider value={{ dispatch }}>
+          <Header />
+          {globalState.nowPageId ===
+            pageData.reservationForm.id && (
+            <VaccineReservationForm />
+          )}
 
-        {globalState.nowPageId ===
-          pageData.reservedList.id && <ReservedList />}
-        {globalState.nowPageId ===
-          pageData.editReservation.id && (
-          <EditReservation />
-        )}
-        <Footer />
-      </AppContext.Provider>
+          {globalState.nowPageId ===
+            pageData.reservedList.id && <ReservedList />}
+          {globalState.nowPageId ===
+            pageData.editReservation.id && (
+            <EditReservation />
+          )}
+          <Footer />
+        </AppDispatchContext.Provider>
+      </AppStateContext.Provider>
     </div>
   )
 }

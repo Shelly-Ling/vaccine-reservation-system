@@ -2,11 +2,11 @@ import "./EditReservation.scss"
 import React, { useContext } from "react"
 import TableList from "../../../component/TableList/TableList"
 import SearchBar from "../../../component/SearchBar/SearchBar"
-import { AppContext } from "../Home"
+import { AppStateContext } from "../Home"
 import VaccineReservationForm from "../../../component/VaccineReservationForm/VaccineReservationForm"
 
 function EditReservation() {
-  const AppData = useContext(AppContext)
+  const AppData = useContext(AppStateContext)
   return (
     <div className="edit-reservation__wrap contain-width margin-l-auto margin-r-auto padding-b-30">
       <h1 className="title fz-35 fz-bold padding-t-30 padding-b-20">
