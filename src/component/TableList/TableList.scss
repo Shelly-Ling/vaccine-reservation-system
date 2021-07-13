@@ -32,6 +32,9 @@
     }
     thead {
       tr {
+        .name {
+          width: 100px;
+        }
         td {
           padding: 5px;
           font-size: 22px;
