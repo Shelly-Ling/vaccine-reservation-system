@@ -53,90 +53,24 @@ const reducer = (globalState, action) => {
       }
 
     case "creatNewReservation":
-      const reserveData = action.payload
-
-      let newReservedList = [...globalState.reservedList]
-
-      newReservedList.unshift(reserveData)
-
-      localStorage.setItem(
-        "reservedList",
-        JSON.stringify(newReservedList)
-      )
-
       return {
         ...globalState,
-        reservedList: newReservedList,
+        reservedList: action.payload,
         nowPageId: pageData.reservedList.id,
       }
     case "onEditSubmitBtnClick":
-      const EditedData = action.payload
-
-      let editedReservedList = []
-
-      globalState.reservedList.map((item) => {
-        if (
-          item.identityNumber ===
-          EditedData.identityNumber
-        ) {
-          editedReservedList.push(EditedData)
-        } else {
-          editedReservedList.push(item)
-        }
-      })
-
-      localStorage.setItem(
-        "reservedList",
-        JSON.stringify(editedReservedList)
-      )
-
-      let editedFilterReservedList = []
-
-      if (globalState.filterReservedList.length) {
-        globalState.filterReservedList.map((item) => {
-          if (
-            item.identityNumber ===
-            EditedData.identityNumber
-          ) {
-            editedFilterReservedList.push(EditedData)
-          } else {
-            editedFilterReservedList.push(item)
-          }
-        })
-      }
-
       return {
         ...globalState,
-        reservedList: editedReservedList,
-        filterReservedList: editedFilterReservedList,
+        reservedList: action.payload.editedReservedList,
+        filterReservedList:
+          action.payload.editedFilterReservedList,
         isEditing: false,
       }
     case "deleteItem":
-      const result = globalState.reservedList.filter(
-        (item) => item.identityNumber !== action.payload
-      )
-      localStorage.setItem(
-        "reservedList",
-        JSON.stringify(result)
-      )
-
-      if (globalState.filterReservedList.length) {
-        const filterResult =
-          globalState.filterReservedList.filter(
-            (item) =>
-              item.identityNumber !== action.payload
-          )
-
-        return {
-          ...globalState,
-          filterReservedList: filterResult,
-          reservedList: result,
-        }
-      }
-
       return {
         ...globalState,
-        reservedList: result,
+        reservedList: action.payload.result,
+        filterReservedList: action.payload.filterResult,
       }
     case "changeIsEditing":
       return {

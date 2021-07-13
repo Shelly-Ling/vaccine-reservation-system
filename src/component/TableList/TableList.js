@@ -16,6 +16,32 @@ function TableList({ searchBarComponent }) {
     ? globalState.filterReservedList
     : globalState.reservedList
 
+  function onDeleteBtnClick(targetId) {
+    const result = globalState.reservedList.filter(
+      (item) => {
+        return item.identityNumber !== targetId
+      }
+    )
+
+    localStorage.setItem(
+      "reservedList",
+      JSON.stringify(result)
+    )
+
+    const filterResult =
+      globalState.filterReservedList.filter((item) => {
+        return item.identityNumber !== targetId
+      })
+
+    dispatch({
+      type: "deleteItem",
+      payload: {
+        result,
+        filterResult,
+      },
+    })
+  }
+
   return list.length ? (
     <div className="table-list__wrap">
       {searchBarComponent}
@@ -56,10 +82,9 @@ function TableList({ searchBarComponent }) {
                   <button
                     className="margin-l-10 fz-20 delete"
                     onClick={() =>
-                      dispatch({
-                        type: "deleteItem",
-                        payload: item.identityNumber,
-                      })
+                      onDeleteBtnClick(
+                        item.identityNumber
+                      )
                     }
                   >
                     刪除

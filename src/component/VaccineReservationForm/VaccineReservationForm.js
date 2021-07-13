@@ -82,18 +82,51 @@ function VaccineReservationForm() {
 
   function onReserveSubmitBtnClick() {
     if (allFormatCheck()) {
+      let newReservedList = [...globalState.reservedList]
+
+      newReservedList.unshift(formData.fields)
+
+      localStorage.setItem(
+        "reservedList",
+        JSON.stringify(newReservedList)
+      )
+
       dispatch({
         type: "creatNewReservation",
-        payload: formData.fields,
+        payload: newReservedList,
       })
     }
   }
 
   function onEditSubmitBtnClick() {
     if (allFormatCheck()) {
+      let editedReservedList =
+        globalState.reservedList.map((item) => {
+          return item.identityNumber ===
+            globalState.editData.identityNumber
+            ? formData.fields
+            : item
+        })
+
+      localStorage.setItem(
+        "reservedList",
+        JSON.stringify(editedReservedList)
+      )
+
+      let editedFilterReservedList =
+        globalState.filterReservedList.map((item) => {
+          return item.identityNumber ===
+            formData.fields.identityNumber
+            ? formData.fields
+            : item
+        })
+
       dispatch({
         type: "onEditSubmitBtnClick",
-        payload: formData.fields,
+        payload: {
+          editedReservedList,
+          editedFilterReservedList,
+        },
       })
     }
   }
