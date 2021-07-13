@@ -2,6 +2,7 @@ import "./ReservedList.scss"
 import React from "react"
 import TableList from "../../../component/TableList/TableList"
 import SearchBar from "../../../component/SearchBar/SearchBar"
+import Modal from "../../../component/Modal/Modal"
 
 function ReservedList() {
   return (
@@ -28,6 +29,7 @@ function ReservedList() {
         </ul>
       </div>
       <TableList searchBarComponent={<SearchBar />} />
+      <Modal />
     </div>
   )
 }
