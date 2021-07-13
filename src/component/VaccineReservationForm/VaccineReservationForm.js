@@ -18,8 +18,8 @@ import {
 } from "../../js/fieldsFormatCheck"
 
 function VaccineReservationForm() {
-  const AppData = useContext(AppStateContext)
-  const AppDispatch = useContext(AppDispatchContext)
+  const { globalState } = useContext(AppStateContext)
+  const { dispatch } = useContext(AppDispatchContext)
 
   const [formData, setFormData] = useState({
     fields: {
@@ -34,14 +34,14 @@ function VaccineReservationForm() {
   })
 
   useEffect(() => {
-    if (AppData.globalState.isEditing) {
+    if (globalState.isEditing) {
       setFormData({
         fields: {
-          ...AppData.globalState.editData,
+          ...globalState.editData,
         },
       })
     }
-  }, [AppData.globalState.isEditing])
+  }, [globalState.isEditing])
 
   function allFormatCheck() {
     const checkResult =
@@ -62,9 +62,9 @@ function VaccineReservationForm() {
   }
 
   const reservationFormPageID =
-    AppData.globalState.pageData.reservationForm.id
+    globalState.pageData.reservationForm.id
   const editReservationPageID =
-    AppData.globalState.pageData.editReservation.id
+    globalState.pageData.editReservation.id
 
   function handleInputChange(event) {
     const { target } = event
@@ -82,7 +82,7 @@ function VaccineReservationForm() {
 
   function onReserveSubmitBtnClick() {
     if (allFormatCheck()) {
-      AppDispatch.dispatch({
+      dispatch({
         type: "creatNewReservation",
         payload: formData.fields,
       })
@@ -91,7 +91,7 @@ function VaccineReservationForm() {
 
   function onEditSubmitBtnClick() {
     if (allFormatCheck()) {
-      AppDispatch.dispatch({
+      dispatch({
         type: "onEditSubmitBtnClick",
         payload: formData.fields,
       })
@@ -101,9 +101,7 @@ function VaccineReservationForm() {
   return (
     <div
       className={`reservation-form__wrap contain-width ${
-        AppData.globalState.isEditing
-          ? "edit-modal-style"
-          : ""
+        globalState.isEditing ? "edit-modal-style" : ""
       }`}
     >
       <div className="form__header padding-t-30">
@@ -115,10 +113,10 @@ function VaccineReservationForm() {
         </span>
         <span className="required-icon">為必填</span>
 
-        {AppData.globalState.isEditing ? (
+        {globalState.isEditing ? (
           <div
             onClick={() =>
-              AppDispatch.dispatch({
+              dispatch({
                 type: "onEditingCancelBtnClick",
               })
             }
@@ -160,7 +158,7 @@ function VaccineReservationForm() {
             value={formData.fields.identityNumber}
             onChange={handleInputChange}
             disabled={
-              AppData.globalState.nowPageId ===
+              globalState.nowPageId ===
               editReservationPageID
             }
           />
@@ -271,7 +269,7 @@ function VaccineReservationForm() {
           name="submit-btn"
           className="btn-submit fz-26 input-submit-style btn-color-pink-white"
           onClick={() =>
-            AppData.globalState.nowPageId ===
+            globalState.nowPageId ===
             reservationFormPageID
               ? onReserveSubmitBtnClick()
               : onEditSubmitBtnClick()

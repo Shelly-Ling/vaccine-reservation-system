@@ -9,12 +9,12 @@ import "./TableList.scss"
  */
 
 function TableList({ searchBarComponent }) {
-  const AppData = useContext(AppStateContext)
-  const AppDispatch = useContext(AppDispatchContext)
-  const list = AppData.globalState.filterReservedList
-    .length
-    ? AppData.globalState.filterReservedList
-    : AppData.globalState.reservedList
+  const { globalState } = useContext(AppStateContext)
+  const { dispatch } = useContext(AppDispatchContext)
+
+  const list = globalState.filterReservedList.length
+    ? globalState.filterReservedList
+    : globalState.reservedList
 
   return list.length ? (
     <div className="table-list__wrap">
@@ -31,8 +31,8 @@ function TableList({ searchBarComponent }) {
             <td>疫苗種類</td>
             <td className="date">日期</td>
             <td className="remark">備註</td>
-            {AppData.globalState.nowPageId ===
-            AppData.pageData.editReservation.id ? (
+            {globalState.nowPageId ===
+            globalState.pageData.editReservation.id ? (
               <td className="edit-row">編輯</td>
             ) : null}
           </tr>
@@ -50,13 +50,13 @@ function TableList({ searchBarComponent }) {
               <td>{item.vaccineType}</td>
               <td>{item.dayForVaccination}</td>
               <td>{item.remark}</td>
-              {AppData.globalState.nowPageId ===
-              AppData.pageData.editReservation.id ? (
+              {globalState.nowPageId ===
+              globalState.pageData.editReservation.id ? (
                 <td>
                   <button
                     className="margin-l-10 fz-20 delete"
                     onClick={() =>
-                      AppDispatch.dispatch({
+                      dispatch({
                         type: "deleteItem",
                         payload: item.identityNumber,
                       })
@@ -67,7 +67,7 @@ function TableList({ searchBarComponent }) {
                   <button
                     className="margin-l-10 fz-20 edit"
                     onClick={() =>
-                      AppDispatch.dispatch({
+                      dispatch({
                         type: "onEditBtnClick",
                         payload: item.identityNumber,
                       })

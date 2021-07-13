@@ -34,7 +34,9 @@ export const AppDispatchContext = React.createContext()
 
 const initialState = {
   pageData: pageData,
-  reservedList: [],
+  reservedList:
+    JSON.parse(localStorage.getItem("reservedList")) ||
+    [],
   filterReservedList: [],
   nowPageId: pageData.reservationForm.id,
   isEditing: false,
@@ -42,22 +44,14 @@ const initialState = {
 }
 
 const reducer = (globalState, action) => {
-  const localReservedListData =
-    JSON.parse(localStorage.getItem("reservedList")) || []
-
   switch (action.type) {
     case "setNowPageId":
       return {
         ...globalState,
         nowPageId: action.payload,
-        reservedList: localReservedListData,
         filterReservedList: [],
       }
-    case "getReservedListData":
-      return {
-        ...globalState,
-        reservedList: localReservedListData,
-      }
+
     case "creatNewReservation":
       const reserveData = action.payload
 
@@ -118,7 +112,7 @@ const reducer = (globalState, action) => {
         isEditing: false,
       }
     case "deleteItem":
-      const result = localReservedListData.filter(
+      const result = globalState.reservedList.filter(
         (item) => item.identityNumber !== action.payload
       )
       localStorage.setItem(
@@ -132,14 +126,6 @@ const reducer = (globalState, action) => {
             (item) =>
               item.identityNumber !== action.payload
           )
-
-        if (filterResult.length === 0) {
-          return {
-            ...globalState,
-            reservedList: result,
-            filterReservedList: [],
-          }
-        }
 
         return {
           ...globalState,
@@ -172,13 +158,6 @@ const reducer = (globalState, action) => {
         ...globalState,
         isEditing: false,
         editData: {},
-      }
-    case "editItemSubmitClick":
-      return {
-        ...globalState,
-        isEditing: false,
-        reservedList: action.payload.newReservedList,
-        editData: initialState.editData,
       }
     case "onSearchResetBtnClick":
       return {
@@ -214,12 +193,6 @@ const reducer = (globalState, action) => {
 }
 
 function Home() {
-  useEffect(() => {
-    dispatch({
-      type: "getReservedListData",
-    })
-  }, [])
-
   const [globalState, dispatch] = useReducer(
     reducer,
     initialState

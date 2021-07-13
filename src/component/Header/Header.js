@@ -4,8 +4,8 @@ import { AppStateContext } from "../../container/Home/Home"
 import { AppDispatchContext } from "../../container/Home/Home"
 
 function Header() {
-  const AppData = useContext(AppStateContext)
-  const AppDispatch = useContext(AppDispatchContext)
+  const { globalState } = useContext(AppStateContext)
+  const { dispatch } = useContext(AppDispatchContext)
 
   return (
     <div className="header__wrap">
@@ -14,19 +14,18 @@ function Header() {
       </h1>
       <nav className="navbar padding-t-15 padding-b-15">
         <ul className="navbar__btns clearfix">
-          {Object.entries(AppData.pageData).map(
+          {Object.entries(globalState.pageData).map(
             ([key, value]) => {
               return (
                 <li key={value.id} className="float-left">
                   <button
                     className={`btn btn-color-pink-gray letter-spacing-5 padding-10 border-radius-12 fz-bold ${
-                      value.id ===
-                      AppData.globalState.nowPageId
+                      value.id === globalState.nowPageId
                         ? "btn-color-pink-gray-active"
                         : ""
                     }`}
                     onClick={() =>
-                      AppDispatch.dispatch({
+                      dispatch({
                         type: "setNowPageId",
                         payload: value.id,
                       })

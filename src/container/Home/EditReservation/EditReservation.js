@@ -6,7 +6,8 @@ import { AppStateContext } from "../Home"
 import VaccineReservationForm from "../../../component/VaccineReservationForm/VaccineReservationForm"
 
 function EditReservation() {
-  const AppData = useContext(AppStateContext)
+  const { globalState } = useContext(AppStateContext)
+
   return (
     <div className="edit-reservation__wrap contain-width margin-l-auto margin-r-auto padding-b-30">
       <h1 className="title fz-35 fz-bold padding-t-30 padding-b-20">
@@ -15,7 +16,7 @@ function EditReservation() {
 
       <TableList searchBarComponent={<SearchBar />} />
 
-      {AppData.globalState.isEditing ? (
+      {globalState.isEditing ? (
         <div className="modal edit-modal margin-0-auto padding-10 border-radius-50 ">
           <VaccineReservationForm
             title="編輯預約資訊表"

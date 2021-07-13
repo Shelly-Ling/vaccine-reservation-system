@@ -12,7 +12,7 @@ import "./SearchBar.scss"
  */
 
 function SearchBar() {
-  const AppDispatch = useContext(AppDispatchContext)
+  const { dispatch } = useContext(AppDispatchContext)
 
   const [searchKeywords, setSearchKeywords] = useState({
     searchKeyword: "",
@@ -35,7 +35,7 @@ function SearchBar() {
       searchKeyword: "",
       conditionSelect: "",
     })
-    AppDispatch.dispatch({
+    dispatch({
       type: "onSearchResetBtnClick",
       payload: searchKeywords,
     })
@@ -48,7 +48,7 @@ function SearchBar() {
     ) {
       alert("關鍵字欄位或篩選條件皆不可為空")
     } else {
-      AppDispatch.dispatch({
+      dispatch({
         type: "filterReservedList",
         payload: searchKeywords,
       })
