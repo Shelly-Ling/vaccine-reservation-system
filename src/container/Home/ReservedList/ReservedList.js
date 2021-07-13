@@ -29,7 +29,7 @@ function ReservedList() {
         </ul>
       </div>
       <TableList searchBarComponent={<SearchBar />} />
-      <Modal />
+      {/* <Modal /> */}
     </div>
   )
 }

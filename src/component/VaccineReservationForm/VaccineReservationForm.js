@@ -44,6 +44,17 @@ function VaccineReservationForm() {
   }, [globalState.isEditing])
 
   function allFormatCheck() {
+    nameFormatCheck(formData.fields.name)
+    identityNumberFormatCheck(
+      formData.fields.identityNumber
+    )
+    birthFormatCheck(formData.fields.birth)
+    phoneFormatCheck(formData.fields.phone)
+    vaccineTypeFormatCheck(formData.fields.vaccineType)
+    dayForVaccinationFormatCheck(
+      formData.fields.dayForVaccination
+    )
+
     const checkResult =
       nameFormatCheck(formData.fields.name) &&
       identityNumberFormatCheck(
@@ -78,6 +89,7 @@ function VaccineReservationForm() {
     setFormData((prevState) => ({
       fields: { ...prevState.fields, [name]: value },
     }))
+    allFormatCheck()
   }
 
   function onReserveSubmitBtnClick() {
@@ -188,6 +200,7 @@ function VaccineReservationForm() {
             type="text"
             name="identityNumber"
             className="identityNumber input-style"
+            maxLength={10}
             value={formData.fields.identityNumber}
             onChange={handleInputChange}
             disabled={
@@ -209,6 +222,7 @@ function VaccineReservationForm() {
             type="text"
             name="birth"
             className="birth input-style"
+            maxLength={7}
             placeholder="範例: 0800101"
             value={formData.fields.birth}
             onChange={handleInputChange}
@@ -230,6 +244,7 @@ function VaccineReservationForm() {
             type="text"
             name="phone"
             className="phone input-style"
+            maxLength={10}
             value={formData.fields.phone}
             onChange={handleInputChange}
           />

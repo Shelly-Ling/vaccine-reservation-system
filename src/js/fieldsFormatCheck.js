@@ -49,13 +49,7 @@ function phoneFormatCheck(phone) {
   const phoneLength = phone.length
   const requestPhoneNumberLength = 10
 
-  if (phoneLength > requestPhoneNumberLength) {
-    addInvalidityClass(
-      "phone",
-      "*手機號碼為10位數字，您輸入超出10位數"
-    )
-    return false
-  } else if (phoneLength < requestPhoneNumberLength) {
+  if (phoneLength < requestPhoneNumberLength) {
     addInvalidityClass(
       "phone",
       "*手機號碼為10位數字，您輸入低於10位數"
@@ -153,9 +147,6 @@ function birthFormatCheck(birth) {
       removeInvalidityClass("birth")
       return true
     }
-  } else if (birthDataLength > requestBirthDataLength) {
-    addInvalidityClass("birth", "*生日為7位數字")
-    return false
   }
 }
 
@@ -171,12 +162,6 @@ function identityNumberFormatCheck(identityNumber) {
     addInvalidityClass(
       "identityNumber",
       "*身分證號欄位不可為空"
-    )
-    return false
-  } else if (idNumberLength > requestIdNumberLength) {
-    addInvalidityClass(
-      "identityNumber",
-      "*身分證號超過10位數，請確認"
     )
     return false
   } else if (idNumberLength === requestIdNumberLength) {

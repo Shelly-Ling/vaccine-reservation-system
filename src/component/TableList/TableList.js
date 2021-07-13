@@ -42,6 +42,10 @@ function TableList({ searchBarComponent }) {
     })
   }
 
+  const showEditFeatures =
+    globalState.nowPageId ===
+    globalState.pageData.editReservation.id
+
   return list.length ? (
     <div className="table-list__wrap">
       {searchBarComponent}
@@ -57,8 +61,7 @@ function TableList({ searchBarComponent }) {
             <td>疫苗種類</td>
             <td className="date">日期</td>
             <td className="remark">備註</td>
-            {globalState.nowPageId ===
-            globalState.pageData.editReservation.id ? (
+            {showEditFeatures ? (
               <td className="edit-row">編輯</td>
             ) : null}
           </tr>
@@ -76,8 +79,7 @@ function TableList({ searchBarComponent }) {
               <td>{item.vaccineType}</td>
               <td>{item.dayForVaccination}</td>
               <td>{item.remark}</td>
-              {globalState.nowPageId ===
-              globalState.pageData.editReservation.id ? (
+              {showEditFeatures ? (
                 <td>
                   <button
                     className="margin-l-10 fz-20 delete"
