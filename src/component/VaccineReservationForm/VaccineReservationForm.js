@@ -41,35 +41,16 @@ function VaccineReservationForm() {
         },
       })
     }
-  }, [
-    AppData.globalState.isEditing,
-    formData.fields.name,
-    formData.fields.birth,
-    formData.fields.identityNumber,
-    formData.fields.phone,
-    formData.fields.vaccineType,
-    formData.fields.dayForVaccination,
-  ])
+  }, [AppData.globalState.isEditing])
 
   function allFormatCheck() {
-    nameFormatCheck(formData.fields.name)
-    phoneFormatCheck(formData.fields.phone)
-    birthFormatCheck(formData.fields.birth)
-    identityNumberFormatCheck(
-      formData.fields.identityNumber
-    )
-    vaccineTypeFormatCheck(formData.fields.vaccineType)
-    dayForVaccinationFormatCheck(
-      formData.fields.dayForVaccination
-    )
-
     const checkResult =
       nameFormatCheck(formData.fields.name) &&
-      phoneFormatCheck(formData.fields.phone) &&
-      birthFormatCheck(formData.fields.birth) &&
       identityNumberFormatCheck(
         formData.fields.identityNumber
       ) &&
+      birthFormatCheck(formData.fields.birth) &&
+      phoneFormatCheck(formData.fields.phone) &&
       vaccineTypeFormatCheck(
         formData.fields.vaccineType
       ) &&
@@ -77,7 +58,6 @@ function VaccineReservationForm() {
         formData.fields.dayForVaccination
       )
 
-    console.log("checkResult 表單驗證通過:", checkResult)
     return checkResult
   }
 
@@ -98,38 +78,9 @@ function VaccineReservationForm() {
     setFormData((prevState) => ({
       fields: { ...prevState.fields, [name]: value },
     }))
-
-    switch (name) {
-      case "name":
-        nameFormatCheck(formData.fields.name)
-        return
-      case "birth":
-        birthFormatCheck(formData.fields.birth)
-        return
-      case "identityNumber":
-        identityNumberFormatCheck(
-          formData.fields.identityNumber
-        )
-        return
-      case "phone":
-        phoneFormatCheck(formData.fields.phone)
-
-        return
-      case "vaccineType":
-        vaccineTypeFormatCheck(
-          formData.fields.vaccineType
-        )
-        return
-      case "dayForVaccination":
-        dayForVaccinationFormatCheck(
-          formData.fields.dayForVaccination
-        )
-        return
-    }
   }
 
   function onReserveSubmitBtnClick() {
-    console.log("onReserveSubmitBtnClick")
     if (allFormatCheck()) {
       AppDispatch.dispatch({
         type: "creatNewReservation",
@@ -139,7 +90,6 @@ function VaccineReservationForm() {
   }
 
   function onEditSubmitBtnClick() {
-    console.log("onEditSubmitBtnClick")
     if (allFormatCheck()) {
       AppDispatch.dispatch({
         type: "onEditSubmitBtnClick",

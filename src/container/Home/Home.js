@@ -51,6 +51,7 @@ const reducer = (globalState, action) => {
         ...globalState,
         nowPageId: action.payload,
         reservedList: localReservedListData,
+        filterReservedList: [],
       }
     case "getReservedListData":
       return {
