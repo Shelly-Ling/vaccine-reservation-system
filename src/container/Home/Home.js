@@ -96,9 +96,25 @@ const reducer = (globalState, action) => {
         JSON.stringify(editedReservedList)
       )
 
+      let editedFilterReservedList = []
+
+      if (globalState.filterReservedList.length) {
+        globalState.filterReservedList.map((item) => {
+          if (
+            item.identityNumber ===
+            EditedData.identityNumber
+          ) {
+            editedFilterReservedList.push(EditedData)
+          } else {
+            editedFilterReservedList.push(item)
+          }
+        })
+      }
+
       return {
         ...globalState,
         reservedList: editedReservedList,
+        filterReservedList: editedFilterReservedList,
         isEditing: false,
       }
     case "deleteItem":
