@@ -16,32 +16,6 @@ function TableList({ searchBarComponent }) {
     ? globalState.filterReservedList
     : globalState.reservedList
 
-  function onDeleteBtnClick(targetId) {
-    const result = globalState.reservedList.filter(
-      (item) => {
-        return item.identityNumber !== targetId
-      }
-    )
-
-    localStorage.setItem(
-      "reservedList",
-      JSON.stringify(result)
-    )
-
-    const filterResult =
-      globalState.filterReservedList.filter((item) => {
-        return item.identityNumber !== targetId
-      })
-
-    dispatch({
-      type: "deleteItem",
-      payload: {
-        result,
-        filterResult,
-      },
-    })
-  }
-
   const showEditFeatures =
     globalState.nowPageId ===
     globalState.pageData.editReservation.id
@@ -84,9 +58,10 @@ function TableList({ searchBarComponent }) {
                   <button
                     className="margin-l-10 fz-20 delete"
                     onClick={() =>
-                      onDeleteBtnClick(
-                        item.identityNumber
-                      )
+                      dispatch({
+                        type: "deleteItem",
+                        payload: item.identityNumber,
+                      })
                     }
                   >
                     刪除

@@ -53,24 +53,54 @@ const reducer = (globalState, action) => {
       }
 
     case "creatNewReservation":
+      let newReservedList = [...globalState.reservedList]
+
+      newReservedList.unshift(action.payload)
+
       return {
         ...globalState,
-        reservedList: action.payload,
+        reservedList: newReservedList,
         nowPageId: pageData.reservedList.id,
       }
     case "onEditSubmitBtnClick":
+      let editedReservedList =
+        globalState.reservedList.map((item) => {
+          return item.identityNumber ===
+            globalState.editData.identityNumber
+            ? action.payload
+            : item
+        })
+
+      let editedFilterReservedList =
+        globalState.filterReservedList.map((item) => {
+          return item.identityNumber ===
+            globalState.editData.identityNumber
+            ? action.payload
+            : item
+        })
+
       return {
         ...globalState,
-        reservedList: action.payload.editedReservedList,
-        filterReservedList:
-          action.payload.editedFilterReservedList,
+        reservedList: editedReservedList,
+        filterReservedList: editedFilterReservedList,
+        editData: {},
         isEditing: false,
       }
     case "deleteItem":
+      const result = globalState.reservedList.filter(
+        (item) => {
+          return item.identityNumber !== action.payload
+        }
+      )
+
+      const filterResult =
+        globalState.filterReservedList.filter((item) => {
+          return item.identityNumber !== action.payload
+        })
       return {
         ...globalState,
-        reservedList: action.payload.result,
-        filterReservedList: action.payload.filterResult,
+        reservedList: result,
+        filterReservedList: filterResult,
       }
     case "changeIsEditing":
       return {
@@ -131,6 +161,13 @@ function Home() {
     reducer,
     initialState
   )
+
+  useEffect(() => {
+    localStorage.setItem(
+      "reservedList",
+      JSON.stringify(globalState.reservedList)
+    )
+  }, [globalState.reservedList])
 
   return (
     <div className="home d-flex flex-col justify-content-between">
