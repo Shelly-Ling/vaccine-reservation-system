@@ -22,10 +22,11 @@ function VaccineReservationForm() {
   const { dispatch } = useContext(AppDispatchContext)
 
   const [formData, setFormData] = useState({
+    submitBtnHadClicked: false,
     fields: {
       name: "",
-      birth: "",
       identityNumber: "",
+      birth: "",
       phone: "",
       vaccineType: "",
       dayForVaccination: "",
@@ -35,13 +36,20 @@ function VaccineReservationForm() {
 
   useEffect(() => {
     if (globalState.isEditing) {
-      setFormData({
+      setFormData((prevState) => ({
+        ...prevState,
         fields: {
           ...globalState.editData,
         },
-      })
+      }))
     }
   }, [globalState.isEditing])
+
+  useEffect(() => {
+    if (formData.submitBtnHadClicked) {
+      allFormatCheck()
+    }
+  }, [formData.fields])
 
   function allFormatCheck() {
     nameFormatCheck(formData.fields.name)
@@ -87,12 +95,17 @@ function VaccineReservationForm() {
         : target.value
 
     setFormData((prevState) => ({
+      ...prevState,
       fields: { ...prevState.fields, [name]: value },
     }))
-    allFormatCheck()
   }
 
   function onReserveSubmitBtnClick() {
+    setFormData((prevState) => ({
+      ...prevState,
+      submitBtnHadClicked: true,
+    }))
+
     if (allFormatCheck()) {
       dispatch({
         type: "creatNewReservation",
@@ -102,6 +115,11 @@ function VaccineReservationForm() {
   }
 
   function onEditSubmitBtnClick() {
+    setFormData((prevState) => ({
+      ...prevState,
+      submitBtnHadClicked: true,
+    }))
+
     if (allFormatCheck()) {
       dispatch({
         type: "onEditSubmitBtnClick",
