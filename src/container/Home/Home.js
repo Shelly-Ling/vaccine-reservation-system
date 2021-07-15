@@ -41,6 +41,11 @@ const initialState = {
   nowPageId: pageData.reservationForm.id,
   isEditing: false,
   editData: {},
+  showAlertModal: false,
+  alertInfo: {
+    title: "",
+    detailInfo: "",
+  },
 }
 
 const reducer = (globalState, action) => {
@@ -147,7 +152,24 @@ const reducer = (globalState, action) => {
         ...globalState,
         filterReservedList: filterReservedList,
       }
-
+    case "showAlertModal":
+      return {
+        ...globalState,
+        showAlertModal: true,
+        alertInfo: {
+          title: action.payload.title,
+          detailInfo: action.payload.detailInfo,
+        },
+      }
+    case "closeAlertModal":
+      return {
+        ...globalState,
+        showAlertModal: false,
+        alertInfo: {
+          title: "",
+          detailInfo: "",
+        },
+      }
     default:
       return {
         ...globalState,

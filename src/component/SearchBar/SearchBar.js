@@ -3,6 +3,8 @@ import React, {
   useState,
   useContext,
 } from "react"
+import ModalComponent from "../../component/Modal/Modal"
+import { AppStateContext } from "../../container/Home/Home"
 import { AppDispatchContext } from "../../container/Home/Home"
 
 import "./SearchBar.scss"
@@ -12,6 +14,7 @@ import "./SearchBar.scss"
  */
 
 function SearchBar() {
+  const { globalState } = useContext(AppStateContext)
   const { dispatch } = useContext(AppDispatchContext)
 
   const [searchKeywords, setSearchKeywords] = useState({
@@ -46,7 +49,13 @@ function SearchBar() {
       searchKeywords.searchKeyword === "" ||
       searchKeywords.conditionSelect === ""
     ) {
-      alert("關鍵字欄位或篩選條件皆不可為空")
+      dispatch({
+        type: "showAlertModal",
+        payload: {
+          title: "搜尋條件有誤",
+          detailInfo: "關鍵字欄位或篩選條件皆不可為空",
+        },
+      })
     } else {
       dispatch({
         type: "filterReservedList",
@@ -104,6 +113,9 @@ function SearchBar() {
           重置
         </button>
       </div>
+      {globalState.showAlertModal ? (
+        <ModalComponent />
+      ) : null}
     </Fragment>
   )
 }
