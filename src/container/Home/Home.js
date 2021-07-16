@@ -4,6 +4,7 @@ import Footer from "../../component/Footer/Footer"
 import ReservedList from "./ReservedList/ReservedList"
 import EditReservation from "./EditReservation/EditReservation"
 import VaccineReservationForm from "../../component/VaccineReservationForm/VaccineReservationForm"
+import Modal from "../../component/Modal/Modal"
 
 import React, { useEffect, useReducer } from "react"
 
@@ -145,7 +146,16 @@ const reducer = (globalState, action) => {
         })
 
       if (filterReservedList.length === 0) {
-        alert("搜尋結果為 0 個")
+        return {
+          ...globalState,
+          filterReservedList: [],
+          showAlertModal: true,
+          alertInfo: {
+            title: "項目不存在",
+            detailInfo:
+              "搜尋結果為 0 個，請重設搜尋條件。",
+          },
+        }
       }
 
       return {
@@ -212,6 +222,7 @@ function Home() {
             pageData.editReservation.id && (
             <EditReservation />
           )}
+          {globalState.showAlertModal ? <Modal /> : null}
           <Footer />
         </AppDispatchContext.Provider>
       </AppStateContext.Provider>
