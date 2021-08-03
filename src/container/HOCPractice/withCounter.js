@@ -1,30 +1,12 @@
 import React from "react"
 
-const withCounter = (WrapperComponent) => {
-  class withCounter extends React.Component {
-    constructor(props) {
-      super(props)
-
-      this.state = {
-        count: 0,
-      }
-    }
-
-    incrementCount = () => {
-      this.setState((prevState) => {
-        return { count: prevState.count + 1 }
-      })
-    }
+const UpdateComponent = (OriginalComponent) => {
+  class NewComponent extends React.Component {
     render() {
-      return (
-        <WrapperComponent
-          count={this.state.count}
-          incrementCount={this.incrementCount}
-        />
-      )
+      return <OriginalComponent name="Shelly" />
     }
   }
-  return withCounter
+  return NewComponent
 }
 
-export default withCounter
+export default UpdateComponent
