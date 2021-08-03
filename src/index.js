@@ -4,11 +4,13 @@ import "./index.scss"
 import reportWebVitals from "./reportWebVitals"
 import Home from "./container/Home/Home"
 import App from "./container/HOCPractice/App.js"
+import RenderPropsApp from "./container/RenderPropsPractice/RenderPropsApp.js"
 
 ReactDOM.render(
   <React.StrictMode>
     {/* <Home /> */}
-    <App />
+    {/* <App /> */}
+    <RenderPropsApp />
   </React.StrictMode>,
   document.getElementById("root")
 )
