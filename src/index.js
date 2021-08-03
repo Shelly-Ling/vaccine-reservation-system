@@ -3,10 +3,12 @@ import ReactDOM from "react-dom"
 import "./index.scss"
 import reportWebVitals from "./reportWebVitals"
 import Home from "./container/Home/Home"
+import App from "./container/HOCPractice/App.js"
 
 ReactDOM.render(
   <React.StrictMode>
-    <Home />
+    {/* <Home /> */}
+    <App />
   </React.StrictMode>,
   document.getElementById("root")
 )
