@@ -12,7 +12,7 @@ class RenderPropsApp extends Component {
         <ClickCounterTwo />
         <HoverCounterTwo />
         <User
-          name={(isLoggedIn) =>
+          render={(isLoggedIn) =>
             isLoggedIn ? "Shelly" : "Guest"
           }
         />
