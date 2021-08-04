@@ -11,7 +11,11 @@ class RenderPropsApp extends Component {
       <div>
         <ClickCounterTwo />
         <HoverCounterTwo />
-        <User name={() => "Shelly"} />
+        <User
+          name={(isLoggedIn) =>
+            isLoggedIn ? "Shelly" : "Guest"
+          }
+        />
       </div>
     )
   }
