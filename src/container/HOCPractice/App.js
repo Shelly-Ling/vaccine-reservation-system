@@ -7,7 +7,7 @@ import HoverCounter from "./HoverCounter.js"
 class App extends Component {
   render() {
     return (
-      <div>
+      <div className="App">
         <ClickCounter name="Shelly" />
         <HoverCounter />
       </div>
