@@ -2,15 +2,26 @@ import React from "react"
 import ReactDOM from "react-dom"
 import "./index.scss"
 import reportWebVitals from "./reportWebVitals"
-import Home from "./container/Home/Home"
-import App from "./container/HOCPractice/App.js"
-import RenderPropsApp from "./container/RenderPropsPractice/RenderPropsApp.js"
+// import Home from "./container/Home/Home"
+// import App from "./container/HOCPractice/App.js"
+// import RenderPropsApp from "./container/RenderPropsPractice/RenderPropsApp.js"
+import AspectRatioWrapper from "./component/AspectRatioWrapper/AspectRatioWrapper"
 
 ReactDOM.render(
   <React.StrictMode>
     {/* <Home /> */}
     {/* <App /> */}
-    <RenderPropsApp />
+    {/* <RenderPropsApp /> */}
+
+    <AspectRatioWrapper widthScale={1} heightScale={1}>
+      <div className="test">
+        <img
+          style={{ width: "100%" }}
+          src="https://via.placeholder.com/500x500"
+          alt="https://via.placeholder.com/500x500"
+        />
+      </div>
+    </AspectRatioWrapper>
   </React.StrictMode>,
   document.getElementById("root")
 )

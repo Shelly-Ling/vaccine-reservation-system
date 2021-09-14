@@ -1,0 +1,17 @@
+.aspect-ratio {
+  position: relative;
+  width: 100%;
+
+  .prepare-content-space {
+    content: "";
+    display: block;
+  }
+
+  .aspect-ratio-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+}
